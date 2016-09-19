@@ -1,0 +1,54 @@
+;;;; -*- coding: utf-8 -*-
+
+;;=========================================================
+;; Environment Setting
+;;=========================================================
+
+;; language setting
+(set-language-environment "Japanese")
+(set-terminal-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+
+;; emacs dir
+(defconst emacs-dir "~/.emacs.d/")
+
+;; screen setting
+(defconst my-screen-width 130)
+(defconst my-screen-height 56)
+(defconst my-screen-top 620)
+(defconst my-screen-left 1611)
+;(defconst my-font "ＭＳ 明朝-12")
+(defconst my-font "Takao明朝-12")
+
+;; Progrtam Setting
+(defconst my-python "/home/miyazaki/.pyenv/shims/python")
+
+;; For Linux
+;(require 'mozc)
+;; or (load-file "/path/to/mozc.el")
+;(setq default-input-method "japanese-mozc")
+;(setq mozc-candidate-style 'overlay)
+
+;; cmigemo dictionary file
+(defconst my-migemo-dic
+  "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
+
+
+(load-library (concat emacs-dir "init.el"))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((syntax . elisp)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+
+(put 'dired-find-alternate-file 'disabled nil)
