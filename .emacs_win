@@ -1,0 +1,42 @@
+;;;; -*- coding: utf-8 -*-
+
+;;=========================================================
+;; Environment Setting
+;;=========================================================
+
+;; language setting
+(set-language-environment "Japanese")
+(set-terminal-coding-system 'sjis)
+(set-default-coding-systems 'sjis)
+(set-buffer-file-coding-system 'sjis)
+(setq default-buffer-file-coding-system 'sjis)
+
+;; emacs dir
+(defconst emacs-dir "~/.emacs.d/")
+
+;; screen setting
+(defconst my-screen-width 125)
+(defconst my-screen-height 50)
+(defconst my-screen-top 557)
+(defconst my-screen-left 1516)
+(defconst my-font "ＭＳ 明朝-12")
+
+;; cmigemo dictionary file
+(defconst my-migemo-dic "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
+
+(load-library (concat emacs-dir "init.el"))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((syntax . elisp)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+
+(put 'dired-find-alternate-file 'disabled nil)

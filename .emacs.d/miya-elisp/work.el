@@ -1,7 +1,7 @@
 ;;;; -*- coding: utf-8 -*-
 
 ;;=========================================================
-;; SD勤務用
+;; 勤務表用
 ;;=========================================================
 (global-set-key (kbd "<f12>") 'nippo-edit)
 (global-set-key (kbd "<f11>") 'open-worksheet)
@@ -14,11 +14,11 @@
 
 (defun nippo-edit ()
   (interactive)
-  (let* ((nippo-dir (expand-file-name "D:/miyazaki/doc/勤怠/社内用/日報/"))
+  (let* ((nippo-dir (expand-file-name "xxx/勤怠/社内用/日報/"))
 		 (time (current-time))
 		 (month-dir (concat nippo-dir
 							(format-time-string "%m月" time)))
-		 (nippo (concat month-dir (format-time-string "/宮崎_%Y%m%d_日報.txt" time)))
+		 (nippo (concat month-dir (format-time-string "/xxx_%Y%m%d_日報.txt" time)))
 		 (file-list nil)
 		 (as-list nil)
 		 (buf nil))
@@ -31,7 +31,7 @@
 	  ;; 日報がないなら作成する
 
 	  ;; *.txtファイルをサブフォルダを含めて取得
-	  (setq file-list (eshell-extended-glob (concat nippo-dir "**/宮崎*.txt")))
+	  (setq file-list (eshell-extended-glob (concat nippo-dir "**/xxx*.txt")))
 	  (unless (listp file-list)
 		(error "Error:コピー元の日報が見つかりませんでした。"))
 
@@ -72,7 +72,7 @@
 (defun nippo-send ()
   (interactive)
   (let ((buf (generate-new-buffer "*nippo send*"))
-		(path "D:/miyazaki/Program/ruby/OPSAS日報送信/")
+		(path "D:/xxx/")
 		(old-dir default-directory))
 	(with-current-buffer buf
 	  (cd path)
@@ -84,34 +84,67 @@
 ;;=========================================================
 ;; time型チェック
 ;;=========================================================
-(defun miya:timep (time)
-  (and (listp time) (= 3 (length time))))
+  (if (>= emacs-major-version 24)
+	  ;; 新Ver
+	  (defun miya:timep (time)
+		(and (listp time) (= 4 (length time))))
+	;; 旧Ver
+	  (defun miya:timep (time)
+		(and (listp time) (= 3 (length time))))
+	  )
 
 ;;=========================================================
 ;; 秒単位の加減算
 ;;=========================================================
-(defun miya:add-second (num &optional time)
-  (or time (setq time (current-time)))
-  (let ((quotient)
-		(remainder)
-		(work))
-	(when (and (numberp num)
-			   (miya:timep time))
-	  (setq work (cadr time))
-	  (if (> num (- #xFFFFFFF work))
-		  (error "28bit長を超えています。"))
-	  (setq work (+ work num))
-	  (cond ((>= work #x10000)		; #x10000以上の場合
-			 (setq quotient (/ work #x10000))
-			 (setq remainder (% work #x10000))
-			 (setq time (list (+ quotient (car time)) remainder (third time))))
-			((< work 0)				; 0未満の場合
-			 (setq quotient (1- (/ work #x10000)))
-			 (setq remainder (% work #x10000))
-			 (setq time (list (+ quotient (car time)) (+ #x10000 remainder) (third time))))
-			(t 						; その他
-			 (setcdr time (cons (+ (cadr time) num) (cddr time))))))
-	time))
+(if (>= emacs-major-version 24)
+	;; 新Ver
+	(defun miya:add-second (num &optional time)
+	  (or time (setq time (current-time)))
+	  (let ((quotient)
+			(remainder)
+			(work))
+		(when (and (numberp num)
+				   (miya:timep time))
+		  (setq work (cadr time))
+		  (if (> num (- #xFFFFFFF work))
+			  (error "28bit長を超えています。"))
+		  (setq work (+ work num))
+		  (cond ((>= work #x10000)		; #x10000以上の場合
+				 (setq quotient (/ work #x10000))
+				 (setq remainder (% work #x10000))
+				 (setq time (list (+ quotient (car time)) remainder (nth 2 time) (nth 3 time))))
+				((< work 0)				; 0未満の場合
+				 (setq quotient (1- (/ work #x10000)))
+				 (setq remainder (% work #x10000))
+				 (setq time (list (+ quotient (car time)) (+ #x10000 remainder) (nth 2 time) (nth 3 time))))
+				(t 						; その他
+				 (setcdr time (cons (+ (cadr time) num) (cddr time))))))
+		time))
+
+  ;; 旧Ver
+  (defun miya:add-second (num &optional time)
+	(or time (setq time (current-time)))
+	(let ((quotient)
+		  (remainder)
+		  (work))
+	  (when (and (numberp num)
+				 (miya:timep time))
+		(setq work (cadr time))
+		(if (> num (- #xFFFFFFF work))
+			(error "28bit長を超えています。"))
+		(setq work (+ work num))
+		(cond ((>= work #x10000)		; #x10000以上の場合
+			   (setq quotient (/ work #x10000))
+			   (setq remainder (% work #x10000))
+			   (setq time (list (+ quotient (car time)) remainder (third time))))
+			  ((< work 0)				; 0未満の場合
+			   (setq quotient (1- (/ work #x10000)))
+			   (setq remainder (% work #x10000))
+			   (setq time (list (+ quotient (car time)) (+ #x10000 remainder) (third time))))
+			  (t 						; その他
+			   (setcdr time (cons (+ (cadr time) num) (cddr time))))))
+	  time))
+  )
 
 ;;=========================================================
 ;; 分単位の加減算
@@ -140,13 +173,13 @@
 ;; 今月の社内勤務表のパスを返す
 (defun get-worksheet ()
   (let ((file (format-time-string
-			   "D:/miyazaki/doc/勤怠/社内用/社員勤務報告書_宮崎伸也_%Y%m_ver.4.2.xlsm")))
+			   "D:/xxx.xlsm")))
 	file))
 
 ;; 今月のSD勤務表のパスを返す
 (defun get-worksheet-sd ()
   (let ((file (format-time-string
-			   "D:/miyazaki/doc/勤怠/新電元用/勤務表/勤務報告_%Y%m_宮崎.xls")))
+			   "D:/xxx.xls")))
 	file))
 
 ;; 今週の週報のパスを返す
@@ -156,8 +189,8 @@
 		 (sunday (miya:add-day (- diff 6)))
 		 (dir (concat (format-time-string "%Y%m%d" sunday) "-"
 					  (format-time-string "%m%d" saturday) "/"))
-		 (file (format-time-string "宮崎_%Y%m%d_週報Ver1.1.xls" saturday))
-		 (path (concat "D:/miyazaki/doc/OPSAS/事務作業/2016年/週報/"
+		 (file (format-time-string "xxx.xls" saturday))
+		 (path (concat "D:/xxx/週報/"
 					   dir
 					   file)))
 	path))
@@ -165,10 +198,10 @@
 ;;   (let* ((diff (- 6 (string-to-int (format-time-string "%u")))) ; 土曜日(6)までの数値
 ;; 		 (time (miya:add-day diff))
 ;; 		 (file (format-time-string
-;; 				"C:/miyazaki/doc/勤怠/社内用/週報/宮崎_%Y%m%d_週報Ver1.1.xls" time)))
+;; 				"C:/xxx.xls" time)))
 ;; 	file))
 
-;; SD勤務表、社内勤務表、週報を選択する
+;; 勤務表、社内勤務表、週報を選択する
 (defun open-worksheet ()
   (interactive)
   (let ((one (get-worksheet))
@@ -184,4 +217,3 @@
 				2))
 	(open-file-dwim file)))
 (put 'dired-find-alternate-file 'disabled nil)
-
