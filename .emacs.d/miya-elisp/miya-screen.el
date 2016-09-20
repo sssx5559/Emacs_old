@@ -178,4 +178,6 @@
 (setq frame-title-format
 	  ;; `(" %b [" (buffer-file-name "%f") "] - "
 	  ;; 	"major-version:", (int-to-string emacs-major-version)))
-	  (format "%%b [%%f] - emacs-version:%s" emacs-version))
+;;	  (format "%%b [%%f] - emacs-version:%s" emacs-version))
+	  (format "%%f - emacs-version:%s" emacs-version))
+

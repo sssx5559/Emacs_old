@@ -41,6 +41,8 @@
 ;; バッファの最後の行で next-line しても新しい行を作らない
 (setq next-line-add-newlines nil)
 
+;; 自動改行OFF
+(setq require-final-newline nil)
 
 ;; バッファの最初の行で previous-line しても、
 ;; "beginning-of-buffer" と注意されないようにする。
