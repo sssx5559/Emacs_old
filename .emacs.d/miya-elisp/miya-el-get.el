@@ -30,6 +30,11 @@
 ;;===============================================
 ;; インストールパッケージ
 ;;===============================================
+;; exec-path-from-shell
+(when (macp)
+  (el-get-bundle exec-path-from-shell
+	(exec-path-from-shell-initialize)))
+
 ;; Migemo
 (when (migemop)
   (el-get-bundle migemo))
@@ -147,10 +152,25 @@
   ;; (global-set-key (kbd "C-M-SPC") 'mc/mark-all-dwim-or-mark-sexp)
   )
 
-;; multiple-cursors
+;; quickrun
 (el-get-bundle quickrun
-;  (require quickrun)
-  (setq quickrun-focus-p nil))
+
+  ;; region選択:quickrun-region, 非選択:quickrun
+  (defun my-quickrun (start end)
+	(interactive "r")
+	(if mark-active
+		(quickrun :start start :end end)
+	  (quickrun)))
+  )
 
 ;; popwin
 (el-get-bundle popwin)
+
+;; Erlang mode
+(when (executable-find "erl")
+  (el-get-bundle erlang-mode))
+
+;; Elixir mode
+(when (executable-find "elixir")
+  (el-get-bundle pkg-info)		; elixirで使用
+  (el-get-bundle elixir))
