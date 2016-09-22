@@ -691,8 +691,8 @@
 (when (and (>= emacs-major-version 23)
 		   (require 'undo-tree nil t))
   (global-undo-tree-mode)
-  ;; C-M-z でredoを行えるようにする
-  (define-key global-map (kbd "C-M-z") 'undo-tree-redo)
+  ;; redoキー設定
+  (define-key global-map (kbd "C-M-/") 'undo-tree-redo)
   )
 
 ;;=========================================================

@@ -1,0 +1,65 @@
+;;;; -*- coding: utf-8 -*-
+
+;;=========================================================
+;; Environment Setting
+;;=========================================================
+
+;; language setting
+(set-language-environment "Japanese")
+(set-terminal-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+
+;; emacs dir
+(defconst emacs-dir "~/.emacs.d/")
+;(defconst emacs-dir "~/Dropbox/home/.emacs.d/")
+
+;; screen setting
+(defconst my-screen-width 110)
+(defconst my-screen-height 45)
+(defconst my-screen-top 336)
+(defconst my-screen-left 1000)
+;(defconst my-font "ヒラギノ明朝-14")
+(defconst my-font "ＭＳ 明朝-16")
+
+;; Program setting
+(defconst my-python "python3")
+
+;; cmigemo dictionary file
+(defconst my-migemo-dic
+  "/usr/share/cmigemo/utf-8/migemo-dict")
+
+;;=========================================================
+;; for Mac
+;;=========================================================
+;; "command key <-> option key"
+(setq ns-command-modifier 'meta)
+(setq ns-alternate-modifier 'super)
+
+(setenv "PATH" "~/.pyenv/shims:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin")
+;(setenv "EHOME" "~/Dropbox/Emacs/")
+
+;(cons "/usr/local/bin" exec-path)
+
+(define-key global-map [165] [92]) ;; 165が円マーク, 92がバックスラッシュを表す
+
+;; ビープ音,画面フラッシュなし(これをしないと中央に白い四角が表示される)
+(setq ring-bell-function 'ignore)
+;;=========================================================
+
+(load-library (concat emacs-dir "init.el"))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((syntax . elisp)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+(put 'dired-find-alternate-file 'disabled nil)

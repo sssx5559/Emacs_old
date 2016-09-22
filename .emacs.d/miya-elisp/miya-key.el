@@ -35,7 +35,7 @@
 (global-set-key "\C-cj" 'goto-line)
 
 ;; quickrun
-(global-set-key "\C-x@" 'quickrun)
+(global-set-key (kbd "C-x @") 'my-quickrun)
 
 ;; 1行コメント削除
 ;(global-set-key (kbd "C-c C-k") 'kill-comment)
