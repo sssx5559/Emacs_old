@@ -47,7 +47,8 @@
   (el-get-bundle helm-descbinds)
   (el-get-bundle helm-project)
   (el-get-bundle helm-gtags)
-  (el-get-bundle helm-swoop))
+  (el-get-bundle helm-swoop)
+  (el-get-bundle helm-ls-git))
 
 ;; The Silver Searcher
 (when (executable-find "ag")
