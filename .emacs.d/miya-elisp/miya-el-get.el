@@ -42,7 +42,8 @@
   (el-get-bundle helm-descbinds)
   (el-get-bundle helm-project)
   (el-get-bundle helm-gtags)
-  (el-get-bundle helm-swoop))
+  (el-get-bundle helm-swoop)
+  (el-get-bundle helm-ls-git))
 
 ;; The Silver Searcher
 (when (executable-find "ag")
@@ -147,10 +148,13 @@
   ;; (global-set-key (kbd "C-M-SPC") 'mc/mark-all-dwim-or-mark-sexp)
   )
 
-;; multiple-cursors
-(el-get-bundle quickrun
-;  (require quickrun)
-  (setq quickrun-focus-p nil))
+;; quickrun
+(el-get-bundle quickrun)
 
 ;; popwin
 (el-get-bundle popwin)
+
+;; Elixir mode
+(when (executable-find "elixir")
+  (el-get-bundle pkg-info)
+  (el-get-bundle elixir))
