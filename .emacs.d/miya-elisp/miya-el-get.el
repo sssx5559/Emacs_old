@@ -94,7 +94,7 @@
   ;(setq ac-auto-show-menu 0.8) ;補完メニュー表示時間(0.8s)
 
   ;; TABで補完完了、リターンは改行のみの設定
-  ;(define-key ac-completing-map "\t" 'ac-complete)
+  (define-key ac-completing-map "\t" 'ac-complete)
   ;(define-key ac-completing-map "\r" nil
 
   ;(setq ac-dwim t)  ; 空気読んでほしい(デフォルトON)
@@ -155,7 +155,6 @@
 
 ;; quickrun
 (el-get-bundle quickrun
-
   ;; region選択:quickrun-region, 非選択:quickrun
   (defun my-quickrun (start end)
 	(interactive "r")
@@ -167,6 +166,10 @@
 ;; popwin
 (el-get-bundle popwin)
 
+(el-get-bundle popup-select-window
+  (require 'popup-select-window)
+  (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
+
 ;; Erlang mode
 (when (executable-find "erl")
   (el-get-bundle erlang-mode))
@@ -175,3 +178,8 @@
 (when (executable-find "elixir")
   (el-get-bundle pkg-info)		; elixirで使用
   (el-get-bundle elixir))
+
+;; Everything
+;; (when (windowsp)
+;;   (el-get-bundle everything
+;; 	(require 'everything)))

@@ -316,8 +316,3 @@
 ;;=========================================================
 ;(require 'esh-myparser)
 
-;;=========================================================
-;; popup-select-window
-;;=========================================================
-(require 'popup-select-window)
-(global-set-key "\C-xo" 'popup-select-window) ; other-windowを上書き
