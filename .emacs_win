@@ -24,6 +24,11 @@
 ;; cmigemo dictionary file
 ;(defconst my-migemo-dic "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
 
+(defconst my-python "C:/Users/miyazaki/tool/Miniconda3")
+
+;; El-Get
+;(defconst my-el-get-dir (concat emacs-dir "el-get/el-get"))
+
 (load-library (concat emacs-dir "init.el"))
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
