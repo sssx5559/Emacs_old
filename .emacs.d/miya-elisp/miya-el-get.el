@@ -30,6 +30,11 @@
 ;;===============================================
 ;; インストールパッケージ
 ;;===============================================
+;; exec-path-from-shell
+(when (macp)
+  (el-get-bundle exec-path-from-shell
+	(exec-path-from-shell-initialize)))
+
 ;; Migemo
 (when (migemop)
   (el-get-bundle migemo))
@@ -42,7 +47,8 @@
   (el-get-bundle helm-descbinds)
   (el-get-bundle helm-project)
   (el-get-bundle helm-gtags)
-  (el-get-bundle helm-swoop))
+  (el-get-bundle helm-swoop)
+  (el-get-bundle helm-ls-git))
 
 ;; The Silver Searcher
 (when (executable-find "ag")
@@ -88,7 +94,7 @@
   ;(setq ac-auto-show-menu 0.8) ;補完メニュー表示時間(0.8s)
 
   ;; TABで補完完了、リターンは改行のみの設定
-  ;(define-key ac-completing-map "\t" 'ac-complete)
+  (define-key ac-completing-map "\t" 'ac-complete)
   ;(define-key ac-completing-map "\r" nil
 
   ;(setq ac-dwim t)  ; 空気読んでほしい(デフォルトON)
@@ -147,10 +153,33 @@
   ;; (global-set-key (kbd "C-M-SPC") 'mc/mark-all-dwim-or-mark-sexp)
   )
 
-;; multiple-cursors
+;; quickrun
 (el-get-bundle quickrun
-;  (require quickrun)
-  (setq quickrun-focus-p nil))
+  ;; region選択:quickrun-region, 非選択:quickrun
+  (defun my-quickrun (start end)
+	(interactive "r")
+	(if mark-active
+		(quickrun :start start :end end)
+	  (quickrun)))
+  )
 
 ;; popwin
 (el-get-bundle popwin)
+
+(el-get-bundle popup-select-window
+  (require 'popup-select-window)
+  (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
+
+;; Erlang mode
+(when (executable-find "erl")
+  (el-get-bundle erlang-mode))
+
+;; Elixir mode
+(when (executable-find "elixir")
+  (el-get-bundle pkg-info)		; elixirで使用
+  (el-get-bundle elixir))
+
+;; Everything
+;; (when (windowsp)
+;;   (el-get-bundle everything
+;; 	(require 'everything)))

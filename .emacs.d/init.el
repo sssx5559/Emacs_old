@@ -8,6 +8,7 @@
 ;(defun windowsp () (string-match "mingw" system-configuration))
 (defun windowsp () (string-match "-nt" system-configuration))
 (defun linuxp () (string-match "linux" system-configuration))
+(defun macp () (string-match "apple" system-configuration))
 
 ;; Version識別用
 (defun meadowp () (featurep 'meadow))
