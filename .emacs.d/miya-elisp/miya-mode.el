@@ -581,6 +581,8 @@
   ;; Migemoのコマンドラインオプション
   (setq migemo-options '("-q" "--emacs" "-i" "\a"))
   ;; Migemo辞書の場所
+  (setq my-migemo-dic (concat (file-name-directory (executable-find "cmigemo"))
+							  "dict/utf-8/migemo-dict"))
   (setq migemo-dictionary my-migemo-dic)
 
   ;; cmigemoで必須の設定
