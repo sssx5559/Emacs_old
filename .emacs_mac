@@ -29,7 +29,7 @@
 
 ;; cmigemo dictionary file
 (defconst my-migemo-dic
-  "/usr/share/cmigemo/utf-8/migemo-dict")
+  "/usr/local/share/migemo/utf-8/migemo-dict")
 
 ;;=========================================================
 ;; for Mac
