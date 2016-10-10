@@ -156,19 +156,22 @@
 ;; quickrun
 (el-get-bundle quickrun
   ;; region選択:quickrun-region, 非選択:quickrun
-  (defun my-quickrun (start end)
-	(interactive "r")
+  (defun my-quickrun ()
+	(interactive)
 	(if mark-active
-		(quickrun :start start :end end)
+		(quickrun :start (region-beginning) :end (region-end))
 	  (quickrun)))
   )
 
 ;; popwin
 (el-get-bundle popwin)
 
-(el-get-bundle popup-select-window
-  (require 'popup-select-window)
-  (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
+;; popup-select-window ※Ubuntu 16.04だとばパッケージを取得できない。
+(unless (linuxp)
+  (el-get-bundle popup-select-window
+	(require 'popup-select-window)
+	(global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
+  )
 
 ;; Erlang mode
 (when (executable-find "erl")
