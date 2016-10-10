@@ -22,8 +22,7 @@
 (defconst my-font "ＭＳ 明朝-12")
 
 ;; cmigemo dictionary file
-(defconst my-migemo-dic
-  "C:/Users/miyazaki/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
+;(defconst my-migemo-dic "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
 
 (defconst my-python "C:/Users/miyazaki/tool/Miniconda3")
 
