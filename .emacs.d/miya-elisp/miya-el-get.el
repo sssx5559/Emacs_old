@@ -27,9 +27,11 @@
 	  (goto-char (point-max))
 	  (eval-print-last-sexp)))
 
-;;===============================================
+
+;;-----------------------------------------------------------------------------
 ;; インストールパッケージ
-;;===============================================
+;;-----------------------------------------------------------------------------
+
 ;; exec-path-from-shell
 (when (macp)
   (el-get-bundle exec-path-from-shell
@@ -72,45 +74,114 @@
 ;;   (global-ace-isearch-mode t)
 ;;   )
 
+;;=========================================================
+;; ac-complete
+;;=========================================================
+;; ;; ※何故かel-get-bundleの中の初期化が有効にならない・・・(Emacs 24.5.1ではOK)
+;; (el-get-bundle auto-complete
+;;   (require 'auto-complete)
+;;   (require 'auto-complete-config)
+;;   (global-auto-complete-mode t)
 
-;; ※何故かel-get-bundleの中の初期化が有効にならない・・・(Emacs 24.5.1ではOK)
-(el-get-bundle auto-complete
-  (require 'auto-complete)
-  (require 'auto-complete-config)
-  (global-auto-complete-mode t)
+;;   ;; 補完メニュー時のキーマップ
+;;   (define-key ac-completing-map (kbd "C-n") 'ac-next)
+;;   (define-key ac-completing-map (kbd "C-p") 'ac-previous)
 
-  ;; 補完メニュー時のキーマップ
-  (define-key ac-completing-map (kbd "C-n") 'ac-next)
-  (define-key ac-completing-map (kbd "C-p") 'ac-previous)
+;;   ;; トリガーキーの設定
+;;   (ac-set-trigger-key (kbd "TAB"))
+;;   ;(setq ac-auto-start 3)	 ; 3文字以上で自動補完
+;;   (setq ac-auto-start nil)	 ;自動補完しない
+;;   ;(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
+;;   (global-set-key (kbd "C-c /") 'auto-complete)
 
-  ;; トリガーキーの設定
-  (ac-set-trigger-key "TAB")
-  ;(setq ac-auto-start 3)	 ; 3文字以上で自動補完
-  (setq ac-auto-start nil)	 ;自動補完しない
-  ;(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
-  (global-set-key (kbd "C-c /") 'auto-complete)
+;;   ;(setq ac-auto-show-menu nil)	;補完メニューを自動表示しない
+;;   ;(setq ac-auto-show-menu 0.8) ;補完メニュー表示時間(0.8s)
 
-  ;(setq ac-auto-show-menu nil)	;補完メニューを自動表示しない
-  ;(setq ac-auto-show-menu 0.8) ;補完メニュー表示時間(0.8s)
+;;   ;; TABで補完完了、リターンは改行のみの設定
+;;   (define-key ac-completing-map "\t" 'ac-complete)
+;;   ;(define-key ac-completing-map "\r" nil
 
-  ;; TABで補完完了、リターンは改行のみの設定
-  (define-key ac-completing-map "\t" 'ac-complete)
-  ;(define-key ac-completing-map "\r" nil
+;;   ;(setq ac-dwim t)  ; 空気読んでほしい(デフォルトON)
 
-  ;(setq ac-dwim t)  ; 空気読んでほしい(デフォルトON)
+;;   ;; 情報源として
+;;   ;; * ac-source-filename
+;;   ;; * ac-source-words-in-same-mode-buffers
+;;   ;; を利用
+;;   (setq-default ac-sources '(ac-source-filename ac-source-words-in-same-mode-buffers))
+;;   ;; また、Emacs Lispモードではac-source-symbolsを追加で利用
+;;   (add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols t)))
 
-  ;; 情報源として
-  ;; * ac-source-filename
-  ;; * ac-source-words-in-same-mode-buffers
-  ;; を利用
-  (setq-default ac-sources '(ac-source-filename ac-source-words-in-same-mode-buffers))
-  ;; また、Emacs Lispモードではac-source-symbolsを追加で利用
-  (add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols t)))
+;;   ;(setq ac-ignore-case t)		; 大文字・小文字を区別しない
+;;   (setq ac-ignore-case 'smart)	; 補完対象に大文字が含まれる場合のみ区別する
+;;   ;(setq ac-ignore-case nil)	; 大文字・小文字を区別する  (require 'auto-complete-config)
+;;   )
 
-  ;(setq ac-ignore-case t)		; 大文字・小文字を区別しない
-  (setq ac-ignore-case 'smart)	; 補完対象に大文字が含まれる場合のみ区別する
-  ;(setq ac-ignore-case nil)	; 大文字・小文字を区別する  (require 'auto-complete-config)
-  )
+;;=========================================================
+;; company
+;;=========================================================
+(el-get-bundle company-mode
+  (require 'company)
+
+  (global-company-mode)					 ; 全バッファで有効にする
+  (setq company-idle-delay 0)			 ; デフォルトは0.5
+  (setq company-minimum-prefix-length 2) ; デフォルトは4
+  (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+
+  ;; 自動補完を offにしたい場合は, company-idle-delayを nilに設定する
+  ;; auto-completeでいうところの ac-auto-start にあたる.
+  (custom-set-variables
+   '(company-idle-delay nil))
+
+  ;;;;;;;;;;;;;;;;;;;;
+  ;; 画面設定
+  ;;;;;;;;;;;;;;;;;;;;
+  (set-face-attribute 'company-tooltip nil
+					  :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common nil
+					  :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common-selection nil
+					  :foreground "white" :background "steelblue")
+  (set-face-attribute 'company-tooltip-selection nil
+					  :foreground "black" :background "steelblue")
+  (set-face-attribute 'company-preview-common nil
+					  :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-scrollbar-fg nil
+					  :background "orange")
+  (set-face-attribute 'company-scrollbar-bg nil
+					  :background "gray40")
+
+  ;;;;;;;;;;;;;;;;;;;;
+  ;; キー設定
+  ;;;;;;;;;;;;;;;;;;;;
+  (global-set-key (kbd "C-i") 'company-complete)
+
+  ;; C-n, C-pで補完候補を次/前の候補を選択
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-search-map (kbd "C-n") 'company-select-next)
+  (define-key company-search-map (kbd "C-p") 'company-select-previous)
+
+  ;; C-sで絞り込む
+  (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+
+  ;; TABで候補を設定
+  (define-key company-active-map (kbd "C-i") 'company-complete-selection)
+
+  ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
+  (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+
+  ;;=========================================================
+  ;; company-jedi(Python入力補完)
+  ;;=========================================================
+  (el-get-bundle jedi-core)
+  (el-get-bundle company-jedi
+  	(require 'company-jedi)
+  	(add-hook 'python-mode-hook 'jedi:setup)
+  	(add-to-list 'company-backends 'company-jedi) ; backendに追加
+
+  	(setq jedi:complete-on-dot t)
+  	(setq jedi:use-shortcuts t)
+  ))
 
 ;; multiple-cursors
 (el-get-bundle multiple-cursors
@@ -164,14 +235,15 @@
   )
 
 ;; popwin
-(el-get-bundle popwin)
+;(el-get-bundle popwin)
 
-;; popup-select-window ※Ubuntu 16.04だとばパッケージを取得できない。
-(unless (linuxp)
-  (el-get-bundle popup-select-window
-	(require 'popup-select-window)
-	(global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
-  )
+;; popup-select-window ※Ubuntu 16.04だとパッケージを取得できない。
+(el-get-bundle popup)
+(el-get-bundle popup-select-window
+  (require 'popup-select-window)
+  (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
+;; (when (require 'popup-select-window nil t)
+;;   (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
 
 ;; Erlang mode
 (when (executable-find "erl")

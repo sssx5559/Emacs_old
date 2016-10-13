@@ -494,43 +494,6 @@
 (setq sdic-face-color "hot pink")
 
 ;;=========================================================
-;; auto-complete
-;;=========================================================
-  ;(add-to-list 'ac-user-dictionary xxx@zzz)	;辞書登録例
-  ;ac-user-dictionary-files	辞書ファイル
-
-(when (>= emacs-major-version 23)
-  (add-to-list 'load-path (concat emacs-dir "auto-complete"))
-  (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories
-			   (concat emacs-dir "auto-complete/ac-dict"))
-  (ac-config-default)
-
-  ;; 従来のM-TABによる補完を切換え
-  ;(define-key ac-mode-map (kbd "C-c /") 'auto-complete)
-
-  ;(setq ac-auto-show-menu nil)	;補完メニューを自動表示しない
-  ;(setq ac-auto-show-menu 0.8) ;補完メニュー表示時間(0.8s)
-
-  ;; TABで補完完了、リターンは改行のみの設定
-  ;(define-key ac-completing-map "\t" 'ac-complete)
-  ;(define-key ac-completing-map "\r" nil)
-
-  ;; 補完メニュー時のキーマップ
-  (setq ac-use-menu-map t)
-  ;(define-key ac-menu-map "\C-n" 'ac-next)		;※デフォルト値
-  ;(define-key ac-menu-map "\C-p" 'ac-previous)	;※デフォルト値
-
-  ;; トリガーキーの設定
-  (ac-set-trigger-key "TAB")
-  (setq ac-auto-start nil)	 ;自動補完しない
-
-  ;(setq ac-ignore-case t)		; 大文字・小文字を区別しない
-  (setq ac-ignore-case 'smart)	; 補完対象に大文字が含まれる場合のみ区別する
-  ;(setq ac-ignore-case nil)	; 大文字・小文字を区別する
-  )
-
-;;=========================================================
 ;; smartchr
 ;;=========================================================
 ;; (when (require 'smartchr nil t)
