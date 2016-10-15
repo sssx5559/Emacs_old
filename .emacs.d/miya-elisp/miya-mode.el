@@ -649,16 +649,6 @@
 (setq imenu-auto-rescan nil)	; 自動でインデックスを作らない
 
 ;;=========================================================
-;; undo-tree
-;;=========================================================
-(when (and (>= emacs-major-version 23)
-		   (require 'undo-tree nil t))
-  (global-undo-tree-mode)
-  ;; redoキー設定
-  (define-key global-map (kbd "C-M-/") 'undo-tree-redo)
-  )
-
-;;=========================================================
 ;; apel
 ;;=========================================================
 (add-to-list 'load-path (concat emacs-dir "apel"))

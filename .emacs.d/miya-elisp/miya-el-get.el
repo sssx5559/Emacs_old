@@ -268,3 +268,26 @@
 ;; (when (windowsp)
 ;;   (el-get-bundle everything
 ;; 	(require 'everything)))
+
+;; undo-tree
+(el-get-bundle undo-tree
+  (global-undo-tree-mode)
+  ;; redoキー設定
+  (define-key global-map (kbd "C-M-/") 'undo-tree-redo)
+  )
+
+;; expand-region
+(el-get-bundle expand-region
+  (global-set-key (kbd "C-@") 'er/expand-region)
+  (global-set-key (kbd "C-M-@") 'er/contract-region)
+  )
+
+;; smartparents
+(el-get-bundle smartparens
+  (smartparens-global-mode t)
+;; (show-smartparens-global-mode)	; 重くなるかも
+  )
+
+
+
+
