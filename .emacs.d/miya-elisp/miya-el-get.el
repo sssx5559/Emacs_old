@@ -158,21 +158,27 @@
   ;; C-n, C-pで補完候補を次/前の候補を選択
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-h") 'delete-backward-char)
-  (define-key company-active-map (kbd "C-o") 'company-show-doc-buffer)
-  (define-key company-search-map (kbd "C-n") 'company-select-next)
-  (define-key company-search-map (kbd "C-p") 'company-select-previous)
-  (define-key company-search-map (kbd "C-h") 'delete-backward-char)
-  (define-key company-search-map (kbd "C-o") 'company-show-doc-buffer)
 
-  ;; C-sで絞り込む
+  ;;; C-hのドキュメント表示を変更
+  (define-key company-active-map (kbd "C-h") nil)
+  (define-key company-active-map (kbd "C-o") 'company-show-doc-buffer)
+
+  ;;; 1つしか候補がなかったらtabで補完、複数候補があればtabで次の候補へ行くように
+  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+
+  ;; 絞り込み検索
   (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 
-  ;; TABで候補を設定
+  ;; 候補を設定
   (define-key company-active-map (kbd "C-i") 'company-complete-selection)
 
   ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
   (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+
+;  (define-key company-search-map (kbd "C-n") 'company-select-next)
+;  (define-key company-search-map (kbd "C-p") 'company-select-previous)
+;  (define-key company-search-map (kbd "C-h") nil)
+;  (define-key company-search-map (kbd "C-o") 'company-show-doc-buffer)
 
   ;;=========================================================
   ;; company-jedi(Python入力補完)
