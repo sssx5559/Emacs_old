@@ -31,7 +31,6 @@
 ;;-----------------------------------------------------------------------------
 ;; インストールパッケージ
 ;;-----------------------------------------------------------------------------
-
 ;; exec-path-from-shell
 (when (macp)
   (el-get-bundle exec-path-from-shell
@@ -41,7 +40,9 @@
 (when (migemop)
   (el-get-bundle migemo))
 
+;;=========================================================
 ;; Helm
+;;=========================================================
 (when (>= emacs-minor-version 3)
   ;; Emacs Version >= 24.3
   (el-get-bundle helm)
@@ -68,7 +69,9 @@
   ;; C-x C-sで保存して終了、C-x C-kで保存せずに終了
   (define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode))
 
+;;=========================================================
 ;; ace-isearch
+;;=========================================================
 ;; (el-get-bundle ace-isearch
 ;;   (require 'ace-isearch)
 ;;   (global-ace-isearch-mode t)
@@ -266,11 +269,15 @@
 ;; (when (require 'popup-select-window nil t)
 ;;   (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
 
+;;=========================================================
 ;; Erlang mode
+;;=========================================================
 (when (executable-find "erl")
   (el-get-bundle erlang-mode))
 
+;;=========================================================
 ;; Elixir mode
+;;=========================================================
 (when (executable-find "elixir")
   (el-get-bundle pkg-info)		; elixirで使用
   (el-get-bundle elixir))
@@ -280,25 +287,28 @@
 ;;   (el-get-bundle everything
 ;; 	(require 'everything)))
 
+;;=========================================================
 ;; undo-tree
+;;=========================================================
 (el-get-bundle undo-tree
   (global-undo-tree-mode)
   ;; redoキー設定
   (define-key global-map (kbd "C-M-/") 'undo-tree-redo)
   )
 
+;;=========================================================
 ;; expand-region
+;;=========================================================
 (el-get-bundle expand-region
   (global-set-key (kbd "C-@") 'er/expand-region)
   (global-set-key (kbd "C-M-@") 'er/contract-region)
   )
 
+;;=========================================================
 ;; smartparents
+;;=========================================================
 (el-get-bundle smartparens
   (smartparens-global-mode t)
 ;; (show-smartparens-global-mode)	; 重くなるかも
   )
-
-
-
 
