@@ -153,7 +153,8 @@
   ;;;;;;;;;;;;;;;;;;;;
   ;; キー設定
   ;;;;;;;;;;;;;;;;;;;;
-  (global-set-key (kbd "C-i") 'company-complete)
+;;  (global-set-key (kbd "C-i") 'company-complete)
+  (global-set-key (kbd "<tab>") 'company-complete)
 
   ;; C-n, C-pで補完候補を次/前の候補を選択
   (define-key company-active-map (kbd "C-n") 'company-select-next)
