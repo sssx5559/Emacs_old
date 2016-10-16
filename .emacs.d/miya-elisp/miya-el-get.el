@@ -175,10 +175,11 @@
   ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
   (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 
-;  (define-key company-search-map (kbd "C-n") 'company-select-next)
-;  (define-key company-search-map (kbd "C-p") 'company-select-previous)
-;  (define-key company-search-map (kbd "C-h") nil)
-;  (define-key company-search-map (kbd "C-o") 'company-show-doc-buffer)
+  (define-key company-search-map (kbd "C-n") 'company-select-next)
+  (define-key company-search-map (kbd "C-p") 'company-select-previous)
+  (define-key company-search-map (kbd "C-h") nil)
+  (define-key company-search-map (kbd "C-o") 'company-show-doc-buffer)
+  (define-key company-search-map (kbd "<tab>") 'company-complete-common-or-cycle)
 
   ;;=========================================================
   ;; company-jedi(Python入力補完)
