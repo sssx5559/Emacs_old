@@ -235,7 +235,9 @@
   ;; (global-set-key (kbd "C-M-SPC") 'mc/mark-all-dwim-or-mark-sexp)
   )
 
+;;=========================================================
 ;; quickrun
+;;=========================================================
 (el-get-bundle quickrun
   ;; region選択:quickrun-region, 非選択:quickrun
   (defun my-quickrun ()
@@ -243,6 +245,13 @@
 	(if mark-active
 		(quickrun :start (region-beginning) :end (region-end))
 	  (quickrun)))
+
+  (quickrun-add-command "python"
+						'((:exec . my-python))
+						:override t)
+
+  ;; エコーエリアに出力
+  (setq-default quickrun-option-outputter 'message)
   )
 
 ;; popwin
