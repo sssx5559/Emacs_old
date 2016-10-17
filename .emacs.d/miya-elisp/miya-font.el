@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; フォント設定ファイル
@@ -127,27 +127,8 @@
   (set-face-font 'font-lock-warning-face       myfont))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; NTEmacs(24.4.1)用
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun NTEmacs-font-set2 (myfont)
- ;; デフォルト フォント
-  (set-face-attribute 'default nil :family myfont :height 110)
-
-  ;; プロポーショナル フォント
-  (set-face-attribute 'variable-pitch nil :family myfont :height 110)
-
-  ;; 等幅フォント
-  (set-face-attribute 'fixed-pitch nil :family myfont :height 110)
-
-  ;; ツールチップ表示フォント
-  (set-face-attribute 'tooltip nil :family myfont :height 90)
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Font set
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (cond
- ((meadow2p) (Meadow2.0-font-set))
- ((meadow3p) (Meadow3.0-font-set))
- ((equal emacs-version "24.4.1") (NTEmacs-font-set2 my-font))
+ ((meadowp) (Meadow3.0-font-set))
  (t (NTEmacs-font-set my-font)))
