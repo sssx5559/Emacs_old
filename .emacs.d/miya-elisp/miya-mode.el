@@ -226,6 +226,7 @@
 ;;GNU GLOBAL
 ;;=========================================================
 (unless (require 'helm-gtags nil t)
+  ;; helm-gtagsがない場合
   (autoload 'gtags-mode "gtags" "" t)
 
   (setq gtags-mode-hook
@@ -432,20 +433,20 @@
 ;;=========================================================
 ;; moccur
 ;;=========================================================
-(when (require 'color-moccur nil t)
-  ;; グローバルマップにoccur-by-moccurを割り当て
-  ;(define-key global-map (kbd "M-o") 'occur-by-moccur)
-  ;; スペース区切りでAND検索
-  (setq moccur-split-word t)
-  ;; ディレクトリ検索のとき除外するファイル
-  ;(add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
-  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
-  (require 'moccur-edit nil t)
+;; (when (require 'color-moccur nil t)
+;;   ;; グローバルマップにoccur-by-moccurを割り当て
+;;   ;(define-key global-map (kbd "M-o") 'occur-by-moccur)
+;;   ;; スペース区切りでAND検索
+;;   (setq moccur-split-word t)
+;;   ;; ディレクトリ検索のとき除外するファイル
+;;   ;(add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+;;   (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+;;   (require 'moccur-edit nil t)
 
-  ;; Migemoを利用できる環境であればMigemoを使う(migemo設定で実施)
-;  (when (migemop)
-;	(setq moccur-use-migemo t))
-  )
+;;   ;; Migemoを利用できる環境であればMigemoを使う(migemo設定で実施)
+;; ;  (when (migemop)
+;; ;	(setq moccur-use-migemo t))
+;;   )
 
 ;; 編集の終了と同時に保存
 ;; (defadvice moccur-edit-change-file
@@ -459,15 +460,6 @@
 ; 		   (locate-library "cygwin-mount"))
 ;  (require 'cygwin-mount)
 ;  (cygwin-mount-activate))
-
-;;=========================================================
-;; navi2ch
-;;=========================================================
-;; (when (>= emacs-major-version 22)
-;;   (let ((dir (concat emacs-dir "navi2ch")))
-;; 	(when (file-directory-p dir)
-;; 	  (add-to-list 'load-path dir)
-;; 	  (require 'navi2ch))))
 
 ;;=========================================================
 ;; sdic
@@ -564,7 +556,7 @@
   ;; (kogiku-mode-change)					; デフォルトON
 
   ;; anything
-  (when (require 'anything nil t)
+  (when (featurep 'anything)
 	(require 'anything-migemo nil t))
 
   ;; moccur
@@ -620,19 +612,9 @@
   (global-set-key (kbd "C-c C-k") 'toggle-input-method))
 
 ;;=========================================================
-;; vc
-;;=========================================================
-;(setq vc-handled-backends nil)	; vc無効
-
-;;=========================================================
 ;; imenu
 ;;=========================================================
 (setq imenu-auto-rescan nil)	; 自動でインデックスを作らない
-
-;;=========================================================
-;; apel
-;;=========================================================
-(add-to-list 'load-path (concat emacs-dir "apel"))
 
 ;;=========================================================
 ;; xdoc2txt

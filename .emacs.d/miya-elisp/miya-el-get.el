@@ -140,6 +140,8 @@
    '(company-idle-delay nil)			; 自動補完off デフォルトは0.5
    '(company-minimum-prefix-length 2)	; デフォルトは4
    '(company-selection-wrap-around t)	; 候補の一番下でさらに下に行こうとすると一番上に戻る
+   ;;'(company-transformers nil)			; 補完候補の順番を指定(nilデフォルト)
+   											;	
    )
 
   ;;;;;;;;;;;;;;;;;;;;
@@ -205,11 +207,15 @@
   	(add-hook 'python-mode-hook 'jedi:setup)
   	(add-to-list 'company-backends 'company-jedi) ; backendに追加
 
-  	(setq jedi:complete-on-dot t)
-  	(setq jedi:use-shortcuts t)
+	(custom-set-variables
+	 '(jedi:complete-on-dot t)
+	 '(jedi:use-shortcuts t)
+	 )
   ))
 
+;;=========================================================
 ;; multiple-cursors
+;;=========================================================
 (el-get-bundle multiple-cursors
   (require 'multiple-cursors)
 
@@ -267,19 +273,21 @@
 						:override t)
 
   ;; エコーエリアに出力
-  (setq-default quickrun-option-outputter 'message)
+  ;;(setq-default quickrun-option-outputter 'message)
+  (custom-set-variables
+   '(quickrun-option-outputter 'message)
+   )
   )
 
 ;; popwin
 ;(el-get-bundle popwin)
 
+;;=========================================================
 ;; popup-select-window ※Ubuntu 16.04だとパッケージを取得できない。
-(el-get-bundle popup)
-(el-get-bundle popup-select-window
-  (require 'popup-select-window)
-  (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
-;; (when (require 'popup-select-window nil t)
-;;   (global-set-key "\C-xo" 'popup-select-window)) ; other-windowを上書き
+;;=========================================================
+(el-get-bundle popup
+  (when (require 'popup-select-window nil t)
+	(global-set-key "\C-xo" 'popup-select-window))) ; other-windowを上書き
 
 ;;=========================================================
 ;; Erlang mode
@@ -294,7 +302,9 @@
   (el-get-bundle pkg-info)		; elixirで使用
   (el-get-bundle elixir))
 
+;;=========================================================
 ;; Everything
+;;=========================================================
 ;; (when (windowsp)
 ;;   (el-get-bundle everything
 ;; 	(require 'everything)))
