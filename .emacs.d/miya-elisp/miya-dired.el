@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; dired設定
@@ -218,7 +218,4 @@
 			(define-key dired-mode-map "a" 'dired-advertised-find-file)
 			;; 「^」がを押しにくい場合「c」でも上の階層に移動できるようにする
 			;(define-key dired-mode-map "c" 'dired-up-directory)
-
-			;; (if (not (meadowp))
-			;; 	(define-key dired-mode-map (kbd "C-m") 'dired-my-advertised-find-file))
 			))

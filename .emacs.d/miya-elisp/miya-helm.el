@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; Helm設定ファイル
@@ -13,10 +13,12 @@
 (when (migemop)
   (helm-migemo-mode))
 
+(helm-mode 1)	;; 既存コマンドをHelmインターフェースに置き換え
+
 ;;; helm-mode有効のときでも、処理を変更したいコマンドをリストに登録
-(add-to-list 'helm-completing-read-handlers-alist
-			 '(write-file . nil)
-			 '(kill-buffer . nil))
+(add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
 
 (defvar helm-source-emacs-commands
   (helm-build-sync-source "Emacs commands"
@@ -40,14 +42,17 @@
     :action #'command-execute)
   "Emacs commands history")
 
-;; helm-mini表示カスタマイズ
+;; カスタム変数設定
 (custom-set-variables
+ ;; helm-mini表示カスタマイズ
  '(helm-mini-default-sources '(helm-source-buffers-list
                                helm-source-recentf
                                helm-source-files-in-current-dir
 ;                               helm-source-emacs-commands-history
 ;                               helm-source-emacs-commands
-                               )))
+                               ))
+  '(helm-truncate-lines t)	; 検索結果を改行しないで、1行表示
+ )
 
 ;;=========================================================
 ;; helm-gtags
@@ -93,24 +98,27 @@
 			   :exclude-regexp '("/out" "~$") ; can be regexp or list of regexp
 			   ))))
 
-
 ;;=========================================================
 ;; helm関連のキー設定
 ;;=========================================================
 (global-set-key (kbd "C-;") 'helm-mini)
-(global-set-key (kbd "C-:") 'helm-project)
 (global-set-key (kbd "C-]") 'helm-swoop)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c b") 'helm-descbinds)
 (global-set-key (kbd "C-c o") 'helm-recentf)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;(global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-M-;") 'helm-resume)
 (global-set-key (kbd "C-c i") 'helm-imenu)
 (global-set-key (kbd "C-c I") 'helm-imenu-in-all-buffers)
 ;(global-set-key (kbd "C-c C-r") 'helm-resume)
 ;(global-set-key (kbd "C-c s") 'helm-ag)
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
+
+;; projectile関連
+;(global-set-key (kbd "C-:") 'helm-projectile-find-file)
+;(global-set-key (kbd "C-:") 'helm-projectile-find-file)
+(global-set-key (kbd "C-:") 'helm-project)
 
 ;; helm-mini中
 (define-key helm-map (kbd "C-M-n") 'helm-next-source)

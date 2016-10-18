@@ -1,4 +1,4 @@
-;;;; -*- mode: lisp-interaction; syntax: elisp; coding: utf-8 -*-
+﻿;;;; -*- mode: lisp-interaction; syntax: elisp; coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 共通初期設定ファイル
@@ -10,23 +10,13 @@
 (defun linuxp () (string-match "linux" system-configuration))
 (defun macp () (string-match "apple" system-configuration))
 
-;; Version識別用
-(defun meadowp () (featurep 'meadow))
-(defun meadow3p () (and (meadowp)
-			(string-match "Meadow-3" (Meadow-version))))
-(defun meadow2p () (and (meadowp)
-			(string-match "Meadow-2" (Meadow-version))))
+;; Meadow識別用
+(defun meadowp () (and (featurep 'meadow)
+					   (string-match "Meadow-3" (Meadow-version))))
 
 ;; Migemo使用判別
 (defun migemop () (and (>= emacs-major-version 23)
 					   (executable-find "cmigemo")))
-
-;;; Mule-UCS
-;; ftp://ftp.m17n.org/pub/mule/Mule-UCS/
-;; (set-language-environment)
-(when (meadow2p)
-	  (require 'un-define)
-	  (require 'jisx0213))
 
 ;;; load-path
 (setq load-path
@@ -38,18 +28,13 @@
 		)								; list end
        load-path))
 
-;;FTP
-;(setq ange-ftp-ftp-program-name "/usr/bin/ftp")
-
-;(require 'browse-url)
-(require 'cl)
-;(require 'grep-edit)
-;(when (require 'undohist nil t)
-;  (undohist-initialize))
-
-
-(when (>= emacs-major-version 24)
+;;======================================================
+;; 設定ファイル読み込み
+;;======================================================
+(if (meadowp)
+	(load-library "miya-meadow.el")
   (load-library "miya-el-get.el"))
+
 (load-library "miya-screen.el")
 (load-library "miya-font.el")
 (load-library "miya-util.el")
@@ -58,16 +43,9 @@
 (load-library "miya-mode.el")
 (load-library "miya-dired.el")
 (if (require 'helm nil t)
-	(load-library "miya-helm.el")
-  (load-library "miya-anything.el"))
+	(load-library "miya-helm.el"))
 
-;; w3m
-;; (when (require 'w3m nil t)
-;;   (load-library "miya-w3m.el"))
-
-;; mew
-;; (when (require 'mew nil t)
-;;   (load-library "miya-mew.el"))
+(load-library "work.el")
 
 ;;======================================================
 ;; Emacs操作メモ

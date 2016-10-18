@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 各モード用設定
@@ -619,25 +619,6 @@
   ;(global-set-key (kbd "C-<zenkaku-hankaku>") 'toggle-input-method))
   (global-set-key (kbd "C-c C-k") 'toggle-input-method))
 
-;; Meadow2
-(when (meadow2p)
-  (progn
-	(setq default-input-method "MW32-IME")
-	(setq-default mw32-ime-mode-line-state-indicator "[--]")
-	(setq mw32-ime-mode-line-state-indicator-list '("[--]" "[あ]" "[--]"))
-	(add-hook 'mw32-ime-on-hook
-			  (function (lambda () (set-cursor-color "purple"))))
-	(add-hook 'mw32-ime-off-hook
-			  (function (lambda () (set-cursor-color "LemonChiffon"))))
-
-	(mw32-ime-initialize)
-	(add-hook 'mw32-ime-on-hook
-			  (function (lambda () (set-cursor-height 2))))
-	(add-hook 'mw32-ime-off-hook
-			  (function (lambda ()
-						  (set-cursor-height 4)
-						  (set-cursor-color "pink"))))))
-
 ;;=========================================================
 ;; vc
 ;;=========================================================
@@ -652,12 +633,6 @@
 ;; apel
 ;;=========================================================
 (add-to-list 'load-path (concat emacs-dir "apel"))
-
-;;=========================================================
-;; elscreen
-;;=========================================================
-(add-to-list 'load-path (concat emacs-dir "elscreen"))
-(require 'elscreen)
 
 ;;=========================================================
 ;; xdoc2txt

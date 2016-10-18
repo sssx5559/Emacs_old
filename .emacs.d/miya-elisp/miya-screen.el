@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 初期フレームの設定
@@ -132,11 +132,6 @@
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 
-
-;;font-lockの設定
-(when (meadow2p)
-  (setq font-lock-support-mode 'lazy-lock-mode)
-  (global-font-lock-mode t))
 
 ;;; メニューバー表示設定(引数 正：表示  負：非表示)
 (menu-bar-mode -1)

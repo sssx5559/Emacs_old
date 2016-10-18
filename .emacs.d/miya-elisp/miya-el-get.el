@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; El-Get設定ファイル
@@ -26,6 +26,15 @@
 		 "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
 	  (goto-char (point-max))
 	  (eval-print-last-sexp)))
+
+;; 暫定
+;;(setq el-get-dir (expand-file-name emacs-version (locate-user-emacs-file "el-get")))
+;;
+;;(add-to-list 'load-path (concat el-get-dir "/el-get"))
+;;
+;;(unless (require 'el-get nil 'noerror)
+;;  ;; El-Getインストール未
+;;  (load-library "el-get-install.el"))
 
 
 ;;-----------------------------------------------------------------------------
@@ -126,14 +135,12 @@
   (require 'company)
 
   (global-company-mode)					 ; 全バッファで有効にする
-  (setq company-idle-delay 0)			 ; デフォルトは0.5
-  (setq company-minimum-prefix-length 2) ; デフォルトは4
-  (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
 
-  ;; 自動補完を offにしたい場合は, company-idle-delayを nilに設定する
-  ;; auto-completeでいうところの ac-auto-start にあたる.
   (custom-set-variables
-   '(company-idle-delay nil))
+   '(company-idle-delay nil)			; 自動補完off デフォルトは0.5
+   '(company-minimum-prefix-length 2)	; デフォルトは4
+   '(company-selection-wrap-around t)	; 候補の一番下でさらに下に行こうとすると一番上に戻る
+   )
 
   ;;;;;;;;;;;;;;;;;;;;
   ;; 画面設定
@@ -157,7 +164,8 @@
   ;; キー設定
   ;;;;;;;;;;;;;;;;;;;;
 ;;  (global-set-key (kbd "C-i") 'company-complete)
-  (global-set-key (kbd "<tab>") 'company-complete)
+;;  (global-set-key (kbd "<tab>") 'company-complete)
+  (global-set-key (kbd "M-i") 'company-complete)
 
   ;; C-n, C-pで補完候補を次/前の候補を選択
   (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -168,13 +176,15 @@
   (define-key company-active-map (kbd "C-o") 'company-show-doc-buffer)
 
   ;;; 1つしか候補がなかったらtabで補完、複数候補があればtabで次の候補へ行くように
-  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+;;  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+  (define-key company-active-map (kbd "M-i") 'company-complete-common-or-cycle)
 
   ;; 絞り込み検索
   (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
 
   ;; 候補を設定
   (define-key company-active-map (kbd "C-i") 'company-complete-selection)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
   ;; 各種メジャーモードでも C-M-iで company-modeの補完を使う
   (define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
@@ -183,7 +193,8 @@
   (define-key company-search-map (kbd "C-p") 'company-select-previous)
   (define-key company-search-map (kbd "C-h") nil)
   (define-key company-search-map (kbd "C-o") 'company-show-doc-buffer)
-  (define-key company-search-map (kbd "<tab>") 'company-complete-common-or-cycle)
+;;  (define-key company-search-map (kbd "<tab>") 'company-complete-common-or-cycle)
+  (define-key company-search-map (kbd "M-i") 'company-complete-common-or-cycle)
 
   ;;=========================================================
   ;; company-jedi(Python入力補完)
@@ -319,3 +330,43 @@
 (el-get-bundle elscreen
   (elscreen-start))
 
+;;=========================================================
+;; projectile
+;;=========================================================
+;; (el-get-bundle projectile
+;;   (require 'projectile)
+
+;;   (custom-set-variables
+;;    '(projectile-enable-caching t)		; キャッシュ設定
+;;    '(projectile-keymap-prefix (kbd "M-p"))
+
+;;   (setq projectile-globally-ignored-directories
+;; 		(append '(
+;; 				  ".svn"
+;; 				  "out"
+;; 				  )
+;; 				projectile-globally-ignored-directories))
+
+;;   (setq projectile-globally-ignored-files
+;; 		(append '(
+;; 				  ".DS_Store"
+;; 				  "GTAGS"
+;; 				  "GPATH"
+;; 				  "GRTAGS"
+;; 				  "*.obj"
+;; 				  )
+;; 				projectile-globally-ignored-files))
+;;   )
+
+;; 										;  (when (require 'helm nil t)
+;;   ;; helmインストール済み
+;;   (el-get-bundle helm-projectile
+;; 	(custom-set-variables
+;; 	 '(helm-projectile-fuzzy-match nil)
+;; 	 '(projectile-completion-system 'helm)
+;; 	 )
+
+;; 	(helm-projectile-on)
+;; 	)
+;;   (projectile-mode t)
+;;   )
