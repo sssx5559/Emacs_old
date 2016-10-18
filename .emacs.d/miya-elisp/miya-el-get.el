@@ -250,6 +250,7 @@
 		(quickrun :start (region-beginning) :end (region-end))
 	  (quickrun)))
 
+  ;; Override existing command
   (quickrun-add-command "python"
 						'((:exec . my-python))
 						:override t)
