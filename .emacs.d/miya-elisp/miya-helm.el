@@ -55,6 +55,23 @@
  )
 
 ;;=========================================================
+;; helm-ag
+;;=========================================================
+(when (require 'helm-ag nil t)
+  (custom-set-variables
+   ;; '(helm-ag-base-command "rg --vimgrep --no-heading")	; ag以外の検索コマンドも使える
+   '(helm-ag-ignore-patterns '("*~" "#*#"))
+   ;; '(helm-ag-insert-at-point 'word)		; カーソル以下のオブジェクトを検索パターンとして自動挿入
+   )
+
+  (when (require 'helm-project nil t)
+	;; helm-projectを利用してルートディレクトリから検索
+	(defun miya/helm-ag-project-root ()
+	  (interactive)
+	  (helm-ag (car (hp:get-root-directory)))))
+  )
+
+;;=========================================================
 ;; helm-gtags
 ;;=========================================================
 (when (require 'helm-gtags nil t)
@@ -112,7 +129,7 @@
 (global-set-key (kbd "C-c i") 'helm-imenu)
 (global-set-key (kbd "C-c I") 'helm-imenu-in-all-buffers)
 ;(global-set-key (kbd "C-c C-r") 'helm-resume)
-;(global-set-key (kbd "C-c s") 'helm-ag)
+(global-set-key (kbd "C-c a") 'helm-ag)
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
 
 ;; projectile関連

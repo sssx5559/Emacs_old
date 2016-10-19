@@ -682,9 +682,11 @@
 (when (require 'diminish nil t)
   ;; 表示を変更
   (diminish 'abbrev-mode "Abv")
+  (diminish 'helm-gtags-mode "HGtags")
 
   ;; 表示を消す
   (diminish 'undo-tree-mode)
+  (diminish 'helm-mode)
   )
 
 ;;=========================================================
