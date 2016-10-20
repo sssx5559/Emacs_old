@@ -220,10 +220,11 @@
   (require 'yasnippet)
 
   (custom-set-variables
-   ;; '(yas-snippet-dirs '("~/.emacs.d/snippets" 				  ;; 自作用(省略可能)
-   ;; 						"~/.emacs.d/elisp/yasnippet/snippets" ;; 最初から入っていたスニペット(省略可能)
+   ;; '(yas-snippet-dirs
+   ;; 	 (list (const user-emacs-directory "snippets")				  	;; 自作用(省略可能)
+   ;; 		   (const user-emacs-directory "elisp/yasnippet/snippets")	;; 最初から入っていたスニペット(省略可能)
+   ;; 		   ))
    )
-  (yas-global-mode 1)
 
   ;; 既存スニペットを挿入する
   (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
@@ -244,6 +245,8 @@
   ;;    ;; companyと競合するのでyasnippetのフィールド移動は "C-i" のみにする
   ;;    (define-key yas-keymap (kbd "<tab>") nil)
   ;;    (yas-global-mode 1))))
+
+  (yas-global-mode 1)
   )
 
 ;;=========================================================

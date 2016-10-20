@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 雑多な設定
@@ -96,7 +96,7 @@
 (transient-mark-mode t)
 (setq mark-even-if-inactive t)	; リージョンが不活性でもマークを消さない
 
-;; 縦に分割したときも、画面幅を超える分を折り返して表示する
+;; 行の折り返し設定
 (setq truncate-partial-width-windows t)
 
 ;; 対応する括弧を光らせる
@@ -153,14 +153,6 @@
 (custom-set-faces)
 (put 'narrow-to-region 'disabled nil)
 
-;; バッファをC-TABで切り替える
-(require 'pc-bufsw)
-(pc-bufsw::bind-keys (quote [C-tab]) (quote [C-S-tab]))
-
-
-;; コンパイル設定
-;(setq compile-command "ant.bat -emacs -find build.xml")
-
 ;; 文字コード、改行コード変換
 ;(set-buffer-coding-system "コード指定")
 
@@ -170,15 +162,8 @@
 ;; ブックマーク自動保存
 (setq bookmark-save-flag 1)
 
-;; 行の折り返し設定(０位外は切り捨てて表示)
-;(setq truncate-partial-width-windows t)
-
 ;; 圧縮ファイルの編集
 (auto-compression-mode)
-
-;; リモートファイル編集時のユーザー名
-;(setq ange-ftp-default-user "gwwid")
-
 
 ;; ミニバッファ拡大抑止
 ;(setq resize-mini-windows nil)
