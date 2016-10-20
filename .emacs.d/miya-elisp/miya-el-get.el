@@ -1,4 +1,4 @@
-﻿;;;; -*- coding: utf-8 -*-
+;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; El-Get設定ファイル
@@ -320,7 +320,7 @@
 ;;=========================================================
 (el-get-bundle popup
   (when (require 'popup-select-window nil t)
-	(global-set-key "\C-xo" 'popup-select-window))) ; other-windowを上書き
+	(global-set-key (kbd "C-x o") 'popup-select-window))) ; other-windowを上書き
 
 ;;=========================================================
 ;; Erlang mode
