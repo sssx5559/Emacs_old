@@ -529,7 +529,7 @@
   (interactive)
 
   ;; cmigemoを使う
-  (add-to-list 'load-path (concat emacs-dir "el-get/package/migemo"))
+  ;; (add-to-list 'load-path (concat emacs-dir "el-get/package/migemo"))
   (require 'migemo)
 
   (setq migemo-command "cmigemo")
@@ -552,16 +552,15 @@
   (migemo-init)
 
   ;; 小菊(find-fileでの日本語名補完)
-  ;; (require 'kogiku)
-  ;; (kogiku-mode-change)					; デフォルトON
+  (require 'kogiku)
+  (kogiku-mode-change)				; デフォルトON
 
   ;; anything
-  (when (featurep 'anything)
-	(require 'anything-migemo nil t))
+  ;; (when (featurep 'anything)
+  ;; 	(require 'anything-migemo nil t))
 
   ;; moccur
-  (setq moccur-use-migemo t)
-
+  ;; (setq moccur-use-migemo t)
 
   ;; ;; buffer-file-coding-system から言語判別
   ;; ;; unicode も入れた方がいいのかも。
@@ -679,7 +678,8 @@
 ;;=========================================================
 ;; モードラインに表示されるマイナーモード名を短縮
 ;;=========================================================
-(when (require 'diminish nil t)
+(when (and (>= emacs-major-version 24)
+		   (require 'diminish nil t))
   ;; 表示を変更
   (diminish 'abbrev-mode "Abv")
   (diminish 'helm-gtags-mode "HGtags")
