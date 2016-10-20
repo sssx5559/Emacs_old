@@ -1,4 +1,4 @@
-﻿;;;; -*- coding: utf-8 -*-
+;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 各モード用設定
@@ -69,20 +69,18 @@
 ;; 			(setq python-indent-guess-indent-offset nil)
 
 ;			(when (load "python-pep8")
-;			  (define-key global-map (kbd "C-c p") 'python-pep8))
-			(define-key python-mode-map (kbd "C-c C-c") 'comment-region)
-			(define-key python-mode-map (kbd "C-x @")
-			  (lambda ()
-				(interactive)
-				; リージョンのエンコーディングを指定する
-				(let* ((coding (search-coding))
-					   (coding-system-for-write (if coding
-													(intern coding)
-												  'utf-8)))
+										;			  (define-key global-map (kbd "C-c p") 'python-pep8))
+			(define-key python-mode-map (kbd "C-c C-c") 'comment-region)))
+			;; (define-key python-mode-map (kbd "C-x @")
+			;;   (lambda ()
+			;; 	(interactive)
+			;; 	; リージョンのエンコーディングを指定する
+			;; 	(let* ((coding (search-coding))
+			;; 		   (coding-system-for-write (if coding
+			;; 										(intern coding)
+			;; 									  'utf-8)))
 
-				(miya-run-script my-python))))))
-;				(miya-run-script "/d/miyazaki/Program/Python/Miniconda3/envs/ml_env/python")))))
-;				(miya-run-script "c:/Miniconda3/python"))))))
+			;; 	(miya-run-script my-python))))))
 
 ;;=========================================================
 ;; C mode
@@ -676,18 +674,41 @@
 (setq uniquify-min-dir-content 3)
 
 ;;=========================================================
-;; モードラインに表示されるマイナーモード名を短縮
+;; モードラインに表示されるメジャー/マイナーモード名を短縮
 ;;=========================================================
-(when (and (>= emacs-major-version 24)
-		   (require 'diminish nil t))
-  ;; 表示を変更
-  (diminish 'abbrev-mode "Abv")
-  (diminish 'helm-gtags-mode "HGtags")
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+	(eldoc-mode . "")
+    (abbrev-mode . "")
+	(helm-mode . "")
+    (undo-tree-mode . " ")
+    (yas-minor-mode . " Ys")
+    (paredit-mode . " Pe")
+    (elisp-slime-nav-mode . " EN")
+    (helm-gtags-mode . " Hg")
+	(helm-migemo-mode . " Hm")
+;;	(company-mode . " Cp")	; comnapyモードは、補完ソースを表示するので短縮しない。
+    (flymake-mode . " Fm")
 
-  ;; 表示を消す
-  (diminish 'undo-tree-mode)
-  (diminish 'helm-mode)
-  )
+    ;; Major modes
+    (lisp-interaction-mode . "Lisp")
+    (python-mode . "Python")
+    (ruby-mode   . "Ruby")
+    (emacs-lisp-mode . "Elisp")
+    (markdown-mode . "MarkDown")))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 ;;=========================================================
 ;; ESS
