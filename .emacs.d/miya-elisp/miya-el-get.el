@@ -175,7 +175,7 @@
 
   ;;; C-hのドキュメント表示を変更
   (define-key company-active-map (kbd "C-h") nil)
-  (define-key company-active-map (kbd "C-o") 'company-show-doc-buffer)
+  (define-key company-active-map (kbd "M-h") 'company-show-doc-buffer)
 
   ;;; 1つしか候補がなかったらtabで補完、複数候補があればtabで次の候補へ行くように
 ;;  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
@@ -321,9 +321,11 @@
 ;;=========================================================
 ;; popup-select-window ※Ubuntu 16.04だとパッケージを取得できない。
 ;;=========================================================
-(el-get-bundle popup
-  (when (require 'popup-select-window nil t)
-	(global-set-key (kbd "C-x o") 'popup-select-window))) ; other-windowを上書き
+(el-get-bundle popup)
+
+;; (el-get-bundle popup)の中に入れると有効にならない。
+(when (require 'popup-select-window nil t)
+  (global-set-key (kbd "C-x o") 'popup-select-window))	; other-windowを上書き
 
 ;;=========================================================
 ;; Erlang mode

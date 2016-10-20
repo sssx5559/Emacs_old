@@ -421,14 +421,6 @@
 			  (lambda () (interactive) (miya-run-pascal)))))
 
 ;;=========================================================
-;; Yasnippet
-;;=========================================================
-;(require 'yasnippet)
-;(yas/initialize)
-;(yas/load-directory "~/emacs/yasnippet-0.5.7/snippets")
-;;(yas/minor-mode-on)
-
-;;=========================================================
 ;; moccur
 ;;=========================================================
 ;; (when (require 'color-moccur nil t)
