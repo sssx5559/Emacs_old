@@ -668,7 +668,7 @@
 ;;=========================================================
 ;; モードラインに表示されるメジャー/マイナーモード名を短縮
 ;;=========================================================
-(if (>= emacs-major-version 23)
+(when (>= emacs-major-version 23)
 	(defvar mode-line-cleaner-alist
 	  '( ;; For minor-mode, first char is 'space'
 		(eldoc-mode . "")
