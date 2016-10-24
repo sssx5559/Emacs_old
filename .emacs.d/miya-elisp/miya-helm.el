@@ -141,6 +141,8 @@
 (define-key helm-map (kbd "C-M-n") 'helm-next-source)
 (define-key helm-map (kbd "C-M-p") 'helm-previous-source)
 (define-key helm-map (kbd "M-*") 'helm-keyboard-quit)
+(define-key helm-map (kbd "C-<up>") 'helm-scroll-other-window-down)
+(define-key helm-map (kbd "C-<down>") 'helm-scroll-other-window)
 
 ;; ミニバッファでC-hをバックスペースに割り当て
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
