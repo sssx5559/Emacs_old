@@ -22,9 +22,11 @@
 (defconst my-font "ＭＳ 明朝-12")
 
 ;; cmigemo dictionary file
-;(defconst my-migemo-dic "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
+(defconst my-migemo-dic "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
 
 (defconst my-python "C:/Users/miyazaki/tool/Miniconda3")
+
+(setq find-program "/usr/bin/find")		;; WindowsのFINDを使わない
 
 ;; El-Get
 ;(defconst my-el-get-dir (concat emacs-dir "el-get/el-get"))

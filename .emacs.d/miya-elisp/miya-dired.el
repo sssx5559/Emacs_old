@@ -7,38 +7,51 @@
 ;;=========================================================
 ;; 関連付けられたファイルを開く
 ;;=========================================================
-(defun open-file-dwim (filename)
-  "Open file dwim"
-  (let* ((winp (string-equal window-system "w32"))
-;         (opener (if (file-directory-p filename)
-;                     (if winp '("explorer.exe") '("gnome-open"))
-;                   (if winp '("fiber.exe") '("gnome-open"))))
+;; (defun open-file-dwim (filename)
+;;   "Open file dwim"
+;;   (let* ((winp (string-equal window-system "w32"))
+;; 		 ;; xlsmファイル対策
+;;          (opener
+;; 		  (cond ((file-directory-p filename) (if winp '("explorer.exe") '("gnome-open")))
+;; ;				((string= "xlsm" (file-name-extension filename)) '("C:/Program Files/Microsoft Office/Office14/EXCEL.exe"))
+;; 				((string= "xlsm" (file-name-extension filename)) '("explorer.exe"))
+;; 				 (t (if winp '("fiber.exe") '("gnome-open")))))
 
-		 ;; xlsmファイル対策
-         (opener
-		  (cond ((file-directory-p filename) (if winp '("explorer.exe") '("gnome-open")))
-;				((string= "xlsm" (file-name-extension filename)) '("C:/Program Files/Microsoft Office/Office14/EXCEL.exe"))
-				((string= "xlsm" (file-name-extension filename)) '("explorer.exe"))
-				 (t (if winp '("fiber.exe") '("gnome-open")))))
+;;          (fn (replace-regexp-in-string "/$" "" filename))
+;;          (args (append opener (list (if winp
+;;                                         (replace-regexp-in-string "/" (rx "\\") fn)
+;;                                       fn))))
+;;          (process-connection-type nil))
+;;     (apply 'start-process "open-file-dwim" nil args)))
 
-         (fn (replace-regexp-in-string "/$" "" filename))
-         (args (append opener (list (if winp
-                                        (replace-regexp-in-string "/" (rx "\\") fn)
-                                      fn))))
-         (process-connection-type nil))
-    (apply 'start-process "open-file-dwim" nil args)))
+(defun open-file-dwim-win (filename)
+  "Open file dwim for Windows"
+    (w32-shell-execute "open" filename))
 
 ;; カーソル下のファイルやディレクトリを関連付けられたプログラムで開く
 (defun dired-open-dwim ()
   "Open file under the cursor"
   (interactive)
-  (open-file-dwim (dired-get-filename)))
+  (cond
+   ((windowsp)
+	(open-file-dwim-win (dired-get-filename)))
+	((macp)
+	 ;; xxx
+	 )
+	((linuxp)
+	 ;; xxx
+	 )
+	(t
+	 ;; Nothing
+	 )))
 
 ;; 現在のディレクトリを関連付けられたプログラムで開く
-(defun dired-open-here ()
-  "Open current directory"
-  (interactive)
-  (open-file-dwim (expand-file-name dired-directory)))
+;; (defun dired-open-here ()
+;;   "Open current directory"
+;;   (interactive)
+;;   (cond
+;;    ((windowsp)
+;; 	(open-file-dwim-win (expand-file-name dired-directory)))))
 
 ;;=========================================================
 ;; スペースでマークする (FD like)
@@ -93,14 +106,14 @@
    (function dired-convert-coding-system) arg 'convert-coding-system t))
 
 ;; デフォルトの文字コード
-(setq dired-default-file-coding-system 'euc-jp-unix)
+(setq dired-default-file-coding-system 'utf-8)
 
+;; diredを2つのウィンドウで開いている時に、
+;; デフォルトの移動orコピー先をもう一方のdiredで開いているディレクトリにする
+(setq dired-dwim-target t)
 
-;;=========================================================
-;; デフォルトで再帰コピー，再帰削除
-;;=========================================================
-(setq dired-recursive-copies 'always)
-(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always) 	;; 再帰コピー
+(setq dired-recursive-deletes 'always)	;; 再帰削除
 
 ;;=========================================================
 ;; フォルダを開く時, 新しいバッファを作成しない
@@ -208,7 +221,7 @@
 (add-hook 'dired-mode-hook
           (lambda ()
 			(define-key dired-mode-map (kbd "C-c o") 'dired-open-dwim)
-			(define-key dired-mode-map (kbd "C-c .") 'dired-open-here)
+;;			(define-key dired-mode-map (kbd "C-c .") 'dired-open-here)
 			(define-key dired-mode-map " " 'dired-toggle-mark)
             (define-key dired-mode-map "T" 'dired-do-convert-coding-system)
 			(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)

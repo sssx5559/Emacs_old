@@ -79,5 +79,5 @@
 (global-set-key (kbd "C-M-m") (lambda () (interactive) (move-to-window-line nil)))
 (global-set-key (kbd "C-M-l") (lambda () (interactive) (move-to-window-line -1)))
 
-(define-key helm-map (kbd "C-<up>") 'scroll-other-window-down)
-(define-key helm-map (kbd "C-<down>") 'scroll-other-window)
+(define-key global-map (kbd "C-<up>") 'scroll-other-window-down)
+(define-key global-map (kbd "C-<down>") 'scroll-other-window)
