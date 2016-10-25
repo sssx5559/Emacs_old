@@ -217,8 +217,9 @@
 ;; タブストップリスト作成
 (setq-default tab-stop-list (miya-make-tab-stop-list))
 
-;; ファイルバックアップなし
-;(setq make-backup-files nil)
+
+;; (setq make-backup-files nil)			;; ファイルバックアップなし
+(setq mode-require-final-newline nil)	;; 保存時に改行コードをつけない
 
 ;; 日付入力
 (autoload 'instamp "instamp" "Insert TimeStamp on the point" t)
