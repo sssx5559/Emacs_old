@@ -90,16 +90,10 @@
 ;; カーソルの形
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 't(デフォルト) 'nil(なし), 'box, 'hbar(下線), 'hollow(中抜き)
-;(add-to-list 'default-frame-alist '(cursor-type . 'hbar))
+;; (add-to-list 'default-frame-alist '(cursor-type . 'hbar))
 
-;; ;; (set-cursor-type 'box)            ; Meadow-1.10互換 (SKK等で色が変る設定)
-;; ;; (set-cursor-type 'hairline-caret) ; 縦棒キャレット
-
-;;; マウスカーソルを消す設定
-;(when (fboundp 'Meadow-version)
-;  (setq w32-hide-mouse-on-key t)
-;  (setq w32-hide-mouse-timeout 5000))
-
+;;(set-cursor-type 'box)            ; Meadow-1.10互換 (SKK等で色が変る設定)
+;;(set-cursor-type 'hairline-caret) ; 縦棒キャレット
 
 ;タイトルバーにファイル名を表示
 (setq frame-title-format "%f")
@@ -109,7 +103,6 @@
 
 
 ;;改行、全角スペース、タブ、行末スペースを表示する設定
-;;  
 ;(defface my-face-r-1 '((t (:background "gray32"))) nil) ;改行
 (defface my-face-b-1 '((t (:background "bisque1"))) nil) ;全角スーペース
 ;(defface my-face-b-2 '((t (:background "honeydew1"))) nil) ;タブ
@@ -120,7 +113,7 @@
 ;(defvar my-face-b-2 'my-face-b-2)
 (defvar my-face-u-1 'my-face-u-1)
 
-(defadvice font-lock-mode 
+(defadvice font-lock-mode
    (before my-font-lock-mode ())
    (font-lock-add-keywords
      major-mode
@@ -132,7 +125,6 @@
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
 
-
 ;;; メニューバー表示設定(引数 正：表示  負：非表示)
 (menu-bar-mode -1)
 
@@ -142,7 +134,7 @@
 
 ;; スクロールバー表示設定
 (set-scroll-bar-mode nil)
-;(set-scroll-bar-mode right)
+;; (set-scroll-bar-mode 'right)
 
 ;; ツールバー表示設定
 (tool-bar-mode -1)
