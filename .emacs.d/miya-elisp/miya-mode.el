@@ -54,11 +54,11 @@
 ;; これを入れないと、python-mode時に警告が出る
 (setq python-indent-guess-indent-offset nil)
 
-(defun search-coding ()
-    (save-excursion
-	  (goto-char (point-min))
-	  (if (search-forward-regexp "coding:[ \t]*\\([-_a-zA-Z0-9]+\\)" nil t)
-		  (match-string 1))))
+;; (defun search-coding ()
+;;     (save-excursion
+;; 	  (goto-char (point-min))
+;; 	  (if (search-forward-regexp "coding:[ \t]*\\([-_a-zA-Z0-9]+\\)" nil t)
+;; 		  (match-string 1))))
 
 (add-hook 'python-mode-hook
 		  (lambda ()

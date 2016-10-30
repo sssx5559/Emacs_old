@@ -26,7 +26,12 @@
 
 (defun open-file-dwim-win (filename)
   "Open file dwim for Windows"
-    (w32-shell-execute "open" filename))
+  (w32-shell-execute "open" filename))
+
+(defun open-file-dwim-linux (filename)
+  "Open file dwim for Linux"
+  (let ((process-connection-type nil))	;; これを設定しないと上手く表示されない
+    (start-process "xdg-open" nil "xdg-open" filename)))
 
 ;; カーソル下のファイルやディレクトリを関連付けられたプログラムで開く
 (defun dired-open-dwim ()
@@ -35,15 +40,14 @@
   (cond
    ((windowsp)
 	(open-file-dwim-win (dired-get-filename)))
-	((macp)
-	 ;; xxx
-	 )
-	((linuxp)
-	 ;; xxx
-	 )
-	(t
-	 ;; Nothing
-	 )))
+   ((macp)
+	;; xxx
+	)
+   ((linuxp)
+	(open-file-dwim-linux (dired-get-filename)))
+   (t
+	;; Nothing
+	)))
 
 ;; 現在のディレクトリを関連付けられたプログラムで開く
 ;; (defun dired-open-here ()
