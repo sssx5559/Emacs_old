@@ -1,4 +1,4 @@
-﻿;;;; -*- coding: utf-8 -*-
+;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 雑多な設定
@@ -216,7 +216,6 @@
 
 ;; タブストップリスト作成
 (setq-default tab-stop-list (miya-make-tab-stop-list))
-
 
 ;; (setq make-backup-files nil)			;; ファイルバックアップなし
 (setq mode-require-final-newline nil)	;; 保存時に改行コードをつけない

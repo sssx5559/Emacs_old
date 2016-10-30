@@ -60,7 +60,8 @@
   (el-get-bundle helm-project)
   (el-get-bundle helm-gtags)
   (el-get-bundle helm-swoop)
-  (el-get-bundle helm-ls-git))
+  (el-get-bundle helm-descbinds)
+  )
 
 ;; The Silver Searcher
 (when (executable-find "ag")
@@ -176,6 +177,7 @@
   ;;; C-hのドキュメント表示を変更
   (define-key company-active-map (kbd "C-h") nil)
   (define-key company-active-map (kbd "M-h") 'company-show-doc-buffer)
+  (define-key company-active-map (kbd "C-o") 'company-show-doc-buffer)
 
   ;;; 1つしか候補がなかったらtabで補完、複数候補があればtabで次の候補へ行くように
 ;;  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
@@ -250,10 +252,27 @@
   )
 
 ;;=========================================================
+;; smartrep(連続操作を楽にする)
+;;=========================================================
+(el-get-bundle smartrep
+  (require 'smartrep)
+  ;; 非アクティブウインドウをスクロール
+  (global-unset-key (kbd "C--"))
+  (smartrep-define-key global-map "C--"
+	'(("n" . (scroll-other-window 1))
+	  ("p" . (scroll-other-window -1))
+	  ("N" . 'scroll-other-window)
+	  ("P" . (scroll-other-window '-))
+	  ("a" . (beginning-of-buffer-other-window 0))
+	  ("e" . (end-of-buffer-other-window 0))))
+  )
+
+;;=========================================================
 ;; multiple-cursors
 ;;=========================================================
 (el-get-bundle multiple-cursors
   (require 'multiple-cursors)
+  (require 'smartrep)
 
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
@@ -290,6 +309,28 @@
   ;; 	  (1 (mark-sexp 1))))
 
   ;; (global-set-key (kbd "C-M-SPC") 'mc/mark-all-dwim-or-mark-sexp)
+
+  (declare-function smartrep-define-key "smartrep")
+
+  (global-set-key (kbd "C-M-c") 'mc/edit-lines)
+  (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
+
+  (global-unset-key "\C-t")
+
+  (smartrep-define-key global-map "C-t"
+  					   '(("C-t"  . 'mc/mark-next-like-this)
+  						 ("n"    . 'mc/mark-next-like-this)
+  						 ("p"    . 'mc/mark-previous-like-this)
+  						 ("m"    . 'mc/mark-more-like-this-extended)
+  						 ("N"    . 'mc/unmark-next-like-this)
+  						 ("P"    . 'mc/unmark-previous-like-this)
+  						 ("s"    . 'mc/skip-to-next-like-this)
+  						 ("S"    . 'mc/skip-to-previous-like-this)
+  						 ("*"    . 'mc/mark-all-like-this)
+  						 ("d"    . 'mc/mark-all-like-this-dwim)
+  						 ("i"    . 'mc/insert-numbers)
+  						 ("o"    . 'mc/sort-regions)
+  						 ("O"    . 'mc/reverse-regions)))
   )
 
 ;;=========================================================
@@ -330,8 +371,8 @@
 ;;=========================================================
 ;; Erlang mode
 ;;=========================================================
-(when (executable-find "erl")
-  (el-get-bundle erlang-mode))
+;; (when (executable-find "erl")
+;;   (el-get-bundle erlang-mode))
 
 ;;=========================================================
 ;; Elixir mode
