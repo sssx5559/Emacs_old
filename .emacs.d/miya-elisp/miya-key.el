@@ -81,3 +81,5 @@
 
 (define-key global-map (kbd "C-<up>") 'scroll-other-window-down)
 (define-key global-map (kbd "C-<down>") 'scroll-other-window)
+
+(define-key global-map (kbd "M-/") 'hippie-expand)	;; 動的語展開の拡張
