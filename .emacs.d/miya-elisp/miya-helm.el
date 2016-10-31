@@ -131,6 +131,7 @@
 ;(global-set-key (kbd "C-c C-r") 'helm-resume)
 (global-set-key (kbd "C-c a") 'helm-ag)
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x r l") 'helm-bookmarks)
 
 ;; projectile関連
 ;(global-set-key (kbd "C-:") 'helm-projectile-find-file)

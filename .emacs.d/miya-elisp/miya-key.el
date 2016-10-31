@@ -79,7 +79,7 @@
 (global-set-key (kbd "C-M-m") (lambda () (interactive) (move-to-window-line nil)))
 (global-set-key (kbd "C-M-l") (lambda () (interactive) (move-to-window-line -1)))
 
-(define-key global-map (kbd "C-<up>") 'scroll-other-window-down)
-(define-key global-map (kbd "C-<down>") 'scroll-other-window)
+(global-set-key (kbd "C-<up>") 'scroll-other-window-down)
+(global-set-key (kbd "C-<down>") 'scroll-other-window)
 
-(define-key global-map (kbd "M-/") 'hippie-expand)	;; 動的語展開の拡張
+(global-set-key (kbd "M-/") 'hippie-expand)		;; 動的語展開の拡張

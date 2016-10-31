@@ -1,4 +1,4 @@
-;;;; -*- coding: utf-8 -*-
+﻿;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; El-Get設定ファイル
@@ -264,7 +264,12 @@
 	  ("N" . 'scroll-other-window)
 	  ("P" . (scroll-other-window '-))
 	  ("a" . (beginning-of-buffer-other-window 0))
-	  ("e" . (end-of-buffer-other-window 0))))
+	  ("e" . (end-of-buffer-other-window 0))
+	  ("-" . 'shrink-window)
+	  ("+" . (shrink-window -1))
+	  ("{" . 'shrink-window-horizontally)
+	  ("}" . (shrink-window-horizontally - 1))
+	  ))
   )
 
 ;;=========================================================
