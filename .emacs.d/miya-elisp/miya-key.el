@@ -82,4 +82,4 @@
 (global-set-key (kbd "C-<up>") 'scroll-other-window-down)
 (global-set-key (kbd "C-<down>") 'scroll-other-window)
 
-(global-set-key (kbd "M-/") 'hippie-expand)		;; 動的語展開の拡張
+(global-set-key (kbd "M-/") 'hippie-expand)		;; 動的略語展開の拡張
