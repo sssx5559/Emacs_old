@@ -286,57 +286,57 @@
 ;;=========================================================
 ;; Scala
 ;;=========================================================
-(add-to-list 'load-path "~/.emacs.d/scala-mode")
-(require 'scala-mode-auto)
-;(require 'scala-mode-feature-electric)
-;    (add-hook 'scala-mode-hook
-;	      (lambda ()
-;		(scala-electric-mode)))
+;; (add-to-list 'load-path "~/.emacs.d/scala-mode")
+;; (require 'scala-mode-auto)
+;; ;(require 'scala-mode-feature-electric)
+;; ;    (add-hook 'scala-mode-hook
+;; ;	      (lambda ()
+;; ;		(scala-electric-mode)))
 
-;; ENSIME(the ENhanced Scala Interaction Mode for Emacs)
-;(add-to-list 'load-path "~/emacs/ensime_2.9.0-1-0.6.1/elisp")
-;(require 'ensime)
-;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+;; ;; ENSIME(the ENhanced Scala Interaction Mode for Emacs)
+;; ;(add-to-list 'load-path "~/emacs/ensime_2.9.0-1-0.6.1/elisp")
+;; ;(require 'ensime)
+;; ;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
+;; ;; (defun miya-run-scala ()
+;; ;;   (let ((ret)
+;; ;; 		(file "temp.scala")
+;; ;; 		(buf  (get-buffer-create "* run-scala*")))
+;; ;; 	(write-region (point-min) (point-max) file nil 1)
+;; ;; 	(call-process "scala" nil buf nil file)
+;; ;; 	(set-buffer buf)
+;; ;; 	(setq ret (buffer-substring (point-min) (point-max)))
+;; ;; 	(delete-file file)
+;; ;; 	(kill-buffer buf)
+;; ;; 	(message (substring ret 0 (string-match "[ \n]+$" ret)))))
+
+;; ;; 初回起動時は"java"プロセスが2つ起動するので、終了待ちから脱出できなくなる。
+;; ;; bashから手動で"scala"コマンドを実行してから起動すると回避できる。(Windows)
 ;; (defun miya-run-scala ()
 ;;   (let ((ret)
 ;; 		(file "temp.scala")
 ;; 		(buf  (get-buffer-create "* run-scala*")))
 ;; 	(write-region (point-min) (point-max) file nil 1)
 ;; 	(call-process "scala" nil buf nil file)
+;; ;	(start-process "scala" buf "scala" file)
 ;; 	(set-buffer buf)
 ;; 	(setq ret (buffer-substring (point-min) (point-max)))
 ;; 	(delete-file file)
 ;; 	(kill-buffer buf)
 ;; 	(message (substring ret 0 (string-match "[ \n]+$" ret)))))
 
-;; 初回起動時は"java"プロセスが2つ起動するので、終了待ちから脱出できなくなる。
-;; bashから手動で"scala"コマンドを実行してから起動すると回避できる。(Windows)
-(defun miya-run-scala ()
-  (let ((ret)
-		(file "temp.scala")
-		(buf  (get-buffer-create "* run-scala*")))
-	(write-region (point-min) (point-max) file nil 1)
-	(call-process "scala" nil buf nil file)
-;	(start-process "scala" buf "scala" file)
-	(set-buffer buf)
-	(setq ret (buffer-substring (point-min) (point-max)))
-	(delete-file file)
-	(kill-buffer buf)
-	(message (substring ret 0 (string-match "[ \n]+$" ret)))))
-
-(add-hook 'scala-mode-hook
-		  (lambda ()
-			(define-key scala-mode-map "\C-x@"
-			  (lambda ()
-				(interactive)
-				(miya-run-scala)))
-			(define-key scala-mode-map "\C-m"
-			  (lambda ()
-				(interactive)
-				(progn
-				  (scala-newline)
-				  (scala-indent-line))))))
+;; (add-hook 'scala-mode-hook
+;; 		  (lambda ()
+;; 			(define-key scala-mode-map "\C-x@"
+;; 			  (lambda ()
+;; 				(interactive)
+;; 				(miya-run-scala)))
+;; 			(define-key scala-mode-map "\C-m"
+;; 			  (lambda ()
+;; 				(interactive)
+;; 				(progn
+;; 				  (scala-newline)
+;; 				  (scala-indent-line))))))
 
 ;;=========================================================
 ;; EShell
@@ -647,12 +647,11 @@
 ;;=========================================================
 ;; ファイル履歴モード
 ;;=========================================================
-(when (>= emacs-major-version 23)
 (recentf-mode t)
-;(setq recentf-max-saved-items 500)
 (setq recentf-exclude '("TAGS$"))
-(setq recentf-max-menu-items 50)
-(require 'recentf-ext))
+(setq recentf-max-menu-items 100)
+(setq recentf-max-saved-items 200)
+(require 'recentf-ext)
 
 ;;=========================================================
 ;; 重複バッファ名称
@@ -676,7 +675,7 @@
 		(eldoc-mode . "")
 		(abbrev-mode . "")
 		(helm-mode . "")
-		(undo-tree-mode . " ")
+		(undo-tree-mode . "")
 		(yas-minor-mode . " Ys")
 		(paredit-mode . " Pe")
 		(elisp-slime-nav-mode . " EN")
