@@ -59,7 +59,7 @@
   (set-face-foreground 'font-lock-type-face "PaleGreen")
   (set-face-foreground 'font-lock-builtin-face "LightSteelBlue")
   (set-face-foreground 'font-lock-constant-face "Aquamarine")
-  (set-face-foreground 'font-lock-warning-face "Pink")
+  (set-face-foreground 'font-lock-warning-face "magenta1")
   (set-face-foreground 'mode-line-inactive "royal blue")
   (set-face-bold-p 'mode-line-inactive t))
 ;; (when (>= emacs-major-version 23)
@@ -158,6 +158,44 @@
 ;(when (>= emacs-major-version 23)
 ;  (display-battery-mode 1)	;; バッテリ残量
 ;  )
+;;=========================================================
+;; モードラインに表示されるメジャー/マイナーモード名を短縮
+;;=========================================================
+(when (>= emacs-major-version 23)
+	(defvar mode-line-cleaner-alist
+	  '( ;; For minor-mode, first char is 'space'
+		(eldoc-mode . "")
+		(abbrev-mode . "")
+		(helm-mode . "")
+		(undo-tree-mode . "")
+		(yas-minor-mode . " Ys")
+		(paredit-mode . " Pe")
+		(elisp-slime-nav-mode . " EN")
+		(helm-gtags-mode . " Hg")
+		(helm-migemo-mode . " Hm")
+		;;	(company-mode . " Cp")	; comnapyモードは、補完ソースを表示するので短縮しない。
+		(flymake-mode . " Fm")
+
+		;; Major modes
+		(lisp-interaction-mode . "Lisp")
+		(python-mode . "Python")
+		(ruby-mode   . "Ruby")
+		(emacs-lisp-mode . "Elisp")
+		(markdown-mode . "MarkDown")))
+
+  (defun clean-mode-line ()
+	(interactive)
+	(loop for (mode . mode-str) in mode-line-cleaner-alist
+		  do
+		  (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+			(when old-mode-str
+			  (setcar old-mode-str mode-str))
+			;; major mode
+			(when (eq mode major-mode)
+			  (setq mode-name mode-str)))))
+
+  (add-hook 'after-change-major-mode-hook 'clean-mode-line)
+  )
 
 ;;=========================================================
 ;; Title bar

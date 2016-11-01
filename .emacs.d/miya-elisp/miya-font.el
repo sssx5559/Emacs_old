@@ -5,60 +5,6 @@
 ;;-----------------------------------------------------------------------------
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Meadow2.0用
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun Meadow2.0-font-set ()
-
-  ;;未確定文字のフォント設定
-  (setq default-frame-alist
-		(cons '(ime-font . (w32-logfont "ＭＳ 明朝"
-										0 16 400 0 nil nil nil 128 1 3 17))
-			  default-frame-alist))
-
-  (w32-add-font
-   "tt-font"
-   '((spec
-	  ((:char-spec ascii :height 120)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 400 0 nil nil nil 0 1 3 49))
-	  ((:char-spec ascii :height 120 :weight bold)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 700 0 nil nil nil 0 1 3 49))
-	  ((:char-spec ascii :height 120 :slant italic)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 400 0   t nil nil 0 1 3 49))
-	  ((:char-spec ascii :height 120 :weight bold :slant italic)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 700 0   t nil nil 0 1 3 49))
-	  ((:char-spec japanese-jisx0208 :height 120)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 400 0 nil nil nil 128 1 3 49))
-	  ((:char-spec japanese-jisx0208 :height 120 :weight bold)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 700 0 nil nil nil 128 1 3 49)
-	   ((spacing . -1)))
-	  ((:char-spec japanese-jisx0208 :height 120 :slant italic)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 400 0   t nil nil 128 1 3 49))
-	  ((:char-spec japanese-jisx0208 :height 120 :weight bold :slant italic)
-	   strict
-	   (w32-logfont "ＭＳ 明朝" 0 -16 700 0   t nil nil 128 1 3 49)
-	   ((spacing . -1))))))
-
-  (set-face-attribute 'variable-pitch nil :family "tt-font")
-
-  ;; フレームフォントの設定
-  (setq default-frame-alist
-		(cons '(font . "tt-font")
-			  default-frame-alist))
-
-  ;; ＢＤＦフォント読み込み
-										;when (require 'font-setup nil t)
-										;  (setq font-setup-bdf-dir "C:/Meadow2/Meadow/site-lisp/intlfonts-1.2.1")
-										;  (font-setup))
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Meadow3.0用
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun Meadow3.0-font-set ()
