@@ -224,7 +224,7 @@
 ;;=========================================================
 (add-hook 'dired-mode-hook
           (lambda ()
-			(define-key dired-mode-map (kbd "C-c o") 'dired-open-dwim)
+			(define-key dired-mode-map (kbd "e") 'dired-open-dwim)
 ;;			(define-key dired-mode-map (kbd "C-c .") 'dired-open-here)
 			(define-key dired-mode-map " " 'dired-toggle-mark)
             (define-key dired-mode-map "T" 'dired-do-convert-coding-system)
