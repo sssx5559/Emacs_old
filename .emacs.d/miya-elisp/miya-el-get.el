@@ -268,7 +268,7 @@
 	  ("-" . 'shrink-window)
 	  ("+" . (shrink-window -1))
 	  ("{" . 'shrink-window-horizontally)
-	  ("}" . (shrink-window-horizontally - 1))
+	  ("}" . (shrink-window-horizontally -1))
 	  ))
   )
 
