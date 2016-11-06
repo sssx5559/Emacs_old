@@ -1,4 +1,4 @@
-﻿;;;; -*- coding: utf-8 -*-
+;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; El-Get設定ファイル
@@ -279,9 +279,6 @@
   (require 'multiple-cursors)
   (require 'smartrep)
 
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-
   ;; (defun mc/mark-all-dwim-or-expand-region (arg)
   ;; 	(interactive "p")
   ;; 	(cl-case arg
@@ -318,7 +315,7 @@
   (declare-function smartrep-define-key "smartrep")
 
   (global-set-key (kbd "C-M-c") 'mc/edit-lines)
-  (global-set-key (kbd "C-M-r") 'mc/mark-all-in-region)
+  (global-set-key (kbd "C-M-m") 'mc/mark-all-in-region)
 
   (global-unset-key "\C-t")
 
@@ -336,6 +333,23 @@
   						 ("i"    . 'mc/insert-numbers)
   						 ("o"    . 'mc/sort-regions)
   						 ("O"    . 'mc/reverse-regions)))
+  )
+
+;;=========================================================
+;; iedit
+;;=========================================================
+(el-get-bundle victorhge/iedit
+  (require 'iedit)
+  (setq iedit-toggle-key-default nil) ;; "C-c ;"を設定しても使えない
+  (global-set-key (kbd "C-c ;") 'iedit-mode)
+
+  (define-key iedit-mode-keymap (kbd "C-m") 'iedit-toggle-selection)
+  (define-key iedit-mode-keymap (kbd "M-p") 'iedit-expand-up-a-line)
+  (define-key iedit-mode-keymap (kbd "M-n") 'iedit-expand-down-a-line)
+  (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
+  (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line)
+  (define-key iedit-mode-keymap (kbd "C-g") 'iedit-mode) ;; Exit iedit-mode
+  (define-key iedit-mode-keymap (kbd "C-h") 'delete-backward-char)
   )
 
 ;;=========================================================
@@ -383,8 +397,7 @@
 ;; Elixir mode
 ;;=========================================================
 (when (executable-find "elixir")
-  (el-get-bundle pkg-info)		; elixirで使用
-  (el-get-bundle elixir))
+  (el-get-bundle elixir :depends pkg-info))
 
 ;;=========================================================
 ;; Everything
@@ -464,3 +477,26 @@
 ;; 	)
 ;;   (projectile-mode t)
 ;;   )
+
+;;=========================================================
+;; flycheck
+;;=========================================================
+(el-get-bundle flycheck
+  ;; Python
+  (add-hook 'python-mode-hook 'flycheck-mode)
+
+  ;; Ruby
+  (add-hook 'ruby-mode-hook 'flycheck-mode)
+
+  ;; flymake
+  ;; (smartrep-define-key global-map "M-g" '(("M-n" . 'flymake-goto-next-error)
+  ;; 										  ("M-p" . 'flymake-goto-prev-error)))
+  )
+
+;;=========================================================
+;; magit
+;;=========================================================
+;;(el-get-bundle magit :branch "2.8.0")		;; Windowsだとエラーになる
+(el-get-bundle dash)
+(el-get-bundle with-editor)
+

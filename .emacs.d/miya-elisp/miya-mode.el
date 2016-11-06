@@ -712,3 +712,40 @@
 ;; 				(interactive)
 ;; 				(miya-run-objc)))))
 
+;;=========================================================
+;; magit
+;;=========================================================
+(when (>= emacs-major-version 24)
+  ;; 依存パッケージ
+;;  (require 'dash)
+;;  (require 'with-editor)
+
+  (add-to-list 'load-path (concat emacs-dir "elisp/magit/lisp"))
+  (require 'magit)
+
+  (with-eval-after-load 'info
+	(info-initialize)
+	(add-to-list 'Info-directory-list
+				 (concat emacs-dir "magit/Documentation/")))
+
+
+  (setq-default magit-auto-revert-mode nil)
+  (setq vc-handled-backends '())
+  (eval-after-load "vc" '(remove-hook 'find-file-hooks 'vc-find-file-hook))
+  (global-set-key (kbd "C-x m") 'magit-status)
+  (global-set-key (kbd "C-c l") 'magit-blame)
+
+  (custom-set-faces
+   '(magit-diff-added ((t (:background "black" :foreground "green"))))
+   '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
+   '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
+   '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
+   '(magit-hash ((t (:foreground "red"))))
+   )
+
+  ;; 文字コードは、UTF-8で固定
+  (add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+  (add-hook 'git-commit-mode-hook
+          '(lambda ()
+             (set-buffer-file-coding-system 'utf-8)))
+  )
