@@ -720,7 +720,7 @@
 ;;  (require 'dash)
 ;;  (require 'with-editor)
 
-  (add-to-list 'load-path (concat emacs-dir "elisp/magit/lisp"))
+  (add-to-list 'load-path (concat emacs-dir "elisp/magit-2.8.0/lisp"))
   (require 'magit)
 
   (with-eval-after-load 'info
