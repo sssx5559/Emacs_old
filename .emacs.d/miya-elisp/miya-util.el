@@ -142,10 +142,6 @@
 ;(setq indent-line-function 'indent-relative-maybe)
 
 
-;; マクロ設定
-(fset 'main
-   "public static void main(String[] args){")
-
 ;; 関数使用許可設定
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -161,9 +157,6 @@
 
 ;; ブックマーク自動保存
 (setq bookmark-save-flag 1)
-
-;; 圧縮ファイルの編集
-(auto-compression-mode)
 
 ;; ミニバッファ拡大抑止
 ;(setq resize-mini-windows nil)
@@ -226,7 +219,6 @@
 
 ;; grep
 (setq grep-command "grep -rne ")
-
 
 ;; ffap
 ;(ffap-bindings)	;; バッファ上のカーソル位置からパスを見つける
