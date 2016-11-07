@@ -66,7 +66,7 @@
 ;								 (interactive)
 ;								 (revert-buffer nil t)))
 
-;; リスト5 最後のマークに移動
+;; 最後のマークに移動
 (defun move-to-mark ()
   (interactive)
   (let ((pos (point)))
@@ -74,10 +74,10 @@
 	(push-mark pos)))
 (global-set-key "\M-p" 'move-to-mark)
 
-;; リスト6 ウィンドウ内のカーソル移動
-(global-set-key (kbd "C-M-h") (lambda () (interactive) (move-to-window-line 0)))
-(global-set-key (kbd "C-M-m") (lambda () (interactive) (move-to-window-line nil)))
-(global-set-key (kbd "C-M-l") (lambda () (interactive) (move-to-window-line -1)))
+;; ウィンドウ内のカーソル移動
+;; (global-set-key (kbd "C-M-h") (lambda () (interactive) (move-to-window-line 0)))
+;; (global-set-key (kbd "C-M-m") (lambda () (interactive) (move-to-window-line nil)))
+;; (global-set-key (kbd "C-M-l") (lambda () (interactive) (move-to-window-line -1)))
 
 (global-set-key (kbd "C-<up>") 'scroll-other-window-down)
 (global-set-key (kbd "C-<down>") 'scroll-other-window)
