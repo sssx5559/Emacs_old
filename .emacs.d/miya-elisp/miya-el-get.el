@@ -200,6 +200,12 @@
 ;;  (define-key company-search-map (kbd "<tab>") 'company-complete-common-or-cycle)
   (define-key company-search-map (kbd "M-i") 'company-complete-common-or-cycle)
 
+  ;; quick-help
+  ;; (el-get-bundle pos-tip)
+  ;; (el-get-bundle company-quickhelp
+  ;; 	(company-quickhelp-mode +1)		;; 使うと重たくなる
+  ;; 	)
+
   ;;=========================================================
   ;; company-jedi(Python入力補完)
   ;;=========================================================
