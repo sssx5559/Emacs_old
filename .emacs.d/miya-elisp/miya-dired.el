@@ -34,7 +34,7 @@
     (start-process "xdg-open" nil "xdg-open" filename)))
 
 ;; カーソル下のファイルやディレクトリを関連付けられたプログラムで開く
-(defun dired-open-dwim ()
+(defun dired-my-open-dwim ()
   "Open file under the cursor"
   (interactive)
   (cond
@@ -48,14 +48,6 @@
    (t
 	;; Nothing
 	)))
-
-;; 現在のディレクトリを関連付けられたプログラムで開く
-;; (defun dired-open-here ()
-;;   "Open current directory"
-;;   (interactive)
-;;   (cond
-;;    ((windowsp)
-;; 	(open-file-dwim-win (expand-file-name dired-directory)))))
 
 ;;=========================================================
 ;; スペースでマークする (FD like)
@@ -122,58 +114,44 @@
 ;;=========================================================
 ;; フォルダを開く時, 新しいバッファを作成しない
 ;;=========================================================
-;; (if (meadowp)
-;; 	(progn
-;; 	  ;; Windowsのリンクを扱う場合はこっち
-;; 	  (defvar my-dired-before-buffer nil)
-;; 	  (defadvice dired-advertised-find-file
-;; 		(before kill-dired-buffer activate)
-;; 		(setq my-dired-before-buffer (current-buffer)))
+(defun dired-my-advertised-find-file ()
+  (interactive)
+  (let ((kill-target (current-buffer))
+		(check-file (dired-get-filename)))
+	(funcall 'dired-advertised-find-file)
+	(if (file-directory-p check-file)
+		(kill-buffer kill-target))))
 
-;; 	  (defadvice dired-advertised-find-file
-;; 		(after kill-dired-buffer-after activate)
-;; 		(if (eq major-mode 'dired-mode)
-;; 			(kill-buffer my-dired-before-buffer)))
+(defun dired-my-up-directory (&optional other-window)
+  "Run dired on parent directory of current directory.
+Find the parent directory either in this buffer or another buffer.
+Creates a buffer if necessary."
+  (interactive "P")
+  (let* ((dir (dired-current-directory))
+		 (up (file-name-directory (directory-file-name dir))))
+	(or (dired-goto-file (directory-file-name dir))
+		;; Only try dired-goto-subdir if buffer has more than one dir.
+		(and (cdr dired-subdir-alist)
+			 (dired-goto-subdir up))
+		(progn
+		  (if other-window
+			  (dired-other-window up)
+			(progn
+			  (kill-buffer (current-buffer))
+			  (dired up))
+			(dired-goto-file dir))))))
 
-;; 	  (defadvice dired-up-directory
-;; 		(before kill-up-dired-buffer activate)
-;; 		(setq my-dired-before-buffer (current-buffer)))
-
-;; 	  (defadvice dired-up-directory
-;; 		(after kill-up-dired-buffer-after activate)
-;; 		(if (eq major-mode 'dired-mode)
-;; 			(kill-buffer my-dired-before-buffer))))
-;;   (progn
-;; 	;; NTEmacs and Linux
-;; 	(defun dired-my-advertised-find-file ()
-;; 	  (interactive)
-;; 	  (let ((kill-target (current-buffer))
-;; 			(check-file (dired-get-filename)))
-;; 		(funcall 'dired-advertised-find-file)
-;; 		(if (file-directory-p check-file)
-;; 			(kill-buffer kill-target))))
-
-;; 	(defun dired-my-up-directory (&optional other-window)
-;; 	  "Run dired on parent directory of current directory.
-;; Find the parent directory either in this buffer or another buffer.
-;; Creates a buffer if necessary."
-;; 	  (interactive "P")
-;; 	  (let* ((dir (dired-current-directory))
-;; 			 (up (file-name-directory (directory-file-name dir))))
-;; 		(or (dired-goto-file (directory-file-name dir))
-;; 			;; Only try dired-goto-subdir if buffer has more than one dir.
-;; 			(and (cdr dired-subdir-alist)
-;; 				 (dired-goto-subdir up))
-;; 			(progn
-;; 			  (if other-window
-;; 				  (dired-other-window up)
-;; 				(progn
-;; 				  (kill-buffer (current-buffer))
-;; 				  (dired up))
-;; 				(dired-goto-file dir))))))))
+;; ファイルを開くときはバッファを削除しない
+(defun dired-my-find-alternate-file ()
+  (interactive)
+  (let ((file (dired-get-filename)))
+    (if (file-directory-p file)
+        (dired-find-alternate-file)
+      (dired-find-file))))
 
 ;;=========================================================
 ;; 今日変更したファイルに色をつける
+;; ※NTEmacsだと動かない・・・
 ;;=========================================================
 ;; (defface face-file-edited-today
 ;;   '((((class color)
@@ -224,15 +202,17 @@
 ;;=========================================================
 (add-hook 'dired-mode-hook
           (lambda ()
-			(define-key dired-mode-map (kbd "e") 'dired-open-dwim)
-;;			(define-key dired-mode-map (kbd "C-c .") 'dired-open-here)
+			(define-key dired-mode-map (kbd "e") 'dired-my-open-dwim)
 			(define-key dired-mode-map " " 'dired-toggle-mark)
             (define-key dired-mode-map "T" 'dired-do-convert-coding-system)
 			(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
-			;; 新規バッファを作らずにディレクトリを開く(デフォルトは「a」)
-			(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-			;; 「a」を押したときに新規バッファを作って開くようにする
-			(define-key dired-mode-map "a" 'dired-advertised-find-file)
-			;; 「^」がを押しにくい場合「c」でも上の階層に移動できるようにする
-			;(define-key dired-mode-map "c" 'dired-up-directory)
+
+			;; 下の階層に移動 or ファイルを開く
+			(define-key dired-mode-map (kbd "RET") 'dired-my-find-alternate-file)	; 新規バッファを作らない
+			(define-key dired-mode-map (kbd "f") 'dired-my-find-alternate-file)		; 新規バッファを作らない
+			(define-key dired-mode-map (kbd "a") 'dired-find-file) 					; 新規バッファを作る
+
+			;; 上の階層に移動
+			(define-key dired-mode-map (kbd "c") 'dired-my-up-directory) 			; 新規バッファを作らない
+			(define-key dired-mode-map (kbd "^") 'dired-up-directory) 				; 新規バッファを作る
 			))
