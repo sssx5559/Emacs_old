@@ -51,17 +51,14 @@
 
 ;;=========================================================
 ;; Helm
-;;=========================================================
-(when (>= emacs-minor-version 3)
-  ;; Emacs Version >= 24.3
-  (el-get-bundle helm)
-  (el-get-bundle helm-ag)
-  (el-get-bundle helm-descbinds)
-  (el-get-bundle helm-project)
-  (el-get-bundle helm-gtags)
-  (el-get-bundle helm-swoop)
-  (el-get-bundle helm-descbinds)
-  )
+;;========================================================
+(el-get-bundle helm)
+(el-get-bundle helm-ag)
+(el-get-bundle helm-descbinds)
+(el-get-bundle helm-project)
+(el-get-bundle helm-gtags)
+(el-get-bundle helm-swoop)
+(el-get-bundle helm-descbinds)
 
 ;; The Silver Searcher
 (when (executable-find "ag")
@@ -142,7 +139,6 @@
    '(company-minimum-prefix-length 2)	; デフォルトは4
    '(company-selection-wrap-around t)	; 候補の一番下でさらに下に行こうとすると一番上に戻る
    ;;'(company-transformers nil)			; 補完候補の順番を指定(nilデフォルト)
-   											;	
    )
 
   ;;;;;;;;;;;;;;;;;;;;
@@ -326,19 +322,20 @@
   (global-unset-key "\C-t")
 
   (smartrep-define-key global-map "C-t"
-  					   '(("C-t"  . 'mc/mark-next-like-this)
-  						 ("n"    . 'mc/mark-next-like-this)
-  						 ("p"    . 'mc/mark-previous-like-this)
-  						 ("m"    . 'mc/mark-more-like-this-extended)
-  						 ("N"    . 'mc/unmark-next-like-this)
-  						 ("P"    . 'mc/unmark-previous-like-this)
-  						 ("s"    . 'mc/skip-to-next-like-this)
-  						 ("S"    . 'mc/skip-to-previous-like-this)
-  						 ("*"    . 'mc/mark-all-like-this)
-  						 ("d"    . 'mc/mark-all-like-this-dwim)
-  						 ("i"    . 'mc/insert-numbers)
-  						 ("o"    . 'mc/sort-regions)
-  						 ("O"    . 'mc/reverse-regions)))
+	'(("C-t"  . 'mc/mark-next-like-this)
+	  ("n"    . 'mc/mark-next-like-this)
+	  ("p"    . 'mc/mark-previous-like-this)
+	  ("m"    . 'mc/mark-more-like-this-extended)
+	  ("N"    . 'mc/unmark-next-like-this)
+	  ("P"    . 'mc/unmark-previous-like-this)
+	  ("s"    . 'mc/skip-to-next-like-this)
+	  ("S"    . 'mc/skip-to-previous-like-this)
+	  ("*"    . 'mc/mark-all-like-this)
+	  ("d"    . 'mc/mark-all-like-this-dwim)
+	  ("i"    . 'mc/insert-numbers)
+	  ("o"    . 'mc/sort-regions)
+	  ("O"    . 'mc/reverse-regions)
+	  ))
   )
 
 ;;=========================================================
@@ -506,3 +503,9 @@
 (el-get-bundle dash)
 (el-get-bundle with-editor)
 
+;;=========================================================
+;; dired-hacks
+;;=========================================================
+(el-get-bundle dired-hacks
+  (dired-filter-mode)
+  )

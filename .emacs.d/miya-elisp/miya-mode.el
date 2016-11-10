@@ -69,8 +69,8 @@
 ;; 			(setq python-indent-guess-indent-offset nil)
 
 ;			(when (load "python-pep8")
-										;			  (define-key global-map (kbd "C-c p") 'python-pep8))
-			(define-key python-mode-map (kbd "C-c C-c") 'comment-region)))
+;			  (define-key global-map (kbd "C-c p") 'python-pep8))
+			(define-key python-mode-map (kbd "C-c C-c") 'comment-region)
 			;; (define-key python-mode-map (kbd "C-x @")
 			;;   (lambda ()
 			;; 	(interactive)
@@ -80,7 +80,8 @@
 			;; 										(intern coding)
 			;; 									  'utf-8)))
 
-			;; 	(miya-run-script my-python))))))
+			;; (miya-run-script my-python)
+			))
 
 ;;=========================================================
 ;; C mode

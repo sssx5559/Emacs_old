@@ -1,12 +1,12 @@
-﻿;;;; -*- mode: lisp-interaction; syntax: elisp; coding: utf-8 -*-
+;;;; -*- coding: utf-8 -*-
 
 ;;-----------------------------------------------------------------------------
 ;; 共通初期設定ファイル
 ;;-----------------------------------------------------------------------------
 
 ;; OS識別用
-;(defun windowsp () (string-match "mingw" system-configuration))
-(defun windowsp () (string-match "-nt" system-configuration))
+(defun windowsp () (or (string-match "mingw" system-configuration)
+					   (string-match "-nt" system-configuration)))
 (defun linuxp () (string-match "linux" system-configuration))
 (defun macp () (string-match "apple" system-configuration))
 
@@ -17,6 +17,17 @@
 ;; Migemo使用判別
 (defun migemop () (and (>= emacs-major-version 23)
 					   (executable-find "cmigemo")))
+
+;; Warningを抑止
+;;
+;; [el-get]
+;; Warning (el-get): Your Emacs doesn't support HTTPS (TLS),
+;;  see https://github.com/dimitri/el-get/wiki/Installation-on-Windows.
+(when (windowsp)
+  (custom-set-variables
+;;   '(display-warning-minimum-level :error)
+   '(warning-minimum-level :error)
+   ))
 
 ;;; load-path
 (setq load-path
@@ -42,8 +53,9 @@
 (load-library "miya-func.el")
 (load-library "miya-mode.el")
 (load-library "miya-dired.el")
-(if (require 'helm nil t)
-	(load-library "miya-helm.el"))
+(if (featurep 'helm)
+	(load-library "miya-helm.el")
+  (load-library "miya-anything.el"))
 
 (load-library "work.el")
 

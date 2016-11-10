@@ -83,3 +83,4 @@
 (global-set-key (kbd "C-<down>") 'scroll-other-window)
 
 (global-set-key (kbd "M-/") 'hippie-expand)		;; 動的略語展開の拡張
+(global-set-key (kbd "C-x t") 'transpose-chars)	;; "C-t"はsmartrepに割り当てた為
