@@ -158,6 +158,9 @@
 ;; ブックマーク自動保存
 (setq bookmark-save-flag 1)
 
+;; 圧縮ファイルの編集
+(auto-compression-mode)
+
 ;; ミニバッファ拡大抑止
 ;(setq resize-mini-windows nil)
 
