@@ -202,10 +202,10 @@ Creates a buffer if necessary."
 ;;=========================================================
 (add-hook 'dired-mode-hook
           (lambda ()
-			(define-key dired-mode-map (kbd "e") 'dired-my-open-dwim)
-			(define-key dired-mode-map " " 'dired-toggle-mark)
-            (define-key dired-mode-map "T" 'dired-do-convert-coding-system)
-			(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+			(define-key dired-mode-map (kbd "e") 'dired-my-open-dwim) 				; 関連付けられたPrgで開く
+ 			(define-key dired-mode-map (kbd " ") 'dired-toggle-mark)
+            (define-key dired-mode-map (kbd "T") 'dired-do-convert-coding-system)
+			(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
 
 			;; 下の階層に移動 or ファイルを開く
 			(define-key dired-mode-map (kbd "RET") 'dired-my-find-alternate-file)	; 新規バッファを作らない
@@ -215,4 +215,12 @@ Creates a buffer if necessary."
 			;; 上の階層に移動
 			(define-key dired-mode-map (kbd "c") 'dired-my-up-directory) 			; 新規バッファを作らない
 			(define-key dired-mode-map (kbd "^") 'dired-up-directory) 				; 新規バッファを作る
+
+			(when (require 'dired-hacks-utils nil t)
+			  (define-key dired-mode-map (kbd "n") 'dired-hacks-next-file) 			; 既存動作を上書き
+			  (define-key dired-mode-map (kbd "p") 'dired-hacks-previous-file) 		; 既存動作を上書き
+
+			  (define-key dired-mode-map (kbd "o") 'dired-subtree-insert)
+			  (define-key dired-mode-map (kbd "O") 'dired-subtree-remove)
+			  )
 			))

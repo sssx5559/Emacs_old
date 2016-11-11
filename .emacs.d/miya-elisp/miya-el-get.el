@@ -400,7 +400,7 @@
 ;; Elixir mode
 ;;=========================================================
 (when (executable-find "elixir")
-  (el-get-bundle elixir :depends pkg-info))
+  (el-get-bundle elixir :depends (pkg-info)))
 
 ;;=========================================================
 ;; Everything
@@ -484,7 +484,7 @@
 ;;=========================================================
 ;; flycheck
 ;;=========================================================
-(el-get-bundle flycheck
+(el-get-bundle flycheck :depends (f buttercup)
   ;; Python
   (add-hook 'python-mode-hook 'flycheck-mode)
 
@@ -499,13 +499,16 @@
 ;;=========================================================
 ;; magit
 ;;=========================================================
-;;(el-get-bundle magit :branch "2.8.0")		;; Windowsだとエラーになる
+;; Windowsだとエラーになる
+;;(el-get-bundle magit :branch "2.8.0" :depends (dash with-editor))
+
+;; magitの依存パッケージ
 (el-get-bundle dash)
 (el-get-bundle with-editor)
 
 ;;=========================================================
 ;; dired-hacks
 ;;=========================================================
-(el-get-bundle dired-hacks
-  (dired-filter-mode)
+(el-get-bundle dired-hacks :depends (f dash s cl-lib)
+  (dired-filter-mode)		; フィルターモードデフォルトON
   )
