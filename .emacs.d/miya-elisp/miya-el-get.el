@@ -484,7 +484,7 @@
 ;;=========================================================
 ;; flycheck
 ;;=========================================================
-(el-get-bundle flycheck :depends (f buttercup)
+(el-get-bundle flycheck :depends (f)
   ;; Python
   (add-hook 'python-mode-hook 'flycheck-mode)
 
