@@ -28,6 +28,11 @@
   "Open file dwim for Windows"
   (w32-shell-execute "open" filename))
 
+(defun open-file-dwim-mac (filename)
+  "Open file dwim for Mac"
+  (let ((process-connection-type nil))	;; これを設定しないと上手く表示されない
+    (start-process "open-mac" nil "open" filename)))
+
 (defun open-file-dwim-linux (filename)
   "Open file dwim for Linux"
   (let ((process-connection-type nil))	;; これを設定しないと上手く表示されない
@@ -41,8 +46,7 @@
    ((windowsp)
 	(open-file-dwim-win (dired-get-filename)))
    ((macp)
-	;; xxx
-	)
+	(open-file-dwim-mac (dired-get-filename)))
    ((linuxp)
 	(open-file-dwim-linux (dired-get-filename)))
    (t
