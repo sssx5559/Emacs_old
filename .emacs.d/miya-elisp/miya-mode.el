@@ -49,11 +49,10 @@
 ;;=========================================================
 ;; Python mode
 ;;=========================================================
-;; "-*- coding: XXX -*-"箇所のエンコーディングを検索
-
 ;; これを入れないと、python-mode時に警告が出る
 (setq python-indent-guess-indent-offset nil)
 
+;; "-*- coding: XXX -*-"箇所のエンコーディングを検索
 ;; (defun search-coding ()
 ;;     (save-excursion
 ;; 	  (goto-char (point-min))

@@ -371,11 +371,9 @@
 						'((:exec . my-python))
 						:override t)
 
-  ;; エコーエリアに出力
-  ;;(setq-default quickrun-option-outputter 'message)
-  (custom-set-variables
-   '(quickrun-option-outputter 'message)
-   )
+  ;; (custom-set-variables
+  ;;  '(quickrun-option-outputter 'message)	;; 実行結果をエコーエリアに出力
+  ;;  )
   )
 
 ;; popwin
