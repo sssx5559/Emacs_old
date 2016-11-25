@@ -366,18 +366,16 @@
 		(quickrun :start (region-beginning) :end (region-end))
 	  (quickrun)))
 
-  ;; Override existing command
-  (quickrun-add-command "python"
-						'((:exec . my-python))
-						:override t)
+  (when (boundp 'my-python)
+	;; Override existing command
+	(quickrun-add-command "python"
+						  (list (cons :command my-python))
+						  :override t))
 
   ;; (custom-set-variables
   ;;  '(quickrun-option-outputter 'message)	;; 実行結果をエコーエリアに出力
   ;;  )
   )
-
-;; popwin
-;(el-get-bundle popwin)
 
 ;;=========================================================
 ;; popup-select-window ※Ubuntu 16.04だとパッケージを取得できない。
