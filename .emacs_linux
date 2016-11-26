@@ -25,6 +25,10 @@
 ;; Progrtam Setting
 (defconst my-python "/home/miyazaki/.pyenv/shims/python")
 
+;; exe-path Setting
+(setq exec-path
+	  (parse-colon-path (concat (getenv "PATH") ":/home/miyazaki/.pyenv/shims")))
+
 ;; For Linux
 ;(require 'mozc)
 ;; or (load-file "/path/to/mozc.el")
@@ -32,8 +36,7 @@
 ;(setq mozc-candidate-style 'overlay)
 
 ;; cmigemo dictionary file
-;(defconst my-migemo-dic
-;  "C:/home/tool/cmigemo-default-win64/dict/utf-8/migemo-dict")
+(defconst my-migemo-dic "/usr/share/cmigemo/utf-8/migemo-dict")
 
 
 (load-library (concat emacs-dir "init.el"))
