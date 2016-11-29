@@ -585,39 +585,6 @@ p : 上端-"
 	 (substring str 0 index)
 	 (substring str index)))
 
-;; フレーム最大化のトグル切り替え
-(cond
- ;; Meadowの場合
- ((meadowp)
-  (defun miya-toggle-frame-size ()
-	(interactive)
-	(defvar miya-frame-max-flag nil)
-	(if miya-frame-max-flag
-		(progn
-		  (setq miya-frame-max-flag nil)
-		  (w32-restore-frame))
-	  (setq miya-frame-max-flag t)
-	  (w32-maximize-frame))))
- ;; Linuxの場合
- ((linuxp)
-  (defun miya-toggle-frame-size ()
-	(interactive)
-	(x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-						   '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-	(x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-						   '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))))
-   (t nil))
-
-;; フレームサイズ、位置を起動時に戻す
-(defun miya-init-frame ()
-  (interactive)
-  (set-frame-height nil my-screen-height)
-  (set-frame-width nil my-screen-width)
-  (set-frame-position (selected-frame)
-					  my-screen-left
-					  my-screen-top))
-
-
 ;; リージョン内の空白行を除去する
 (defun miya-delete-blank-line (start end)
   (interactive "r")

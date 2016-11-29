@@ -206,3 +206,34 @@
 ;;	  (format "%%b [%%f] - emacs-version:%s" emacs-version))
 	  (format "%%f - emacs-version:%s" emacs-version))
 
+;;=========================================================
+;; Frame
+;;=========================================================
+;; フレーム最大化のトグル切り替え
+(cond
+ ((meadowp)
+  ;; Meadowの場合
+  (defun miya-toggle-frame-size ()
+	(interactive)
+	(defvar miya-frame-max-flag nil)
+	(if miya-frame-max-flag
+		(progn
+		  (setq miya-frame-max-flag nil)
+		  (w32-restore-frame))
+	  (setq miya-frame-max-flag t)
+	  (w32-maximize-frame))))
+ (t
+  ;; その他
+  (defun miya-toggle-frame-size ()
+	(interactive)
+	(toggle-frame-fullscreen))))
+
+
+;; フレームサイズ、位置を起動時に戻す
+(defun miya-init-frame ()
+  (interactive)
+  (set-frame-height nil my-screen-height)
+  (set-frame-width nil my-screen-width)
+  (set-frame-position (selected-frame)
+					  my-screen-left
+					  my-screen-top))
