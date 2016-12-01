@@ -274,6 +274,40 @@
 (setq read-file-name-completion-ignore-case t)
 
 ;;=========================================================
+;; ido-mode
+;;=========================================================
+(require 'ido)
+(ido-mode t)
+(ido-everywhere t)
+
+(custom-set-variables
+ '(ido-case-fold t)						; 大文字、小文字を区別しない
+ '(ido-create-new-buffer 'always)
+ '(ido-enable-flex-matching t)			; あいまいマッチ
+ '(ido-use-virtual-buffers t)
+ ;;'(ido-max-directory-size 100000)
+
+ (when (boundp 'confirm-nonexistent-file-or-buffer)
+   '(confirm-nonexistent-file-or-buffer nil)) ; 即、newバッファを作る
+ )
+
+(when (require 'ido-vertical-mode nil t)
+  (ido-vertical-mode t)
+
+  (custom-set-faces
+   '(ido-vertical-first-match-face ((t (:underline (:inherit ido-first-match)))))
+   )
+
+  (custom-set-variables
+   '(ido-vertical-define-keys 'C-n-and-C-p-only)
+   '(ido-vertical-show-count t)
+   )
+  )
+
+;; ido-modeのmapは設定不可？
+;; (define-key ido-common-completion-map (kbd "C-l") 'ido-delete-backward-updir)
+
+;;=========================================================
 ;; 圧縮ファイルを編集
 ;;=========================================================
 (auto-compression-mode t)

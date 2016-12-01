@@ -501,3 +501,8 @@
 (el-get-bundle dired-hacks :depends (f dash s cl-lib)
   (dired-filter-mode)		; フィルターモードデフォルトON
   )
+
+;;=========================================================
+;; idoモード拡張
+;;=========================================================
+(el-get-bundle ido-vertical-mode)
