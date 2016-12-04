@@ -10,6 +10,7 @@
 (set-default-coding-systems 'utf-8)
 (set-buffer-file-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8) ;; dired用
 
 ;; emacs dir
 (defconst emacs-dir "~/.emacs.d/")

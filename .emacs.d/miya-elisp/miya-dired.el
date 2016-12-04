@@ -105,16 +105,6 @@
   (dired-map-over-marks-check
    (function dired-convert-coding-system) arg 'convert-coding-system t))
 
-;; デフォルトの文字コード
-(setq dired-default-file-coding-system 'utf-8)
-
-;; diredを2つのウィンドウで開いている時に、
-;; デフォルトの移動orコピー先をもう一方のdiredで開いているディレクトリにする
-(setq dired-dwim-target t)
-
-(setq dired-recursive-copies 'always) 	;; 再帰コピー
-(setq dired-recursive-deletes 'always)	;; 再帰削除
-
 ;;=========================================================
 ;; フォルダを開く時, 新しいバッファを作成しない
 ;;=========================================================
@@ -228,3 +218,17 @@ Creates a buffer if necessary."
 			  (define-key dired-mode-map (kbd "O") 'dired-subtree-remove)
 			  )
 			))
+
+;;=========================================================
+;; カスタム変数定義
+;;=========================================================
+(custom-set-variables
+ ;; diredを2つのウィンドウで開いている時に、
+ ;; デフォルトの移動orコピー先をもう一方のdiredで開いているディレクトリにする
+ '(dired-dwim-target t)
+
+ '(dired-default-file-coding-system 'utf-8)	; デフォルトの文字コード
+ '(dired-recursive-copies 'always) 			; 再帰コピー
+ '(dired-recursive-deletes 'always)			; 再帰削除
+ '(dired-listing-switches "-alh")			; ファイルサイズを見やすくする
+ )
