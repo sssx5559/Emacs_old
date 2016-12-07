@@ -151,7 +151,9 @@
 ;; ミニバッファでC-hをバックスペースに割り当て
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
-;(define-key helm-read-file-map (kbd "C-h") 'delete-backward-char)
+;;(define-key helm-read-file-map (kbd "C-h") 'delete-backward-char)
+;;(define-key helm-map (kbd "C-s") 'helm-next-line)
+;;(define-key helm-map (kbd "C-r") 'helm-previous-line)
 
 ;; TABキー割り当て
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
