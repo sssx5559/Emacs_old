@@ -542,8 +542,8 @@
   (migemo-init)
 
   ;; 小菊(find-fileでの日本語名補完)
-  (require 'kogiku)
-  (kogiku-mode-change)				; デフォルトON
+  ;; (require 'kogiku)
+  ;; (kogiku-mode-change)				; デフォルトON
 
   ;; anything
   ;; (when (featurep 'anything)

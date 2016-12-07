@@ -276,36 +276,62 @@
 ;;=========================================================
 ;; ido-mode
 ;;=========================================================
-(require 'ido)
-(ido-mode t)
-(ido-everywhere t)
+;; (require 'ido)
+;; (ido-mode t)
+;; (ido-everywhere t)
 
-(custom-set-variables
- '(ido-case-fold t)						; 大文字、小文字を区別しない
- '(ido-create-new-buffer 'always)
- '(ido-enable-flex-matching t)			; あいまいマッチ
- '(ido-use-virtual-buffers t)
- ;;'(ido-max-directory-size 100000)
+;; (custom-set-variables
+;;  '(ido-case-fold t)						; 大文字、小文字を区別しない
+;;  '(ido-create-new-buffer 'always)
+;;  '(ido-enable-flex-matching t)			; あいまいマッチ
+;;  '(ido-use-virtual-buffers t)
+;;  ;;'(ido-max-directory-size 100000)
 
- (when (boundp 'confirm-nonexistent-file-or-buffer)
-   '(confirm-nonexistent-file-or-buffer nil)) ; 即、newバッファを作る
- )
+;;  (when (boundp 'confirm-nonexistent-file-or-buffer)
+;;    '(confirm-nonexistent-file-or-buffer nil)) ; 即、newバッファを作る
+;;  )
 
-(when (require 'ido-vertical-mode nil t)
-  (ido-vertical-mode t)
+;; (when (require 'ido-vertical-mode nil t)
+;;   (ido-vertical-mode t)
 
-  (custom-set-faces
-   '(ido-vertical-first-match-face ((t (:underline (:inherit ido-first-match)))))
-   )
+;;   (custom-set-faces
+;;    '(ido-vertical-first-match-face ((t (:underline (:inherit ido-first-match)))))
+;;    )
 
-  (custom-set-variables
-   '(ido-vertical-define-keys 'C-n-and-C-p-only)
-   '(ido-vertical-show-count t)
-   )
-  )
+;;   (custom-set-variables
+;;    '(ido-vertical-define-keys 'C-n-and-C-p-only)
+;;    '(ido-vertical-show-count t)
+;;    )
+;;   )
 
 ;; ido-modeのmapは設定不可？
 ;; (define-key ido-common-completion-map (kbd "C-l") 'ido-delete-backward-updir)
+
+;;=========================================================
+;; ivy/counsel/swiper
+;;=========================================================
+(when (>= emacs-major-version 24)
+  (add-to-list 'load-path (concat emacs-dir "elisp/swiper-0.8.0"))
+  (require 'ivy)
+  (require 'counsel)
+  (ivy-mode 1)
+
+  ;; カスタム変数設定
+  (custom-set-variables
+   '(ivy-count-format "(%d/%d) ")
+   '(ivy-wrap t)
+   ;; '(ivy-height 20)	; デフォルト10
+   )
+
+  ;; キー設定
+  (global-set-key (kbd "C-M-s") 'swiper)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+
+  (define-key ivy-minibuffer-map (kbd "C-l") 'counsel-up-directory)
+  (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
+  )
 
 ;;=========================================================
 ;; 圧縮ファイルを編集
