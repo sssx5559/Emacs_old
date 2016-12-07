@@ -19,6 +19,7 @@
 (add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
+(add-to-list 'helm-completing-read-handlers-alist '(dired . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(ediff . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(ediff-directories . nil))
 
