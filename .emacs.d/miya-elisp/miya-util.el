@@ -323,14 +323,21 @@
    ;; '(ivy-height 20)	; デフォルト10
    )
 
+  (defun isearch-forward-or-swiper (use-swiper)
+	(interactive "P")
+	(let (current-prefix-arg)
+	  (call-interactively (if use-swiper 'swiper 'isearch-forward))))
+
   ;; キー設定
-  (global-set-key (kbd "C-M-s") 'swiper)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-s") 'isearch-forward-or-swiper)
+  ;;(global-set-key (kbd "C-M-s") 'swiper)
+  ;;(global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
   (define-key ivy-minibuffer-map (kbd "C-l") 'counsel-up-directory)
   (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
+  (define-key swiper-map (kbd "C-r") 'ivy-previous-line-or-history)
   )
 
 ;;=========================================================
