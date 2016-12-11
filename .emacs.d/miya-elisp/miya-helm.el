@@ -54,7 +54,11 @@
 ;                               helm-source-emacs-commands-history
 ;                               helm-source-emacs-commands
                                ))
-  '(helm-truncate-lines t)	; 検索結果を改行しないで、1行表示
+ '(helm-truncate-lines t)	; 検索結果を改行しないで、1行表示
+
+ (when (macp)
+   '(helm-locate-command "mdfind %s %s") ; SpotLight検索
+   )
  )
 
 ;;=========================================================
