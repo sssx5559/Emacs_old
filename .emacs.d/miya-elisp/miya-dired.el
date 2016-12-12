@@ -208,6 +208,7 @@ Creates a buffer if necessary."
 
 			;; 上の階層に移動
 			(define-key dired-mode-map (kbd "c") 'dired-my-up-directory) 			; 新規バッファを作らない
+			(define-key dired-mode-map (kbd "b") 'dired-my-up-directory) 			; 新規バッファを作らない
 			(define-key dired-mode-map (kbd "^") 'dired-up-directory) 				; 新規バッファを作る
 
 			(when (require 'dired-hacks-utils nil t)
