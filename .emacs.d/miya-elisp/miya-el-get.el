@@ -366,11 +366,18 @@
 		(quickrun :start (region-beginning) :end (region-end))
 	  (quickrun)))
 
+  ;; [Python]
   (when (boundp 'my-python)
 	;; Override existing command
 	(quickrun-add-command "python"
 						  (list (cons :command my-python))
 						  :override t))
+
+  ;; [Go]
+  ;; Override existing command
+  (quickrun-add-command "go/go"
+						'((:tempfile . t)) 	; tempfileが無効だと、保存ファイルしか実行できない
+						:override t)
 
   ;; (custom-set-variables
   ;;  '(quickrun-option-outputter 'message)	;; 実行結果をエコーエリアに出力
@@ -480,6 +487,9 @@
   ;; Ruby
   (add-hook 'ruby-mode-hook 'flycheck-mode)
 
+  ;; Go
+  (add-hook 'go-mode-hook 'flycheck-mode)
+
   ;; flymake
   ;; (smartrep-define-key global-map "M-g" '(("M-n" . 'flymake-goto-next-error)
   ;; 										  ("M-p" . 'flymake-goto-prev-error)))
@@ -506,3 +516,21 @@
 ;; idoモード拡張
 ;;=========================================================
 ;; (el-get-bundle ido-vertical-mode)
+
+;;=========================================================
+;; Go開発環境
+;;=========================================================
+(el-get-bundle go-mode
+  ;; go getのツールパス
+  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "\\bin")))
+
+  (require 'company-go)
+
+  (add-hook 'go-mode-hook
+			(lambda ()
+			  (set (make-local-variable 'company-backends) '(company-go))
+
+			  ;; キーバインド
+			  (define-key go-mode-map (kbd "C-c f") 'gofmt) 	; コード整形
+			  ))
+  )
