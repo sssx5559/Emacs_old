@@ -520,17 +520,20 @@
 ;;=========================================================
 ;; Go開発環境
 ;;=========================================================
+(el-get-bundle go-company)
+(el-get-bundle go-eldoc)
+(el-get-bundle go-imports)
+;; ※エラーになるので、"godef"は手動でインストール => go get code.google.com/p/rog-go/exp/cmd/godef
+;;(el-get-bundle go-def)
+
 (el-get-bundle go-mode
-  ;; go getのツールパス
-  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "\\bin")))
-
   (require 'company-go)
-
   (add-hook 'go-mode-hook
 			(lambda ()
 			  (set (make-local-variable 'company-backends) '(company-go))
 
 			  ;; キーバインド
-			  (define-key go-mode-map (kbd "C-c f") 'gofmt) 	; コード整形
+			  (local-set-key (kbd "C-c f") 'gofmt) 		; コード整形
+			  (local-set-key (kbd "M-.")   'godef-jump)	; 定義元ジャンプ
 			  ))
   )
