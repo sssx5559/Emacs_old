@@ -523,15 +523,23 @@
 (el-get-bundle go-company)
 (el-get-bundle go-eldoc)
 (el-get-bundle go-imports)
-;; ※エラーになるので、"godef"は手動でインストール => go get code.google.com/p/rog-go/exp/cmd/godef
+;; ※エラーになるので、"godef"は手動でインストール => go get -u github.com/rogpeppe/godef
 ;;(el-get-bundle go-def)
 
 (el-get-bundle go-mode
+  (require 'go-mode)
+  (require 'company-go)
 
   ;; godefは手動インストールなので、パスを追加
   (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
 
-  (require 'company-go)
+  ;; 未使用import削除
+  (defun my-go-remove-unused-imports ()
+	(interactive)
+	(if (buffer-modified-p)
+		(save-buffer))
+	(go-remove-unused-imports nil))
+
   (add-hook 'go-mode-hook
 			(lambda ()
 			  (set (make-local-variable 'company-backends) '(company-go))
@@ -539,5 +547,10 @@
 			  ;; キーバインド
 			  (local-set-key (kbd "C-c f") 'gofmt) 		; コード整形
 			  (local-set-key (kbd "M-.")   'godef-jump)	; 定義元ジャンプ
+			  (local-set-key (kbd "C-c C-r") 'my-go-remove-unused-imports)
 			  ))
+
+  (custom-set-variables
+   ;; '(company-go-insert-arguments nil))         ; 関数名補完時のスニペット無効
+   )
   )
