@@ -527,6 +527,10 @@
 ;;(el-get-bundle go-def)
 
 (el-get-bundle go-mode
+
+  ;; godefは手動インストールなので、パスを追加
+  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
+
   (require 'company-go)
   (add-hook 'go-mode-hook
 			(lambda ()
