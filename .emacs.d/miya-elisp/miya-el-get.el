@@ -545,8 +545,11 @@
 			  (set (make-local-variable 'company-backends) '(company-go))
 
 			  ;; キーバインド
-			  (local-set-key (kbd "C-c f") 'gofmt) 		; コード整形
-			  (local-set-key (kbd "M-.")   'godef-jump)	; 定義元ジャンプ
+			  (local-set-key (kbd "C-c f")   'gofmt)			; コード整形
+			  (local-set-key (kbd "M-.")     'godef-jump)		; 定義元ジャンプ
+			  (local-set-key (kbd "C-c h f") 'godoc-at-point)	; 定義元ジャンプ
+
+			  ;; バッファ保存 & 不要インポート削除
 			  (local-set-key (kbd "C-c C-r") 'my-go-remove-unused-imports)
 			  ))
 
