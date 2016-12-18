@@ -542,6 +542,7 @@
 
   (add-hook 'go-mode-hook
 			(lambda ()
+			  (electric-pair-mode t)
 			  (set (make-local-variable 'company-backends) '(company-go))
 
 			  ;; キーバインド
