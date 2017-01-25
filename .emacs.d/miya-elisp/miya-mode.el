@@ -101,53 +101,53 @@
 ;;=========================================================
 ;; Ruby mode
 ;;=========================================================
-(autoload 'rubydb "rubydb3x" nil t)
-(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files")
-(setq auto-mode-alist
-	  (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
-(setq interpreter-mode-alist
-	  (append '(("^#!.*ruby" . ruby-mode)) interpreter-mode-alist))
+;; (autoload 'rubydb "rubydb3x" nil t)
+;; (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files")
+;; (setq auto-mode-alist
+;; 	  (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+;; (setq interpreter-mode-alist
+;; 	  (append '(("^#!.*ruby" . ruby-mode)) interpreter-mode-alist))
 
-(add-hook 'ruby-mode-hook
-		  (lambda ()
-			(define-key ruby-mode-map "\C-x@"
-			  (lambda ()
-				(interactive)
-				(miya-run-script "ruby")))
+;; (add-hook 'ruby-mode-hook
+;; 		  (lambda ()
+;; 			(define-key ruby-mode-map "\C-x@"
+;; 			  (lambda ()
+;; 				(interactive)
+;; 				(miya-run-script "ruby")))
 
-			(define-key ruby-mode-map "\C-m"
-			  'ruby-reindent-then-newline-and-indent)))
+;; 			(define-key ruby-mode-map "\C-m"
+;; 			  'ruby-reindent-then-newline-and-indent)))
 
-;; ruby-electric.el --- electric editing commands for ruby files
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
-(setq ruby-electric-expand-delimiters-list nil)
+;; ;; ruby-electric.el --- electric editing commands for ruby files
+;; (require 'ruby-electric)
+;; (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+;; (setq ruby-electric-expand-delimiters-list nil)
 
-;;;;  flymake for ruby
-(when (require 'flymake nil t)
-  (set-face-background 'flymake-errline "purple1")
-  (set-face-background 'flymake-warnline "dark slate blue")
-  ;; Invoke ruby with '-c' to get syntax checking
-  (defun flymake-ruby-init ()
-	(let* ((temp-file   (flymake-init-create-temp-buffer-copy
-						 'flymake-create-temp-inplace))
-		   (local-file  (file-relative-name
-						 temp-file
-						 (file-name-directory buffer-file-name))))
-	  (list "ruby" (list "-c" local-file))))
-  (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-  (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
-  (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+;; ;;;;  flymake for ruby
+;; (when (require 'flymake nil t)
+;;   (set-face-background 'flymake-errline "purple1")
+;;   (set-face-background 'flymake-warnline "dark slate blue")
+;;   ;; Invoke ruby with '-c' to get syntax checking
+;;   (defun flymake-ruby-init ()
+;; 	(let* ((temp-file   (flymake-init-create-temp-buffer-copy
+;; 						 'flymake-create-temp-inplace))
+;; 		   (local-file  (file-relative-name
+;; 						 temp-file
+;; 						 (file-name-directory buffer-file-name))))
+;; 	  (list "ruby" (list "-c" local-file))))
+;;   (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+;;   (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+;;   (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
 
-  (add-hook 'ruby-mode-hook
-			'(lambda ()
-			   ;; Don't want flymake mode for ruby regions in rhtml files
-			   (if (not (null buffer-file-name)) (flymake-mode))))
+;;   (add-hook 'ruby-mode-hook
+;; 			'(lambda ()
+;; 			   ;; Don't want flymake mode for ruby regions in rhtml files
+;; 			   (if (not (null buffer-file-name)) (flymake-mode))))
 
-  (add-hook 'ruby-mode-hook
-			'(lambda ()
-			   (define-key ruby-mode-map "\C-cd"
-				 'flymake-display-err-menu-for-current-line))))
+;;   (add-hook 'ruby-mode-hook
+;; 			'(lambda ()
+;; 			   (define-key ruby-mode-map "\C-cd"
+;; 				 'flymake-display-err-menu-for-current-line))))
 
 
 ;;=========================================================
