@@ -454,15 +454,17 @@
 ;;=========================================================
 ;; sdic
 ;;=========================================================
+(setq sdic-default-coding-system 'utf-8)
+
 (add-to-list 'load-path (concat emacs-dir "sdic"))
 
 ;; 英和辞書設定
 (setq sdic-eiwa-dictionary-list
-		(list (list 'sdicf-client (concat emacs-dir "sdic/gene.sdic"))))
+		(list (list 'sdicf-client (concat emacs-dir "sdic/gene-utf8.sdic"))))
 
 ;; 和英辞書設定
 (setq sdic-waei-dictionary-list
-	  (list (list 'sdicf-client (concat emacs-dir "sdic/jedict.sdic"))))
+	  (list (list 'sdicf-client (concat emacs-dir "sdic/jedict-utf8.sdic"))))
 
 (autoload 'sdic-describe-word "sdic" "英単語の意味を調べる" t nil)
 (global-set-key "\C-cw" 'sdic-describe-word)
