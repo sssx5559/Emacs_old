@@ -55,7 +55,7 @@
 (el-get-bundle helm)
 (el-get-bundle helm-ag)
 (el-get-bundle helm-descbinds)
-(el-get-bundle helm-project)
+;; (el-get-bundle helm-project)
 (el-get-bundle helm-gtags)
 (el-get-bundle helm-swoop)
 (el-get-bundle helm-descbinds)
@@ -205,17 +205,49 @@
   ;;=========================================================
   ;; company-jedi(Python入力補完)
   ;;=========================================================
-  (el-get-bundle jedi-core)
-  (el-get-bundle company-jedi
-  	(require 'company-jedi)
-  	(add-hook 'python-mode-hook 'jedi:setup)
-  	(add-to-list 'company-backends 'company-jedi) ; backendに追加
+  ;; (el-get-bundle jedi-core)
+  ;; (el-get-bundle company-jedi
+  ;; 	(require 'company-jedi)
+  ;; 	(add-hook 'python-mode-hook 'jedi:setup)
+  ;; 	(add-to-list 'company-backends 'company-jedi) ; backendに追加
 
-	(custom-set-variables
-	 '(jedi:complete-on-dot t)
-	 '(jedi:use-shortcuts t)
-	 )
-  ))
+  ;; 	(custom-set-variables
+  ;; 	 '(jedi:complete-on-dot t)
+  ;; 	 '(jedi:use-shortcuts t)
+  ;; 	 )
+  ;; 	)
+  )
+
+;;=========================================================
+;; elpy
+;;=========================================================
+(el-get-bundle elpy
+  ;; Elpy を有効化
+  (elpy-enable)
+  ;; 使用する Anaconda の仮想環境を設定
+  (defvar venv-default "~/.pyenv/shims/python")
+
+  ;; virtualenv を使っているなら次のようなパス
+  ;; (defvar venv-default "~/.virtualenvs/hoge")
+
+  ;; デフォルト環境を有効化
+  (pyvenv-activate venv-default)
+
+  (when (require 'flycheck nil t)
+  	(remove-hook 'elpy-modules 'elpy-module-flymake)
+  	(add-hook 'elpy-mode-hook 'flycheck-mode))
+
+  ;; インデントのハイライト
+  (add-hook 'elpy-mode-hook
+			'(lambda () (highlight-indentation-mode -1))) ; 無効
+  ;; (set-face-background 'highlight-indentation-face "#313131")
+  ;; (set-face-background 'highlight-indentation-current-column-face "#777777")
+  ;; (add-hook 'elpy-mode-hook 'highlight-indentation-current-column-mode)
+
+  (custom-set-variables
+   '(elpy-syntax-check-command "pyflakes")
+   )
+  )
 
 ;;=========================================================
 ;; yasnippet
@@ -439,43 +471,43 @@
 ;;=========================================================
 ;; projectile
 ;;=========================================================
-;; (el-get-bundle projectile
-;;   (require 'projectile)
+(el-get-bundle projectile
+  (require 'projectile)
 
-;;   (custom-set-variables
-;;    '(projectile-enable-caching t)		; キャッシュ設定
-;;    '(projectile-keymap-prefix (kbd "M-p"))
+  (custom-set-variables
+   '(projectile-enable-caching t)		; キャッシュ設定
+;;   '(projectile-keymap-prefix (kbd "M-p"))
+   )
 
-;;   (setq projectile-globally-ignored-directories
-;; 		(append '(
-;; 				  ".svn"
-;; 				  "out"
-;; 				  )
-;; 				projectile-globally-ignored-directories))
+  (setq projectile-globally-ignored-directories
+		(append '(
+				  ".svn"
+				  "out"
+				  )
+				projectile-globally-ignored-directories))
 
-;;   (setq projectile-globally-ignored-files
-;; 		(append '(
-;; 				  ".DS_Store"
-;; 				  "GTAGS"
-;; 				  "GPATH"
-;; 				  "GRTAGS"
-;; 				  "*.obj"
-;; 				  )
-;; 				projectile-globally-ignored-files))
-;;   )
+  (setq projectile-globally-ignored-files
+		(append '(
+				  ".DS_Store"
+				  "GTAGS"
+				  "GPATH"
+				  "GRTAGS"
+				  "*.obj"
+				  )
+				projectile-globally-ignored-files))
 
-;; 										;  (when (require 'helm nil t)
-;;   ;; helmインストール済み
-;;   (el-get-bundle helm-projectile
-;; 	(custom-set-variables
-;; 	 '(helm-projectile-fuzzy-match nil)
-;; 	 '(projectile-completion-system 'helm)
-;; 	 )
+										;  (when (require 'helm nil t)
+  ;; helmインストール済み
+  ;; (el-get-bundle helm-projectile
+  ;; 	(custom-set-variables
+  ;; 	 '(helm-projectile-fuzzy-match nil)
+  ;; 	 '(projectile-completion-system 'helm)
+  ;; 	 )
 
-;; 	(helm-projectile-on)
-;; 	)
-;;   (projectile-mode t)
-;;   )
+  ;; 	(helm-projectile-on)
+  ;; 	)
+  (projectile-mode t)
+  )
 
 ;;=========================================================
 ;; flycheck
@@ -493,6 +525,14 @@
   ;; flymake
   ;; (smartrep-define-key global-map "M-g" '(("M-n" . 'flymake-goto-next-error)
   ;; 										  ("M-p" . 'flymake-goto-prev-error)))
+
+  (el-get-bundle yasuyk/helm-flycheck
+	(define-key elpy-mode-map (kbd "C-c C-v") 'helm-flycheck)
+	(require 'smartrep)   
+	(smartrep-define-key elpy-mode-map "C-c"
+	  '(("C-n" . flycheck-next-error)
+		("C-p" . flycheck-previous-error)))
+	)
   )
 
 ;;=========================================================

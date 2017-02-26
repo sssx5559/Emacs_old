@@ -168,6 +168,7 @@
 		(abbrev-mode . "")
 		(helm-mode . "")
 		(undo-tree-mode . "")
+		(ivy-mode . "")
 		(yas-minor-mode . " Ys")
 		(paredit-mode . " Pe")
 		(elisp-slime-nav-mode . " EN")
