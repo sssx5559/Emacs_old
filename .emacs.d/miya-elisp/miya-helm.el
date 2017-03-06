@@ -89,7 +89,7 @@
   ;(setq helm-gtags-ignore-case t)
 
   ;; ジャンプ直後に、行がずれてチカチカする場合があるので禁止
-;;  (setq helm-gtags-pulse-at-cursor nil)
+  (setq helm-gtags-pulse-at-cursor nil)
 
   ;; key bindings
   (add-hook 'helm-gtags-mode-hook
@@ -139,6 +139,7 @@
 (global-set-key (kbd "C-c a") 'helm-ag)
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
+(global-set-key (kbd "C-c C-g") 'helm-ghq)
 
 ;; projectile関連
 (global-set-key (kbd "C-:") 'helm-projectile-find-file)

@@ -751,3 +751,12 @@
           '(lambda ()
              (set-buffer-file-coding-system 'utf-8)))
   )
+
+;;=========================================================
+;; eww
+;;=========================================================
+(when (require 'eww nil t)
+  (custom-set-variables
+   '(eww-search-prefix "http://www.google.co.jp/search?q=")
+   )
+  )
