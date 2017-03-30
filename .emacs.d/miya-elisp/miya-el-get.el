@@ -225,7 +225,7 @@
   ;; Elpy を有効化
   (elpy-enable)
   ;; 使用する Anaconda の仮想環境を設定
-  (defvar venv-default "~/.pyenv/shims/python")
+  (defvar venv-default my-python)
 
   ;; virtualenv を使っているなら次のようなパス
   ;; (defvar venv-default "~/.virtualenvs/hoge")
@@ -247,6 +247,9 @@
   (custom-set-variables
    '(elpy-syntax-check-command "pyflakes")
    )
+
+  ;; キーバインド
+  (define-key elpy-mode-map (kbd "C-c C-c") 'comment-region)
   )
 
 ;;=========================================================
@@ -563,15 +566,14 @@
 (el-get-bundle go-company)
 (el-get-bundle go-eldoc)
 (el-get-bundle go-imports)
-;; ※エラーになるので、"godef"は手動でインストール => go get -u github.com/rogpeppe/godef
-;;(el-get-bundle go-def)
+(el-get-bundle go-def)
 
 (el-get-bundle go-mode
   (require 'go-mode)
   (require 'company-go)
 
   ;; godefは手動インストールなので、パスを追加
-  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
+;;  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
 
   ;; 未使用import削除
   (defun my-go-remove-unused-imports ()
@@ -600,6 +602,12 @@
   )
 
 ;;=========================================================
+;; Go開発環境
+;;=========================================================
+(when (executable-find "ghq")
+  (el-get-bundle helm-ghq))
+
+;;=========================================================
 ;; Shell関連
 ;;=========================================================
-(el-get-bundle emacs-fish)
+;;(el-get-bundle emacs-fish)

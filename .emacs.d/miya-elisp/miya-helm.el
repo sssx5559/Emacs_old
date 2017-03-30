@@ -89,7 +89,7 @@
   ;(setq helm-gtags-ignore-case t)
 
   ;; ジャンプ直後に、行がずれてチカチカする場合があるので禁止
-;;  (setq helm-gtags-pulse-at-cursor nil)
+  (setq helm-gtags-pulse-at-cursor nil)
 
   ;; key bindings
   (add-hook 'helm-gtags-mode-hook
@@ -105,22 +105,22 @@
 ;;=========================================================
 ;; helm-project
 ;;=========================================================
-;; (when (require 'helm-project nil t)
-;;   ;; ディレクトリを除外する
-;;   (setq hp:project-files-filters
-;; 		(list
-;; 		 (lambda (files)
-;; 		   (remove-if 'file-directory-p files))))
+(when (require 'helm-project nil t)
+  ;; ディレクトリを除外する
+  (setq hp:project-files-filters
+		(list
+		 (lambda (files)
+		   (remove-if 'file-directory-p files))))
 
-;;   (add-hook 'helm-gtags-mode-hook
-;; 			(lambda ()
-;; 			  (hp:add-project
-;; 			   :name 'global
-;; 			   :look-for '("GTAGS")
-;; 			   ;;				 :include-regexp '("\\.c$" "\\.h$" "\\.s$")
-;; 			   ;; 				 :exclude-regexp "/out" ; can be regexp or list of regexp
-;; 			   :exclude-regexp '("/out" "~$") ; can be regexp or list of regexp
-;; 			   ))))
+  (add-hook 'helm-gtags-mode-hook
+			(lambda ()
+			  (hp:add-project
+			   :name 'global
+			   :look-for '("GTAGS")
+			   ;;				 :include-regexp '("\\.c$" "\\.h$" "\\.s$")
+			   ;; 				 :exclude-regexp "/out" ; can be regexp or list of regexp
+			   :exclude-regexp '("/out" "~$") ; can be regexp or list of regexp
+			   ))))
 
 ;;=========================================================
 ;; helm関連のキー設定
@@ -139,10 +139,11 @@
 (global-set-key (kbd "C-c a") 'helm-ag)
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
+(global-set-key (kbd "C-M-g") 'helm-ghq)
 
-;; projectile関連
-(global-set-key (kbd "C-:") 'helm-projectile-find-file)
-;(global-set-key (kbd "C-:") 'helm-project)
+;; project/projectile関連
+;(global-set-key (kbd "C-:") 'helm-projectile-find-file)
+(global-set-key (kbd "C-:") 'helm-project)
 
 ;; helm-mini中
 (define-key helm-map (kbd "C-M-n") 'helm-next-source)
