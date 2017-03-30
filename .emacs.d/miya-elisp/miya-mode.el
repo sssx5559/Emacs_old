@@ -64,7 +64,7 @@
 ;; 			(setq indent-tabs-mode t)
 ;;			(setq indent-level 4)
 ;;			(setq python-indent 4)
-			;; 			(setq tab-width 4)
+;; 			(setq tab-width 4)
 ;; 			(setq python-indent-guess-indent-offset nil)
 
 ;			(when (load "python-pep8")
@@ -88,8 +88,8 @@
 (add-hook 'c-mode-common-hook
 	  (lambda ()
 	    (c-set-style "stroustrup")
-	    (define-key c++-mode-map "\C-x@" 'compile)
-	    (define-key c-mode-map "\C-x@" 'compile)
+;;	    (define-key c++-mode-map "\C-x@" 'compile)
+;;	    (define-key c-mode-map "\C-x@" 'compile)
 		(define-key c-mode-map "\M-?" 'complete-symbol)
 		(define-key c++-mode-map "\M-?" 'complete-symbol)
 ;;		(define-key c-mode-map "\C-ci" 'ff-find-other-file)
