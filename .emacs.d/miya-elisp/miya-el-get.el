@@ -79,10 +79,25 @@
 ;;=========================================================
 ;; ace-isearch
 ;;=========================================================
-;; (el-get-bundle ace-isearch
-;;   (require 'ace-isearch)
-;;   (global-ace-isearch-mode t)
-;;   )
+(el-get-bundle ace-isearch
+  (require 'ace-isearch)
+  (global-ace-isearch-mode t)
+
+  (defun add-keys-to-ace-jump-mode (prefix c &optional mode)
+	(define-key global-map
+	  (read-kbd-macro (concat prefix (string c)))
+	  `(lambda ()
+		 (interactive)
+		 (funcall (if (eq ',mode 'word)
+					  #'ace-jump-word-mode
+					#'ace-jump-char-mode) ,c))))
+
+  ;; H-0～H-9、H-a～H-zで任意のところにジャンプ
+  (loop for c from ?0 to ?9 do (add-keys-to-ace-jump-mode "H-" c))
+  (loop for c from ?a to ?z do (add-keys-to-ace-jump-mode "H-" c))
+  (loop for c from ?0 to ?9 do (add-keys-to-ace-jump-mode "H-A-" c 'word))
+  (loop for c from ?a to ?z do (add-keys-to-ace-jump-mode "H-A-" c 'word))
+  )
 
 ;;=========================================================
 ;; ac-complete

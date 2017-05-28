@@ -5,9 +5,38 @@
 ;;-----------------------------------------------------------------------------
 
 ;;---------------------------------------------------------
+;; Alt(A-x), Meta(M-x), Super(s-x), Hyper(H-x)キー設定
+;;---------------------------------------------------------
+(cond
+ ((windowsp)
+  ;;(setq w32-pass-rwindow-to-system nil)
+  ;;(setq w32-rwindow-modifier 'super)		; 右win
+
+  ;;(setq w32-pass-lwindow-to-system nil)
+  ;;(setq w32-lwindow-modifier 'super)		; 左win
+
+  (setq w32-apps-modifier 'hyper)			; App
+  )
+ ((macp)
+  (setq mac-command-modifier 'meta)			; 左command
+  (setq mac-right-command-modifier 'hyper)	; 右command
+  ;;(setq mac-alternate-modifier 'super)		; ?
+  ;;(setq mac-right-alternate-modifier 'alt)	; ?
+  ;;(setq mac-option-modifier 'alt)			; 左option
+  ;;(setq mac-right-option-modifier 'alt)		; 右option
+  ;;(setq mac-control-modifier 'super)		; 左control
+  (setq mac-right-control-modifier 'super)	; 右control
+  (setq mac-function-modifier 'alt)			; function
+  )
+ ((linuxp)
+  )
+ (t
+  ;; Nothing
+  ))
+
+;;---------------------------------------------------------
 ;; global設定
 ;;---------------------------------------------------------
-
 ;;; C-h を backspace として使う。
 ; (keyboard-translate ?\C-h ?\C-?)
 ; (global-set-key "\C-h" nil)
