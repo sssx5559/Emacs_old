@@ -81,7 +81,7 @@
 ;;=========================================================
 (el-get-bundle ace-isearch
   (require 'ace-isearch)
-  ;;  (global-ace-isearch-mode t)
+  (global-ace-isearch-mode t)
 
   (defun add-keys-to-ace-jump-mode (prefix c &optional mode)
 	(define-key global-map
