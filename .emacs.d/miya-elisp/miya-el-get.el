@@ -77,7 +77,7 @@
   (define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode))
 
 ;;=========================================================
-;; ace-isearch
+;; ace-jump, ace-isearch
 ;;=========================================================
 (el-get-bundle ace-isearch
   (require 'ace-isearch)
@@ -546,7 +546,7 @@
 
   (el-get-bundle yasuyk/helm-flycheck
 	(define-key elpy-mode-map (kbd "C-c C-v") 'helm-flycheck)
-	(require 'smartrep)   
+	(require 'smartrep)
 	(smartrep-define-key elpy-mode-map "C-c"
 	  '(("C-n" . flycheck-next-error)
 		("C-p" . flycheck-previous-error)))
@@ -621,6 +621,26 @@
 ;;=========================================================
 (when (executable-find "ghq")
   (el-get-bundle helm-ghq))
+
+;;=========================================================
+;; Processing開発環境
+;;=========================================================
+(when (executable-find "processing-java")
+  (el-get-bundle ptrv/processing2-emacs
+
+	;; snippet
+	(autoload 'processing-snippets-initialize "processing-snippets" nil nil nil)
+	(eval-after-load 'yasnippet '(processing-snippets-initialize))
+
+    (custom-set-variables
+	 '(processing-location my-processing-location)
+	 '(processing-application-dir my-processing-app)
+	 '(processing-sketch-dir my-proceesing-home)
+	 )
+	)
+  )
+
+;;=========================================================
 
 ;;=========================================================
 ;; Shell関連

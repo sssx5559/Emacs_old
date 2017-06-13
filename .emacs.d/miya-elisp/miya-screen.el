@@ -176,6 +176,7 @@
 		(helm-migemo-mode . " Hm")
 		;;	(company-mode . " Cp")	; comnapyモードは、補完ソースを表示するので短縮しない。
 		(flymake-mode . " Fm")
+		(projectile-mode . " Pj")
 
 		;; Major modes
 		(lisp-interaction-mode . "Lisp")
