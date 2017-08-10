@@ -5,6 +5,13 @@
 ;;=========================================================
 
 ;; language setting
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (set-language-environment "Japanese")
 (set-terminal-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -16,20 +23,44 @@
 (defconst emacs-dir "~/.emacs.d/")
 ;(defconst emacs-dir "~/Dropbox/home/.emacs.d/")
 
-;; screen setting
-(defconst my-screen-width 110)
-(defconst my-screen-height 45)
-(defconst my-screen-top 336)
-(defconst my-screen-left 1000)
-;(defconst my-font "ヒラギノ明朝-14")
-(defconst my-font "ＭＳ 明朝-16")
+;; 解像度別 画面設定
+(when window-system
+  (let ((resolution (list (x-display-pixel-width) (x-display-pixel-height))))
+	(cond
+	 ((equal resolution '(1440 900))
+	  (defconst my-screen-width 118)
+	  (defconst my-screen-height 50)
+	  (defconst my-screen-top 120)
+	  (defconst my-screen-left 594)
+	  (defconst my-font "Ricty Diminished-14")
+	  ;;(defconst my-font "ＭＳ 明朝-14")
+	  (message "解像度: 1440x900"))
+
+	 ((equal resolution '(2048 1280))
+	  (defconst my-screen-width 118)
+	  (defconst my-screen-height 50)
+	  (defconst my-screen-top 445)
+	  (defconst my-screen-left 1080)
+	  (defconst my-font "Ricty Diminished-16")
+	  ;;(defconst my-font "ＭＳ 明朝-16")
+	  (message "解像度: 2048x1280"))
+
+	 (t (warn "未設定の解像度です。")
+	  (message "解像度: 不明"))
+	 )))
 
 ;; Program setting
 (defconst my-python "python3")
+(defconst my-processing-location "/usr/local/bin/processing-java")
+(defconst my-processing-app "/Applications/Processing.app")
+(defconst my-proceesing-home "~/Program/Processing")
 
 ;; cmigemo dictionary file
 (defconst my-migemo-dic
   "/usr/local/share/migemo/utf-8/migemo-dict")
+
+;; GOPATH
+(setenv "GOPATH" "/Users/shinya/dev")
 
 ;;=========================================================
 ;; for Mac
@@ -47,6 +78,8 @@
 
 ;; ビープ音,画面フラッシュなし(これをしないと中央に白い四角が表示される)
 (setq ring-bell-function 'ignore)
+
+(setq warning-minimum-level :error)
 ;;=========================================================
 
 (load-library (concat emacs-dir "init.el"))
