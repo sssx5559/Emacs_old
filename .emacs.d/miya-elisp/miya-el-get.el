@@ -625,24 +625,27 @@
 ;;=========================================================
 ;; Processing開発環境
 ;;=========================================================
-(when (executable-find "processing-java")
-  (el-get-bundle ptrv/processing2-emacs
+;; (when (executable-find "processing-java")
+;;   (el-get-bundle ptrv/processing2-emacs
 
-	;; snippet
-	(autoload 'processing-snippets-initialize "processing-snippets" nil nil nil)
-	(eval-after-load 'yasnippet '(processing-snippets-initialize))
+;; 	;; snippet
+;; 	(autoload 'processing-snippets-initialize "processing-snippets" nil nil nil)
+;; 	(eval-after-load 'yasnippet '(processing-snippets-initialize))
 
-    (custom-set-variables
-	 '(processing-location my-processing-location)
-	 '(processing-application-dir my-processing-app)
-	 '(processing-sketch-dir my-proceesing-home)
-	 )
-	)
-  )
-
-;;=========================================================
+;;     (custom-set-variables
+;; 	 '(processing-location my-processing-location)
+;; 	 '(processing-application-dir my-processing-app)
+;; 	 '(processing-sketch-dir my-proceesing-home)
+;; 	 )
+;; 	)
+;;   )
 
 ;;=========================================================
 ;; Shell関連
 ;;=========================================================
 ;;(el-get-bundle emacs-fish)
+
+;;=========================================================
+;; Markdown
+;;=========================================================
+(el-get-bundle markdown-mode)
