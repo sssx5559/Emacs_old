@@ -239,3 +239,9 @@
   (set-frame-position (selected-frame)
 					  my-screen-left
 					  my-screen-top))
+
+;;=========================================================
+;; Theme
+;;=========================================================
+(load-theme 'zenburn t)
+(load-theme 'atom-dark t)

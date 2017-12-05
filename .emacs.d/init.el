@@ -39,6 +39,10 @@
 		)								; list end
        load-path))
 
+;; custom-theme-load-path
+(add-to-list 'custom-theme-load-path
+			 (expand-file-name (concat emacs-dir "themes")))
+
 ;;======================================================
 ;; 設定ファイル読み込み
 ;;======================================================
