@@ -113,3 +113,6 @@
 
 (global-set-key (kbd "M-/") 'hippie-expand)		;; 動的略語展開の拡張
 (global-set-key (kbd "C-x t") 'transpose-chars)	;; "C-t"はsmartrepに割り当てた為
+
+;; 日本語入力無効(default-input-method)
+(global-set-key (kbd "\C-\\") nil)

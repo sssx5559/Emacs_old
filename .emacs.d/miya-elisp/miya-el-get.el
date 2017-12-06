@@ -239,6 +239,7 @@
 (el-get-bundle elpy
   ;; Elpy を有効化
   (elpy-enable)
+
   ;; 使用する Anaconda の仮想環境を設定
   (defvar venv-default my-python)
 
