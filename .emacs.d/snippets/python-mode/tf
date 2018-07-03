@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: tf
+# key: tf
+# group : general
+# --
+import tensorflow as tf
+$0
