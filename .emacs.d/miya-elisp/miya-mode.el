@@ -85,6 +85,16 @@
 ;;=========================================================
 ;; C mode
 ;;=========================================================
+;; "#if 0部"の色を変える
+(defface if-zero-face (quote ((t (:foreground "dark green")))) nil)
+(setq cpp-edit-list
+      (quote
+       (("0" if-zero-face default both)
+        ("1" default if-zero-face both))))
+(setq cpp-face-type (quote dark))
+(setq cpp-known-face (quote default))
+(setq cpp-unknown-face (quote default))
+
 (add-hook 'c-mode-common-hook
 	  (lambda ()
 	    (c-set-style "stroustrup")
@@ -96,6 +106,7 @@
 		;(gtags-mode)
 ;; 		(hide-ifdef-mode t)
 ;; 		(hide-ifdefs)
+		(cpp-highlight-buffer t)
 		(setq cpp-config-file "~/.cpp.el")))
 
 ;;=========================================================
@@ -715,42 +726,42 @@
 ;; 				(miya-run-objc)))))
 
 ;;=========================================================
-;; magit
+;; magit ※(require 'magit)でエラーになる 2017/08/29
 ;;=========================================================
-(when (>= emacs-major-version 24)
-  ;; 依存パッケージ
-;;  (require 'dash)
-;;  (require 'with-editor)
+;; (when (>= emacs-major-version 24)
+;;   ;; 依存パッケージ
+;; ;;  (require 'dash)
+;; ;;  (require 'with-editor)
 
-  (add-to-list 'load-path (concat emacs-dir "elisp/magit-2.8.0/lisp"))
-  (require 'magit)
+;;   (add-to-list 'load-path (concat emacs-dir "elisp/magit-2.8.0/lisp"))
+;;   (require 'magit)
 
-  (with-eval-after-load 'info
-	(info-initialize)
-	(add-to-list 'Info-directory-list
-				 (concat emacs-dir "magit/Documentation/")))
+;;   (with-eval-after-load 'info
+;; 	(info-initialize)
+;; 	(add-to-list 'Info-directory-list
+;; 				 (concat emacs-dir "magit/Documentation/")))
 
 
-  (setq-default magit-auto-revert-mode nil)
-  (setq vc-handled-backends '())
-  (eval-after-load "vc" '(remove-hook 'find-file-hooks 'vc-find-file-hook))
-  (global-set-key (kbd "C-x m") 'magit-status)
-  (global-set-key (kbd "C-c l") 'magit-blame)
+;;   (setq-default magit-auto-revert-mode nil)
+;;   (setq vc-handled-backends '())
+;;   (eval-after-load "vc" '(remove-hook 'find-file-hooks 'vc-find-file-hook))
+;;   (global-set-key (kbd "C-x m") 'magit-status)
+;;   (global-set-key (kbd "C-c l") 'magit-blame)
 
-  (custom-set-faces
-   '(magit-diff-added ((t (:background "black" :foreground "green"))))
-   '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
-   '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
-   '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
-   '(magit-hash ((t (:foreground "red"))))
-   )
+;;   (custom-set-faces
+;;    '(magit-diff-added ((t (:background "black" :foreground "green"))))
+;;    '(magit-diff-added-highlight ((t (:background "white" :foreground "green"))))
+;;    '(magit-diff-removed ((t (:background "black" :foreground "blue"))))
+;;    '(magit-diff-removed-hightlight ((t (:background "white" :foreground "blue"))))
+;;    '(magit-hash ((t (:foreground "red"))))
+;;    )
 
-  ;; 文字コードは、UTF-8で固定
-  (add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
-  (add-hook 'git-commit-mode-hook
-          '(lambda ()
-             (set-buffer-file-coding-system 'utf-8)))
-  )
+;;   ;; 文字コードは、UTF-8で固定
+;;   (add-to-list 'process-coding-system-alist '("git" utf-8 . utf-8))
+;;   (add-hook 'git-commit-mode-hook
+;;           '(lambda ()
+;;              (set-buffer-file-coding-system 'utf-8)))
+;;   )
 
 ;;=========================================================
 ;; 矩形編集
@@ -766,3 +777,16 @@
    '(eww-search-prefix "http://www.google.co.jp/search?q=")
    )
   )
+
+;;=========================================================
+;; undo-tree
+;; ※↓から取得できなくなったのでローカルコピーを使用
+;;    git clone http://www.dr-qubit.org/git/undo-tree.git
+;;=========================================================
+(when (>= emacs-major-version 24)
+  (add-to-list 'load-path (concat emacs-dir "elisp/undo-tree"))
+  (when (require 'undo-tree nil t)
+	(global-undo-tree-mode)
+	;; redoキー設定
+	(define-key global-map (kbd "C-M-/") 'undo-tree-redo)
+	))

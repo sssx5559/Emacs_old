@@ -243,5 +243,7 @@
 ;;=========================================================
 ;; Theme
 ;;=========================================================
-(load-theme 'zenburn t)
-(load-theme 'atom-dark t)
+(unless (meadowp)
+  (load-theme 'zenburn t)
+  (load-theme 'atom-dark t)
+  )

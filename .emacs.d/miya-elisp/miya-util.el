@@ -380,3 +380,14 @@
 		try-complete-file-name-partially
 		try-complete-file-name
 		))
+
+;;=========================================================
+;; 環境依存文字表示(①とか⊿)
+;;=========================================================
+(when (>= emacs-major-version 23)
+  (set-charset-priority 'ascii 'japanese-jisx0208 'latin-jisx0201
+                        'katakana-jisx0201 'iso-8859-1 'unicode)
+
+  ;; "japanese-shift-jis"ではなく、"cp932"とすれば表示できる。
+  (set-coding-system-priority 'utf-8 'euc-jp 'iso-2022-jp 'cp932)
+  )

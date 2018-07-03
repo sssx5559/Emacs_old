@@ -579,49 +579,51 @@
 ;;=========================================================
 ;; Go開発環境
 ;;=========================================================
-(el-get-bundle go-company)
-(el-get-bundle go-eldoc)
-(el-get-bundle go-imports)
-(el-get-bundle go-def)
+;; (el-get-bundle go-company)
+;; (el-get-bundle go-eldoc)
+;; (el-get-bundle go-imports)
+;; (el-get-bundle go-def)
 
-(el-get-bundle go-mode
-  (require 'go-mode)
-  (require 'company-go)
+;; (el-get-bundle go-mode
+;;   (require 'go-mode)
+;;   (require 'company-go)
 
-  ;; godefは手動インストールなので、パスを追加
-;;  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
+;;   ;; godefは手動インストールなので、パスを追加
+;; ;;  (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
 
-  ;; 未使用import削除
-  (defun my-go-remove-unused-imports ()
-	(interactive)
-	(if (buffer-modified-p)
-		(save-buffer))
-	(go-remove-unused-imports nil))
+;;   ;; 未使用import削除
+;;   (defun my-go-remove-unused-imports ()
+;; 	(interactive)
+;; 	(if (buffer-modified-p)
+;; 		(save-buffer))
+;; 	(go-remove-unused-imports nil))
 
-  (add-hook 'go-mode-hook
-			(lambda ()
-			  (electric-pair-mode t)
-			  (set (make-local-variable 'company-backends) '(company-go))
+;;   (add-hook 'go-mode-hook
+;; 			(lambda ()
+;; 			  (electric-pair-mode t)
+;; 			  (set (make-local-variable 'company-backends) '(company-go))
 
-			  ;; キーバインド
-			  (local-set-key (kbd "C-c f")   'gofmt)			; コード整形
-			  (local-set-key (kbd "M-.")     'godef-jump)		; 定義元ジャンプ
-			  (local-set-key (kbd "C-c h f") 'godoc-at-point)	; 定義元ジャンプ
+;; 			  ;; キーバインド
+;; 			  (local-set-key (kbd "C-c f")   'gofmt)			; コード整形
+;; 			  (local-set-key (kbd "M-.")     'godef-jump)		; 定義元ジャンプ
+;; 			  (local-set-key (kbd "C-c h f") 'godoc-at-point)	; 定義元ジャンプ
 
-			  ;; バッファ保存 & 不要インポート削除
-			  (local-set-key (kbd "C-c C-r") 'my-go-remove-unused-imports)
-			  ))
+;; 			  ;; バッファ保存 & 不要インポート削除
+;; 			  (local-set-key (kbd "C-c C-r") 'my-go-remove-unused-imports)
 
-  (custom-set-variables
-   ;; '(company-go-insert-arguments nil))         ; 関数名補完時のスニペット無効
-   )
-  )
+;; 			  ;; (set-default-coding-systems 'utf-8)
+;; 			  ))
+
+;;   (custom-set-variables
+;;    ;; '(company-go-insert-arguments nil))         ; 関数名補完時のスニペット無効
+;;    )
+;;   )
 
 ;;=========================================================
 ;; Go開発環境
 ;;=========================================================
-(when (executable-find "ghq")
-  (el-get-bundle helm-ghq))
+;; (when (executable-find "ghq")
+;;   (el-get-bundle helm-ghq))
 
 ;;=========================================================
 ;; Processing開発環境
@@ -649,4 +651,5 @@
 ;;=========================================================
 ;; Markdown
 ;;=========================================================
-(el-get-bundle markdown-mode)
+;;(el-get-bundle emacs-fish)
+
