@@ -117,3 +117,7 @@
 
 ;; 日本語入力無効(default-input-method)
 (global-set-key (kbd "\C-\\") nil)
+
+;; フレーム移動 (Windowsでは使えないかも)
+(global-set-key (kbd "H-<left>") 'ns-prev-frame)
+(global-set-key (kbd "H-<right>") 'ns-next-frame)

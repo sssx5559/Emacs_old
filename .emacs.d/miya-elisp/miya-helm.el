@@ -105,22 +105,48 @@
 ;;=========================================================
 ;; helm-project
 ;;=========================================================
-(when (require 'helm-project nil t)
-  ;; ディレクトリを除外する
-  (setq hp:project-files-filters
-		(list
-		 (lambda (files)
-		   (remove-if 'file-directory-p files))))
+;; (when (require 'helm-project nil t)
+;;   ;; ディレクトリを除外する
+;;   (setq hp:project-files-filters
+;; 		(list
+;; 		 (lambda (files)
+;; 		   (remove-if 'file-directory-p files))))
 
-  (add-hook 'helm-gtags-mode-hook
-			(lambda ()
-			  (hp:add-project
-			   :name 'global
-			   :look-for '("GTAGS")
-			   ;;				 :include-regexp '("\\.c$" "\\.h$" "\\.s$")
-			   ;; 				 :exclude-regexp "/out" ; can be regexp or list of regexp
-			   :exclude-regexp '("/out" "~$") ; can be regexp or list of regexp
-			   ))))
+;;   (add-hook 'helm-gtags-mode-hook
+;; 			(lambda ()
+;; 			  (hp:add-project
+;; 			   :name 'global
+;; 			   :look-for '("GTAGS")
+;; 			   ;;				 :include-regexp '("\\.c$" "\\.h$" "\\.s$")
+;; 			   ;; 				 :exclude-regexp "/out" ; can be regexp or list of regexp
+;; 			   :exclude-regexp '("/out" "~$") ; can be regexp or list of regexp
+;; 			   ))))
+
+;;=========================================================
+;; helmでドキュメント検索
+;;=========================================================
+(require 'helm-elisp)
+(require 'helm-man)
+
+;; 基本ソースを定義
+(setq helm-for-document-sources
+	  '(helm-source-info-elisp
+		helm-source-info-cl
+		helm-source-info-pages
+		helm-source-man-pages))
+
+;; コマンド定義
+(defun helm-for-document ()
+  "Preconfigured `helm` for helm-for-document."
+  (interactive)
+  (let ((default (thing-at-point 'symbol)))
+	(helm :sources
+		  (nconc
+		   (mapcar (lambda (func)
+					 (funcall func default))
+				   helm-apropos-function-list)
+		   helm-for-document-sources)
+		  :buffer "*helm for document")))
 
 ;;=========================================================
 ;; helm関連のキー設定
@@ -140,10 +166,11 @@
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
 (global-set-key (kbd "C-M-g") 'helm-ghq)
+(global-set-key (kbd "M-d") 'helm-for-document)
 
-;; project/projectile関連
-;(global-set-key (kbd "C-:") 'helm-projectile-find-file)
-(global-set-key (kbd "C-:") 'helm-project)
+;; projectile関連
+(global-set-key (kbd "C-:") 'helm-projectile-find-file)
+;(global-set-key (kbd "C-:") 'helm-project)
 
 ;; helm-mini中
 (define-key helm-map (kbd "C-M-n") 'helm-next-source)
