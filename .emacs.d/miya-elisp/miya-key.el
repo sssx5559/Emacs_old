@@ -15,6 +15,7 @@
   ;;(setq w32-pass-lwindow-to-system nil)
   ;;(setq w32-lwindow-modifier 'super)		; 左win
 
+  (setq w32-pass-apps-to-system nil)
   (setq w32-apps-modifier 'hyper)			; App
   )
  ((macp)

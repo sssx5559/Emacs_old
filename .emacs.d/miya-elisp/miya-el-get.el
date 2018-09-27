@@ -651,5 +651,36 @@
 ;;=========================================================
 ;; Markdown
 ;;=========================================================
-;;(el-get-bundle emacs-fish)
+(el-get-bundle markdown-mode)
+
+;;=========================================================
+;; Web開発環境
+;;=========================================================
+;; web-mode
+(el-get-bundle web-mode
+  (require 'web-mode) ; web-mode-map参照のため
+  ;; *.phtml, *.html, *.htm, *.tpl.php, *.jsp, *.ascx, *.aspx, *.erb
+  (add-to-list 'auto-mode-alist '("\\.p?html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+
+  ;; (add-hook 'web-mode-hook 'rainbow-mode)
+
+  (smartrep-define-key web-mode-map "C-c"
+	'(("C-p" . 'web-mode-element-parent)
+	  ("C-n" . 'web-mode-tag-match)
+	  ("C-l" . 'web-mode-element-previous)
+	  ("C-m" . 'web-mode-mark-and-expand)))
+  )
+
+;; emmet
+(el-get-bundle emmet-mode
+  (add-hook 'web-mode-hook 'emmet-mode)
+
+  (eval-after-load "emmet-mode"
+    '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
+  (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
+  )
 
