@@ -391,3 +391,36 @@
   ;; "japanese-shift-jis"ではなく、"cp932"とすれば表示できる。
   (set-coding-system-priority 'utf-8 'euc-jp 'iso-2022-jp 'cp932)
   )
+
+;;=========================================================
+;; Chrome操作(Macのみ)
+;;=========================================================
+(when (macp)
+  (setq chrome-script-path "~/Dropbox/home/Program/AppleScript/Chrome/")
+
+	(defun chrome-reload ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "reload.scpt")))
+
+	(defun chrome-close ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "close.scpt")))
+
+	(defun chrome-switch-tab ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "switch_tab.scpt")))
+
+	(defun chrome-scroll-down ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "scroll.scpt down")))
+
+	(defun chrome-scroll-up ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "scroll.scpt up")))
+
+	(global-set-key (kbd "A-r") 'chrome-reload)
+	(global-set-key (kbd "A-c") 'chrome-close)
+	(global-set-key (kbd "A-t") 'chrome-switch-tab)
+	(global-set-key (kbd "A-j") 'chrome-scroll-down)
+	(global-set-key (kbd "A-k") 'chrome-scroll-up)
+	)

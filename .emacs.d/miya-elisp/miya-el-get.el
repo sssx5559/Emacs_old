@@ -549,6 +549,9 @@
   ;; PHP
   (add-hook 'php-mode-hook 'flycheck-mode)
 
+  ;; JavaScript
+  (add-hook 'js2-mode-hook 'flycheck-mode)
+
   ;; flymake
   ;; (smartrep-define-key global-map "M-g" '(("M-n" . 'flymake-goto-next-error)
   ;; 										  ("M-p" . 'flymake-goto-prev-error)))
