@@ -32,25 +32,55 @@
 	  (defconst my-screen-height 50)
 	  (defconst my-screen-top 120)
 	  (defconst my-screen-left 594)
-	  (defconst my-font "Ricty Diminished-14")
-	  ;;(defconst my-font "ＭＳ 明朝-14")
+	  ;;(defconst my-font "Ricty Diminished-14")
+	  (defconst my-font "ＭＳ 明朝-14")
 	  (message "解像度: 1440x900"))
 
-	 ((equal resolution '(2048 1280))
+	 ((or			;; デュアルディスプレイ(DELL 4Kモニタ)
+	   (equal resolution '(4608 1549))
+	   (equal resolution '(4608 1440)))
+	  (defconst my-screen-width 118)
+	  (defconst my-screen-height 50)
+	  (defconst my-screen-top 740)
+	  (defconst my-screen-left 3644)
+	  ;;(defconst my-font "Ricty Diminished-16")
+	  (defconst my-font "ＭＳ 明朝-16")
+	  (message "解像度: 4608x1568 or 4608x1440"))
+
+	 ;; デュアルディスプレイ(DELL 4Kモニタ2)
+	 ((equal resolution '(5408 1890))
+	  (defconst my-screen-width 118)
+	  (defconst my-screen-height 50)
+	  (defconst my-screen-top 1060)
+	  (defconst my-screen-left 4440)
+	  ;;(defconst my-font "Ricty Diminished-16")
+	  (defconst my-font "ＭＳ 明朝-16")
+	  (message "解像度: 5408x1890"))
+
+	 ;; デュアルディスプレイ(DELL 4Kモニタ3)
+	 ((equal resolution '(5056 1692))
+	  (defconst my-screen-width 118)
+	  (defconst my-screen-height 50)
+	  (defconst my-screen-top 864)
+	  (defconst my-screen-left 4090)
+	  ;;(defconst my-font "Ricty Diminished-16")
+	  (defconst my-font "ＭＳ 明朝-16")
+	  (message "解像度: 5408x1890"))
+
+	 ;; その他はノートPCに表示
+	 (t
 	  (defconst my-screen-width 118)
 	  (defconst my-screen-height 50)
 	  (defconst my-screen-top 445)
 	  (defconst my-screen-left 1080)
-	  (defconst my-font "Ricty Diminished-16")
-	  ;;(defconst my-font "ＭＳ 明朝-16")
+	  ;;(defconst my-font "Ricty Diminished-16")
+	  (defconst my-font "ＭＳ 明朝-16")
 	  (message "解像度: 2048x1280"))
-
-	 (t (warn "未設定の解像度です。")
-	  (message "解像度: 不明"))
 	 )))
 
 ;; Program setting
-(defconst my-python "python3")
+;; (defconst my-python "python3")
+(defconst my-python "python")
 (defconst my-processing-location "/usr/local/bin/processing-java")
 (defconst my-processing-app "/Applications/Processing.app")
 (defconst my-proceesing-home "~/Program/Processing")
@@ -78,6 +108,9 @@
 
 ;; ビープ音,画面フラッシュなし(これをしないと中央に白い四角が表示される)
 (setq ring-bell-function 'ignore)
+
+;; 日本語入力時のちらつき防止(http://hylom.net/emacs-25.1-ime-flicker-problem)
+(setq redisplay-dont-pause nil)
 
 (setq warning-minimum-level :error)
 ;;=========================================================
