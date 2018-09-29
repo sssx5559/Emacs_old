@@ -26,7 +26,7 @@
   ;;(setq mac-option-modifier 'alt)			; 左option
   ;;(setq mac-right-option-modifier 'alt)		; 右option
   ;;(setq mac-control-modifier 'super)		; 左control
-  (setq mac-right-control-modifier 'super)	; 右control
+  ;;(setq mac-right-control-modifier 'super)	; 右control
   (setq mac-function-modifier 'alt)			; function
   )
  ((linuxp)

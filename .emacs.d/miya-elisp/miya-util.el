@@ -406,9 +406,13 @@
 	  (interactive)
 	  (shell-command (concat "osascript " chrome-script-path "close.scpt")))
 
-	(defun chrome-switch-tab ()
+	(defun chrome-switch-tab-forward ()
 	  (interactive)
-	  (shell-command (concat "osascript " chrome-script-path "switch_tab.scpt")))
+	  (shell-command (concat "osascript " chrome-script-path "switch_tab.scpt forward")))
+
+	(defun chrome-switch-tab-back ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "switch_tab.scpt back")))
 
 	(defun chrome-scroll-down ()
 	  (interactive)
@@ -418,9 +422,36 @@
 	  (interactive)
 	  (shell-command (concat "osascript " chrome-script-path "scroll.scpt up")))
 
-	(global-set-key (kbd "A-r") 'chrome-reload)
-	(global-set-key (kbd "A-c") 'chrome-close)
-	(global-set-key (kbd "A-t") 'chrome-switch-tab)
-	(global-set-key (kbd "A-j") 'chrome-scroll-down)
-	(global-set-key (kbd "A-k") 'chrome-scroll-up)
+	(defun chrome-scroll-down2 ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "scroll2.scpt down")))
+
+	(defun chrome-scroll-up2 ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "scroll2.scpt up")))
+
+	(defun chrome-go-back ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "go_back_forward.scpt back")))
+
+	(defun chrome-go-forward ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "go_back_forward.scpt forward")))
+
+	(defun chrome-view-source ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path "view_source.scpt")))
+
+	(smartrep-define-key global-map "A-c"
+	  '(("r" . 'chrome-reload)
+		("w" . 'chrome-close)
+		("<tab>" . 'chrome-switch-tab-forward)
+		("S-<tab>" . 'chrome-switch-tab-back)
+		("j" . 'chrome-scroll-down)
+		("k" . 'chrome-scroll-up)
+		("SPC" . 'chrome-scroll-down2)
+ 		("S-SPC". 'chrome-scroll-up2)
+		("h" . 'chrome-go-back)
+		("l". 'chrome-go-forward)
+		("v". 'chrome-view-source)))
 	)

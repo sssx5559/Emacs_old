@@ -674,8 +674,8 @@
 ;;=========================================================
 ;; web-mode
 (el-get-bundle web-mode (require 'web-mode) ; web-mode-map参照のため
-  ;;*.phtml, *.html, *.htm, *.tpl.php, *.jsp, *.ascx, *.aspx,
-  ;; *.erb (add-to-list 'auto-mode-alist '("\\.p?html?\\'" . web-mode))
+  ;;*.phtml, *.html, *.htm, *.tpl.php, *.jsp, *.ascx, *.aspx, *.erb
+  (add-to-list 'auto-mode-alist '("\\.p?html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
@@ -683,9 +683,10 @@
 
   ;; (add-hook 'web-mode-hook 'rainbow-mode)
 
-  (smartrep-define-key web-mode-map "C-c" '(("C-p"
-	. 'web-mode-element-parent) ("C-n" . 'web-mode-tag-match) ("C-l"
-	. 'web-mode-element-previous) ("C-m" . 'web-mode-mark-and-expand)))
+  (smartrep-define-key web-mode-map "C-c"
+	'(("C-p" . 'web-mode-element-parent)
+	  ("C-n" . 'web-mode-tag-match) ("C-l" . 'web-mode-element-previous)
+	  ("C-m" . 'web-mode-mark-and-expand)))
   )
 
 ;; emmet-mode
@@ -696,6 +697,15 @@
   ;; C-j は newline のままにしておく
   (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
   )
+
+;; js2-mode
+(el-get-bundle js2-mode
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
+  )
+
+;; json-mode
+(el-get-bundle json-mode)
 
 ;;=========================================================
 ;; Node.js REPL
