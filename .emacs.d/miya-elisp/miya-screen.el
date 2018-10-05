@@ -152,6 +152,35 @@
 ;;=========================================================
 ;; モードライン表示
 ;;=========================================================
+(setq-default mode-line-format
+			  '("%e"
+				mode-line-front-space
+				mode-line-mule-info
+				mode-line-client
+				mode-line-modified
+				mode-line-remote
+				mode-line-frame-identification
+				(:eval (propertize (if buffer-file-name
+									   (file-name-nondirectory buffer-file-name) ; パスは長いので非表示
+									  (buffer-name))
+									'face 'mode-line-inactive ; 表示カラー
+									'help-echo (buffer-name)  ; help-echoの文字列はどこで使ってる？
+									))
+				;; mode-line-buffer-identification)
+				"   "
+				mode-line-position
+				;; (elscreen-display-screen-number
+				;;  (:eval
+				;;   (format " [%d]"
+				;; 		  (elscreen-get-current-screen))))
+				smartrep-mode-line-string
+				;; (vc-mode vc-mode)
+				"  "
+				mode-line-modes
+				mode-line-misc-info
+				mode-line-end-spaces
+				))
+
 (display-time-mode 1) 		;; 時計
 (line-number-mode 1)		;; 行番号
 (column-number-mode 1)		;; 列番号
@@ -244,6 +273,7 @@
 ;; Theme
 ;;=========================================================
 (unless (meadowp)
-  (load-theme 'zenburn t)
-  (load-theme 'atom-dark t)
+  ;; (load-theme 'zenburn t)
+  ;; (load-theme 'atom-dark t)
+  (load-theme 'deeper-blue t)
   )

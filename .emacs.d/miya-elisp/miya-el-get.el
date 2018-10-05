@@ -247,7 +247,7 @@
   ;; (defvar venv-default "~/.virtualenvs/hoge")
 
   ;; デフォルト環境を有効化
-  (pyvenv-activate venv-default)
+;;  (pyvenv-activate venv-default)
 
   (when (require 'flycheck nil t)
   	(remove-hook 'elpy-modules 'elpy-module-flymake)
@@ -255,7 +255,10 @@
 
   ;; インデントのハイライト
   (add-hook 'elpy-mode-hook
-			'(lambda () (highlight-indentation-mode -1))) ; 無効
+			'(lambda ()
+			   (highlight-indentation-mode -1) ; 無効
+			   (pyvenv-activate venv-default)  ; デフォルト環境を有効化(この位置でも問題ない？)
+			   ))
   ;; (set-face-background 'highlight-indentation-face "#313131")
   ;; (set-face-background 'highlight-indentation-current-column-face "#777777")
   ;; (add-hook 'elpy-mode-hook 'highlight-indentation-current-column-mode)
