@@ -240,16 +240,22 @@
 
   (setq gtags-mode-hook
 		'(lambda ()
-										;(local-set-key "\M-t" 'gtags-find-tag)
+		   (local-set-key (kbd "M-.") 'gtags-find-tag)
 		   (local-set-key "\C-cr" 'gtags-find-rtag)
 		   (local-set-key "\C-cs" 'gtags-find-symbol)
-										;(local-set-key "\C-t" 'gtags-pop-stack)
+		   (local-set-key (kbd "M-*") 'gtags-pop-stack)
 		   (local-set-key "\C-cp" 'gtags-find-pattern)
 		   (local-set-key (kbd "C-c t") 'miya-remake-gtags)
 		   ))
 
-  (add-hook 'java-mode-hook (lambda () (gtags-mode 1))) 
-  (add-hook 'c-mode-hook (lambda () (gtags-mode 1))) 
+  ;; global-6.5.3では、このモードがあるので追加
+  (setq gtags-select-mode-hook
+		'(lambda ()
+		   (local-set-key (kbd "M-*") 'gtags-pop-stack)
+		   ))
+
+  (add-hook 'java-mode-hook (lambda () (gtags-mode 1)))
+  (add-hook 'c-mode-hook (lambda () (gtags-mode 1)))
   (add-hook 'c++-mode-hook (lambda () (gtags-mode 1))))
 
 ;;=========================================================
