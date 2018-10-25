@@ -688,8 +688,14 @@
 
   (smartrep-define-key web-mode-map "C-c"
 	'(("C-p" . 'web-mode-element-parent)
-	  ("C-n" . 'web-mode-tag-match) ("C-l" . 'web-mode-element-previous)
+	  ("C-n" . 'web-mode-tag-match)
+	  ("C-l" . 'web-mode-element-previous)
+	  ("C-k" . 'web-mode-element-next)
+	  ("C-c" . 'web-mode-element-child)
 	  ("C-m" . 'web-mode-mark-and-expand)))
+
+    ;; キーバインド
+  ;; (define-key web-mode-map (kbd "C-c C-c") 'web-mode-comment-or-uncomment)
   )
 
 ;; emmet-mode
@@ -709,6 +715,26 @@
 
 ;; json-mode
 (el-get-bundle json-mode)
+
+;; tern(JavaScript補完)
+;; ※ternのインストールが必要。"npm install -g tern"
+;;   ブラウザオブジェクト等を補完したい場合、.tern-configの設定が必要。
+(when (featurep 'company)
+  (el-get-bundle company-tern
+	(setq company-tern-property-marker " <p>")
+										;  (setq company-tern-property-marker nil)
+	(defun company-tern-depth (candidate)
+	  "Return depth attribute for CANDIDATE. 'nil' entries are treated as 0."
+	  (let ((depth (get-text-property 0 'depth candidate)))
+		(if (eq depth nil) 0 depth)))
+	(add-hook 'js2-mode-hook
+			  '(lambda ()
+				 (setq tern-command '("tern" "--no-port-file")) ;; .term-port を作らない
+				 (tern-mode)
+				 ))
+	(add-to-list 'company-backends 'company-tern)
+	;;(add-to-list 'company-backends '(company-tern :with company-dabbrev-code))
+	))
 
 ;;=========================================================
 ;; Node.js REPL
