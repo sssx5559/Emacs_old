@@ -213,6 +213,7 @@
 		(python-mode . "Python")
 		(ruby-mode   . "Ruby")
 		(emacs-lisp-mode . "Elisp")
+		(js2-mode . "js2")
 		(markdown-mode . "MarkDown")))
 
   (defun clean-mode-line ()

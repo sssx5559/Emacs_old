@@ -442,6 +442,11 @@
 	  (interactive)
 	  (shell-command (concat "osascript " chrome-script-path "view_source.scpt")))
 
+	(defun chrome-open-file ()
+	  (interactive)
+	  (shell-command (concat "osascript " chrome-script-path
+							 (concat "open_file.scpt " (buffer-file-name)))))
+
 	(smartrep-define-key global-map "A-c"
 	  '(("r" . 'chrome-reload)
 		("w" . 'chrome-close)
@@ -453,5 +458,7 @@
  		("S-SPC". 'chrome-scroll-up2)
 		("h" . 'chrome-go-back)
 		("l". 'chrome-go-forward)
-		("v". 'chrome-view-source)))
+		("v". 'chrome-view-source)
+		("o". 'chrome-open-file)
+	  ))
 	)
