@@ -166,7 +166,7 @@
 ;(global-set-key (kbd "C-c y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
 (global-set-key (kbd "C-M-g") 'helm-ghq)
-(global-set-key (kbd "M-d") 'helm-for-document)
+;(global-set-key (kbd "M-d") 'helm-for-document)
 
 ;; projectile関連
 (global-set-key (kbd "C-:") 'helm-projectile-find-file)

@@ -449,7 +449,7 @@
 
 	(smartrep-define-key global-map "A-c"
 	  '(("r" . 'chrome-reload)
-		("w" . 'chrome-close)
+		("c" . 'chrome-close)
 		("<tab>" . 'chrome-switch-tab-forward)
 		("S-<tab>" . 'chrome-switch-tab-back)
 		("j" . 'chrome-scroll-down)

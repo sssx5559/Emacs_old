@@ -677,12 +677,20 @@
 ;;=========================================================
 ;; web-mode
 (el-get-bundle web-mode (require 'web-mode) ; web-mode-map参照のため
+  (custom-set-variables
+   '(web-mode-markup-indent-offset 2)
+   '(web-mode-css-indent-offset 2)
+   '(web-mode-code-indent-offset 2)
+   )
+
   ;;*.phtml, *.html, *.htm, *.tpl.php, *.jsp, *.ascx, *.aspx, *.erb
+  ;;*.css
   (add-to-list 'auto-mode-alist '("\\.p?html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 
   ;; (add-hook 'web-mode-hook 'rainbow-mode)
 
