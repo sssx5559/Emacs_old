@@ -709,6 +709,10 @@
 
 ;; js2-mode
 (el-get-bundle js2-mode
+  (custom-set-variables
+   '(js-indent-level 2)
+   )
+
   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
   )
