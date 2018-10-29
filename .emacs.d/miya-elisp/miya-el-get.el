@@ -550,7 +550,7 @@
   (add-hook 'go-mode-hook 'flycheck-mode)
 
   ;; PHP
-  (add-hook 'php-mode-hook 'flycheck-mode)
+  ;; (add-hook 'php-mode-hook 'flycheck-mode)
 
   ;; JavaScript
   (add-hook 'js2-mode-hook 'flycheck-mode)
@@ -675,8 +675,12 @@
 ;;=========================================================
 ;;Web開発環境
 ;;=========================================================
+;; css-mode (*.cssでweb-modeを使わない場合)
+(setq-default css-indent-offset 2)
+
 ;; web-mode
-(el-get-bundle web-mode (require 'web-mode) ; web-mode-map参照のため
+(el-get-bundle web-mode
+  (require 'web-mode) ;; web-mode-map参照のため
   (custom-set-variables
    '(web-mode-markup-indent-offset 2)
    '(web-mode-css-indent-offset 2)
@@ -690,7 +694,7 @@
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+;;  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 
   ;; (add-hook 'web-mode-hook 'rainbow-mode)
 
@@ -702,17 +706,23 @@
 	  ("C-c" . 'web-mode-element-child)
 	  ("C-m" . 'web-mode-mark-and-expand)))
 
-    ;; キーバインド
+  ;; キーバインド
   ;; (define-key web-mode-map (kbd "C-c C-c") 'web-mode-comment-or-uncomment)
   )
 
 ;; emmet-mode
 (el-get-bundle emmet-mode
-  (add-hook 'web-mode-hook 'emmet-mode)
+  (custom-set-variables
+   '(emmet-indentation 2)
+   )
 
-  (eval-after-load "emmet-mode" '(define-key emmet-mode-keymap (kbd "C-j") nil))
+  (add-hook 'web-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook 'emmet-mode) ;; css-modeを使う場合
+
   ;; C-j は newline のままにしておく
-  (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
+  (eval-after-load "emmet-mode" '(define-key emmet-mode-keymap (kbd "C-j") nil))
+
+;;  (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2)))
   )
 
 ;; js2-mode
@@ -731,7 +741,7 @@
 ;; tern(JavaScript補完)
 ;; ※ternのインストールが必要。"npm install -g tern"
 ;;   ブラウザオブジェクト等を補完したい場合、.tern-configの設定が必要。
-(when (featurep 'company)
+(when (and (featurep 'company) (executable-find "tern"))
   (el-get-bundle company-tern
 	(setq company-tern-property-marker " <p>")
 										;  (setq company-tern-property-marker nil)

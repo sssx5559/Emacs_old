@@ -393,6 +393,17 @@
   )
 
 ;;=========================================================
+;; ediff-directories (Compare Emacs dir)
+;;=========================================================
+(defun ediff-directories-emacs ()
+  (interactive)
+  (if (boundp 'my-git-dir)
+	  (let ((git-dir (concat my-git-dir "Emacs/.emacs.d/miya-elisp/"))
+			(local-dir (concat (getenv "HOME") "/.emacs.d/miya-elisp/")))
+			(ediff-directories git-dir local-dir "\\.el$"))
+	(message "Not found my-git-dir.")))
+
+;;=========================================================
 ;; Chrome操作(Macのみ)
 ;;=========================================================
 (when (macp)

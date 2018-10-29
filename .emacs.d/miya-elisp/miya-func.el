@@ -521,12 +521,12 @@ p : 上端-"
 	(insert "\n" @ret-string)))
 
 
-;; カーソルの位置の単語をリージョンで囲む(_も単語に含める)
+;; カーソルの位置の単語をリージョンで囲む(_-も単語に含める)
 ;; ついでに単語をコピーする
 (defun miya-mark-word ()
   (interactive)
-  (let ((word "[a-zA-Z0-9_]")
-		(non-word "[^a-zA-Z0-9_]")
+  (let ((word "[a-zA-Z0-9_-]")
+		(non-word "[^a-zA-Z0-9_-]")
 		(min (save-excursion
 			   (progn (beginning-of-line) (point))))
 		(max (save-excursion
