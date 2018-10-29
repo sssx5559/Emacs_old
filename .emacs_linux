@@ -30,6 +30,15 @@
 (setq exec-path
 	  (parse-colon-path (concat (getenv "PATH") ":/home/miyazaki/.pyenv/shims")))
 
+;; Dropbox
+;; (let ((dir (getenv "DROPBOX")))
+;;   (unless dir
+;; 	(setq dir (concat (getenv "HOME") "/Dropbox/")))
+;;   (setq my-dropbox-dir dir))
+
+;; Git root dir
+(defconst my-git-dir (concat (getenv "HOME") "/git_project/"))
+
 ;; For Linux
 ;(require 'mozc)
 ;; or (load-file "/path/to/mozc.el")

@@ -26,6 +26,15 @@
 
 (defconst my-python "C:/Users/miyazaki/tool/Miniconda3")
 
+;; Dropbox
+;; (let ((dir (getenv "DROPBOX")))
+;;   (unless dir
+;; 	(setq dir (concat (getenv "HOME") "/Dropbox/")))
+;;   (setq my-dropbox-dir dir))
+
+;; Git root dir
+(defconst my-git-dir (concat (getenv "HOME") "/git_project/"))
+
 (setq find-program "/usr/bin/find")		;; WindowsのFINDを使わない
 
 ;; El-Get

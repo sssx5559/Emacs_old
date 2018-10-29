@@ -92,6 +92,15 @@
 ;; GOPATH
 (setenv "GOPATH" "/Users/shinya/dev")
 
+;; Dropbox
+;; (let ((dir (getenv "DROPBOX")))
+;;   (unless dir
+;; 	(setq dir (concat (getenv "HOME") "/Dropbox/")))
+;;   (setq my-dropbox-dir dir))
+
+;; Git root dir
+(defconst my-git-dir (concat (getenv "HOME") "/git_project/"))
+
 ;;=========================================================
 ;; for Mac
 ;;=========================================================
