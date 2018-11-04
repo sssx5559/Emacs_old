@@ -289,6 +289,13 @@ p : 上端-"
 		 ((eq key ?q) (throw 'exit t)))
 		 (set-frame-position (selected-frame) xpos ypos)))))
 
+;; フレーム初期化
+(defun miya-init-frame ()
+  (interactive)
+  (progn
+	(set-frame-height nil my-screen-height)
+	(set-frame-width nil my-screen-width)
+	(set-frame-position (selected-frame) my-screen-left my-screen-top)))
 
 ;; リージョン内の全角カタカナを全角ひらがなに変換
 (defun miya-region-zenkaku-katakana-to-zenkaku-hiragana (start end)
