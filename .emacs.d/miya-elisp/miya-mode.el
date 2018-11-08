@@ -494,6 +494,10 @@
 ;; 見出し語の色
 (setq sdic-face-color "hot pink")
 
+;; emacs26以降対策 (default-fill-columnが無くなった)
+(when (>= emacs-major-version 26)
+  (setq default-fill-column (default-value 'fill-column)))
+
 ;;=========================================================
 ;; smartchr
 ;;=========================================================
