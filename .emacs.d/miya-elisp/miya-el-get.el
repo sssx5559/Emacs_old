@@ -482,14 +482,6 @@
   )
 
 ;;=========================================================
-;; smartparents
-;;=========================================================
-;; (el-get-bundle smartparens
-;;   (smartparens-global-mode t)
-;; ;; (show-smartparens-global-mode)	; 重くなるかも
-;;   )
-
-;;=========================================================
 ;; elscreen
 ;;=========================================================
 (el-get-bundle elscreen
@@ -590,6 +582,12 @@
 ;;=========================================================
 (el-get-bundle smartparens
   (smartparens-global-mode t)
+   (sp-pair "\{" nil :actions :rem)
+
+  ;; (sp-with-modes '(js2-mode
+  ;; 				   ;; xxx-mdoe
+  ;; 				   )
+  ;; 	(sp-local-pair "{" nil :actions :rem))
   )
 
 ;;=========================================================
