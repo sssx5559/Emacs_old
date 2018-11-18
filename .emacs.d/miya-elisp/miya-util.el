@@ -369,10 +369,14 @@
 ;; 略語展開機能選択
 (setq hippie-expand-try-functions-list
 	  '(
+		;; カスタム
+		;; try-expand-jsdoc-keyword
+
+		;; 標準
 		try-expand-dabbrev
 		try-expand-dabbrev-all-buffers
 		try-expand-dabbrev-from-kill
-;;		try-expand-all-abbrevs
+		;; try-expand-all-abbrevs
 		try-expand-list
 		try-expand-line
 		try-complete-lisp-symbol-partially
@@ -380,6 +384,52 @@
 		try-complete-file-name-partially
 		try-complete-file-name
 		))
+
+;; JSDocキーワードリスト
+(setq jsdoc-keyword-list
+	  '(
+		"@author" "@code" "@const" "@constructor" "@define" "@deprecated" "@dict" "@enum"
+		"@export" "@expose" "@extends" "@externs" "@fileoverview" "@implements" "@inheritDoc" "@interface"
+		"@lends" "@license" "@noalias" "@nocompile" "@nosideeffects" "@override" "@param" "@preserve"
+		"@private" "@protected" "@public" "@return" "@see" "@struct" "@supported" "@suppress" "@template"
+		"@this" "@type" "@typedef"
+		))
+
+;; JSDocキーワード補完サブ関数
+(defun he-jsdoc-command-beg ()
+  (let ((p)
+		(min (save-excursion
+			   (progn (beginning-of-line) (point)))))
+    (save-excursion
+      (search-backward "@" min t)
+      (setq p (point)))
+    p))
+
+;; JSDocキーワード補完メイン関数
+(defun try-expand-jsdoc-keyword (old)
+  (unless old
+    (he-init-string (he-jsdoc-command-beg) (point))
+    (setq he-expand-list (sort
+                          (all-completions he-search-string (mapcar 'list jsdoc-keyword-list))
+                          'string-lessp)))
+;;  (y-or-n-p (format "%s" he-search-string))
+  (while (and he-expand-list
+              (he-string-member (car he-expand-list) he-tried-table))
+    (setq he-expand-list (cdr he-expand-list)))
+  (if (null he-expand-list)
+      (progn
+        (when old (he-reset-string))
+        ())
+    (he-substitute-string (car he-expand-list))
+    (setq he-tried-table (cons (car he-expand-list) (cdr he-tried-table)))
+    (setq he-expand-list (cdr he-expand-list))
+    t))
+
+(add-hook 'js2-mode-hook
+		  '(lambda ()
+			 ;; 先頭に登録
+			 (add-to-list 'hippie-expand-try-functions-list 'try-expand-jsdoc-keyword)
+				 ))
 
 ;;=========================================================
 ;; 環境依存文字表示(①とか⊿)
@@ -473,3 +523,19 @@
 		("o". 'chrome-open-file)
 	  ))
 	)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
