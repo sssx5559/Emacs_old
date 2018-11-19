@@ -40,8 +40,10 @@
        load-path))
 
 ;; custom-theme-load-path
-(add-to-list 'custom-theme-load-path
-			 (expand-file-name (concat emacs-dir "themes")))
+(unless (meadowp)
+  (add-to-list 'custom-theme-load-path
+			   (expand-file-name (concat emacs-dir "themes")))
+  )
 
 ;;======================================================
 ;; 設定ファイル読み込み
@@ -90,3 +92,6 @@
 ; 2. C-x C-s (もしくは C-c C-e or C-c C-c) で検索元のファイルを更新
 ; 3. M-x wgrep-save-all-buffers で更新を保存
 
+
+;; ivy-modeで、候補があることによりファイルやフォルダを作成できないとき
+;; C-M-j (https://qiita.com/xargs/items/d54ee21a55c10ece2eeb)
