@@ -55,7 +55,8 @@
 ;; NTEmacs, Ubuntu用
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun NTEmacs-font-set (myfont)
-  (set-default-font myfont)
+  (when (< emacs-major-version 27)
+	(set-default-font myfont))
 
   ;; 固定等幅フォント
   (set-face-attribute 'fixed-pitch    nil :family myfont)
