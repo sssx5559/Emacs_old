@@ -21,20 +21,20 @@
 
 ;; emacs dir
 (defconst emacs-dir "~/.emacs.d/")
-;(defconst emacs-dir "~/Dropbox/home/.emacs.d/")
 
 ;; 解像度別 画面設定
 (when window-system
   (let ((resolution (list (x-display-pixel-width) (x-display-pixel-height))))
 	(cond
-	 ((equal resolution '(1440 900))
+	 ;; MacBook Air(M1,2020)
+	 ((equal resolution '(1680 1050))
 	  (defconst my-screen-width 118)
 	  (defconst my-screen-height 50)
-	  (defconst my-screen-top 120)
-	  (defconst my-screen-left 594)
-	  ;;(defconst my-font "Ricty Diminished-14")
-	  (defconst my-font "ＭＳ 明朝-14")
-	  (message "解像度: 1440x900"))
+	  (defconst my-screen-top 218)
+	  (defconst my-screen-left 715)
+	  ;;(defconst my-font "Ricty Diminished-16")
+	  (defconst my-font "ＭＳ 明朝-16")
+	  (message (format "解像度: %dx%d" (x-display-pixel-width) (x-display-pixel-height))))
 
 	 ((or			;; デュアルディスプレイ(DELL 4Kモニタ)
 	   (equal resolution '(4608 1549))
@@ -57,25 +57,15 @@
 	  (defconst my-font "ＭＳ 明朝-16")
 	  (message "解像度: 5408x1890"))
 
-	 ;; デュアルディスプレイ(DELL 4Kモニタ3)
-	 ((equal resolution '(5056 1692))
-	  (defconst my-screen-width 118)
-	  (defconst my-screen-height 50)
-	  (defconst my-screen-top 864)
-	  (defconst my-screen-left 4090)
-	  ;;(defconst my-font "Ricty Diminished-16")
-	  (defconst my-font "ＭＳ 明朝-16")
-	  (message "解像度: 5408x1890"))
-
-	 ;; その他はノートPCに表示
+	 ;; その他
 	 (t
 	  (defconst my-screen-width 118)
 	  (defconst my-screen-height 50)
-	  (defconst my-screen-top 445)
-	  (defconst my-screen-left 1080)
+	  (defconst my-screen-top 318)
+	  (defconst my-screen-left 832)
 	  ;;(defconst my-font "Ricty Diminished-16")
 	  (defconst my-font "ＭＳ 明朝-16")
-	  (message "解像度: 2048x1280"))
+	  (message (format "解像度: %dx%d" (x-display-pixel-width) (x-display-pixel-height))))
 	 )))
 
 ;; Program setting
@@ -118,8 +108,9 @@
 ;; ビープ音,画面フラッシュなし(これをしないと中央に白い四角が表示される)
 (setq ring-bell-function 'ignore)
 
+;; [2020/12/01] Mac OS Big Surではコメントアウトしないとチラつく。
 ;; 日本語入力時のちらつき防止(http://hylom.net/emacs-25.1-ime-flicker-problem)
-(setq redisplay-dont-pause nil)
+;(setq redisplay-dont-pause nil)
 
 (setq warning-minimum-level :error)
 ;;=========================================================

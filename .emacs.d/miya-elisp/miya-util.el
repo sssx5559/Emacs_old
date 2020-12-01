@@ -310,6 +310,23 @@
 ;;=========================================================
 ;; ivy/counsel/swiper
 ;;=========================================================
+;; [2020/12/01] これを入れないと下記エラーになる。
+;; 「Debugger entered--Lisp error: (void-variable ivy-completing-read-handlers-alist)」
+(when (>= emacs-major-version 27)
+  (defcustom ivy-completing-read-handlers-alist
+	'((tmm-menubar . completing-read-default)
+      (tmm-shortcut . completing-read-default)
+      (bbdb-create . ivy-completing-read-with-empty-string-def)
+      (auto-insert . ivy-completing-read-with-empty-string-def)
+      (Info-on-current-buffer . ivy-completing-read-with-empty-string-def)
+      (Info-follow-reference . ivy-completing-read-with-empty-string-def)
+      (Info-menu . ivy-completing-read-with-empty-string-def)
+      (Info-index . ivy-completing-read-with-empty-string-def)
+      (Info-virtual-index . ivy-completing-read-with-empty-string-def)
+      (info-display-manual . ivy-completing-read-with-empty-string-def))
+	"An alist of handlers to replace `completing-read' in `ivy-mode'."
+	:type '(alist :key-type symbol :value-type function)))
+
 (when (>= emacs-major-version 24)
   (add-to-list 'load-path (concat emacs-dir "elisp/swiper-0.8.0"))
   (require 'ivy)
